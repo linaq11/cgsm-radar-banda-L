@@ -108,7 +108,11 @@ En Bahía de Málaga, cada trayectoria compara las seis pasadas de marea más al
 
 ### 3.1 Perfil de retrodispersión en Bahía de Málaga
 
-Tabla 2. Mediana de sigma cero en dB (GCOV, gamma cero con corrección de terreno, convertido a sigma cero con el factor que trae el producto) por cobertura en las cinco primeras escenas NISAR (traza ascendente 004: 8 y 20 de noviembre, 2, 14 y 26 de diciembre de 2025), 400 puntos por clase, ángulo de incidencia mediano de 42°.
+Las cinco primeras adquisiciones de la traza A004 mostraron una señal estable dentro de cada cobertura. La variación de HH fue inferior a 1 dB en el manglar de consenso, el bosque y el humedal herbáceo, mientras que el agua abierta presentó un intervalo mayor, de hasta 1,7 dB (Tabla 2). En esas fechas el manglar de consenso presentó valores de HH entre −6,9 y −7,8 dB y de HV entre −14,0 y −14,3 dB.
+
+El manglar identificado únicamente por Global Mangrove Watch fue sistemáticamente más oscuro que el manglar de consenso, con una diferencia mediana cercana a 1,2 dB en HH y 1,5 dB en HV. Su respuesta se aproximó a la del humedal herbáceo, lo que respalda la decisión de restringir la clase de manglar a las áreas coincidentes entre WorldCover y Global Mangrove Watch.
+
+Tabla 2. Mediana de σ⁰ (dB) por cobertura en las cinco primeras escenas NISAR de la traza ascendente A004 (8 y 20 de noviembre y 2, 14 y 26 de diciembre de 2025), 400 puntos por clase, ángulo de incidencia mediano de 42°.
 
 | Cobertura | HH | HV | HH−HV |
 |---|---|---|---|
@@ -118,17 +122,11 @@ Tabla 2. Mediana de sigma cero en dB (GCOV, gamma cero con corrección de terren
 | Humedal herbáceo | −9,7 / −9,6 / −9,4 / −9,5 / −9,9 | −17,2 / −16,8 / −16,8 / −17,4 / −16,8 | 6,8 / 6,6 / 7,0 / 6,9 / 6,9 |
 | Agua | −20,5 / −18,8 / −19,3 / −19,5 / −19,2 | −25,9 / −25,8 / −26,0 / −25,8 / −25,7 | 5,2 / 6,9 / 6,8 / 6,0 / 6,7 |
 
-De la Tabla 2 se desprenden tres lecturas preliminares. En primer lugar, las cinco fechas, tomadas en siete semanas a la misma hora, varían menos de 1 dB en bosque, humedal herbáceo y manglar de consenso, y hasta 1,7 dB en el agua abierta en HH. Esta variación da la línea base de estabilidad antes de buscar el efecto de la marea.
+Al considerar las 24 adquisiciones, el manglar mantuvo una variabilidad temporal baja dentro de cada trayectoria, con desviaciones estándar de 0,3 dB en HH para A004 y 0,4 dB para D087 (Tabla 3). Sin embargo, los niveles absolutos difirieron entre trayectorias. A004 tiene un ángulo de incidencia mediano de 42° y D087 de 35°, por lo que las comparaciones hidrológicas se realizaron siempre dentro de cada trayectoria.
 
-En segundo lugar, el manglar devuelve entre 0,4 y 1 dB más de HH−HV que el bosque con HV igual o menor, lo que es compatible con una componente de doble rebote que en el bosque no existe. Sin embargo, con cinco fechas de la misma hora se trata de un indicio y no de un resultado. Finalmente, frente a la CGSM en diciembre de 2025 (manglar HH −10,8 dB y HV −17,7 dB), el manglar del Pacífico es unos 3,5 dB más brillante en ambas polarizaciones, coherente con un bosque más alto y denso. No obstante, la diferencia de traza, hora e incidencia impide atribuirla todavía a la estructura sola.
+En D087, el manglar presentó una mediana de HH 0,6 dB superior a la del bosque y una diferencia HH − HV 1,1 dB mayor. En A004, las medianas de HH de manglar y bosque fueron prácticamente iguales, mientras que HH − HV fue 0,7 dB mayor en el manglar. Estas diferencias establecen la línea de base para evaluar después su variación con la altura de marea.
 
-Con las dos trazas completas, la Tabla 3 resume el nivel y la variación de cada cobertura por traza, y de ella se desprenden tres observaciones. En primer lugar, dentro de cada traza el manglar varía muy poco entre fechas, con desviación de 0,3 a 0,4 dB en HH. Por lo tanto, el efecto de la marea, si existe, es de ese orden y exige la altura de marea por pasada para aislarlo.
-
-En segundo lugar, las dos trazas no son comparables de forma directa porque su geometría difiere, con incidencia mediana de 42° en la ascendente y 35° en la descendente. A esa diferencia de geometría se debe la diferencia de nivel entre ellas. Finalmente, en la traza descendente, de incidencia más pronunciada, el manglar queda 0,6 dB por encima del bosque en HH y 1,1 dB en HH−HV. En la ascendente, en cambio, son iguales en HH y el manglar queda 0,7 dB por encima en HH−HV. Este es el comportamiento que se esperaría de una componente de doble rebote que crece al disminuir el ángulo de incidencia, y es la hipótesis que la marea permitirá poner a prueba.
-
-Por otra parte, todas las coberturas, incluida el agua, suben entre 1 y 1,8 dB en HV (mediana 1,5) entre junio y septiembre frente a noviembre y enero. Puesto que afecta también al agua abierta, puede ser un efecto de la versión del producto, Beta hasta enero y Provisional desde junio, tanto como estacional, y en cualquier caso debe descontarse antes de leer la marea.
-
-Tabla 3. Mediana por cobertura y traza en las 24 escenas NISAR (dB, sigma cero) y desviación estándar entre las 12 fechas de cada traza.
+Tabla 3. Mediana de σ⁰ por cobertura y trayectoria en las 24 escenas NISAR y desviación estándar entre las 12 adquisiciones de cada trayectoria.
 
 | Cobertura | Traza (hora local, incidencia) | HH (sd) | HV (sd) | HH−HV (sd) |
 |---|---|---|---|---|
@@ -141,7 +139,9 @@ Tabla 3. Mediana por cobertura y traza en las 24 escenas NISAR (dB, sigma cero) 
 | Agua | A004 | −19,1 (0,7) | −25,7 (0,9) | 5,9 (0,6) |
 | Agua | D087 | −18,5 (1,0) | −25,5 (1,1) | 7,0 (1,2) |
 
-La Figura 4 muestra las composiciones de NISAR de las dos trazas sobre Bahía de Málaga, con el contorno de manglar de consenso, y la diferencia de HH entre ellas.
+Entre las adquisiciones de noviembre a enero y las de junio a septiembre, HV aumentó entre 1 y 1,8 dB en todas las coberturas, incluida el agua abierta. Como este cambio coincide con la transición entre las colecciones Beta y Provisional de NISAR, la variación temporal de HV no puede atribuirse únicamente a cambios estacionales y se considera de forma explícita en el análisis de robustez.
+
+La Figura 4 muestra los compuestos de las dos trayectorias y la diferencia espacial de HH. Las diferencias entre A004 y D087 afectan tanto al manglar como a las demás coberturas, lo que confirma la necesidad de analizar cada geometría de adquisición por separado.
 
 ![Figura 4. Compuestos NISAR GCOV de Bahía de Málaga (R = HH, G = HV, B = HH − HV) para las trazas ascendente y descendente con dos días de diferencia, con el contorno del manglar de consenso, y la diferencia de HH entre trazas, que refleja la distinta geometría de incidencia.](fig_malaga_radar.png)
 
