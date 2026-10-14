@@ -56,7 +56,7 @@ La extracción se hace después del paso a decibelios, con un promedio espacial 
 
 La Figura 1 resume el diseño analítico en seis etapas, de los datos de entrada a los productos. El flujo de trabajo completo tiene nueve etapas: acceso a datos, preprocesamiento, coberturas de referencia y muestreo, forzante hidrológico, estadística por pasada, prueba hidrológica, robustez, clave de interpretación y mapa de la señal con contraste óptico (Figura A2). Las etapas posteriores al procesamiento se describen en las secciones 2.4 a 2.8. La cadena por sensor, con la convención de los flujos de trabajo SAR de De Luca et al. (2021) y Yordanov y Brovelli (2021), y los guiones de cada etapa están en el Anexo A.
 
-![Figure 1. Methodological workflow of the study. Integration of SAR and auxiliary data, preprocessing per sensor, cover sampling, assignment of the hydrological forcings, analytical tests and map products used to compare the response of the C and L bands to flooding under the canopy.](fig_diseno_estudio_h.png)
+![Figura 1. Flujo metodológico del estudio. Integración de datos SAR y auxiliares, preprocesamiento por sensor, muestreo por coberturas, asignación de forzantes hidrológicos, pruebas analíticas y productos cartográficos utilizados para comparar la respuesta de las bandas C y L ante condiciones de inundación bajo dosel.](fig_diseno_estudio_h.png)
 
 ### 2.4 Coberturas de referencia y muestreo
 
@@ -66,7 +66,7 @@ Sobre la caja de Bahía de Málaga, Global Mangrove Watch marca 6.006 ha de mang
 
 La Figura 2 muestra las coberturas de referencia dentro del área de estudio. El manglar de consenso entre WorldCover 2021 y Global Mangrove Watch 2020 suma 33.173 ha. Otras 8.157 ha aparecen solo en WorldCover y 8.395 ha solo en Global Mangrove Watch, y estas últimas se concentran en el delta del suroccidente y en el borde noroccidental. El bosque que se usa como control ocupa las franjas del oriente y del sur, fuera del plano inundable, y corresponde a bosque seco.
 
-![Figure 2. Reference land cover inside the CGSM study area (2,042 km²): (a) WorldCover 2021 classes; (b) agreement between the WorldCover 2021 mangrove class and Global Mangrove Watch 2020. The mangrove sampled in the tests is the class mapped by both products.](fig_cgsm_referencia.png)
+![Figura 2. Coberturas de referencia dentro del área de estudio de la CGSM (2.042 km²): (a) clases de WorldCover 2021; (b) coincidencia entre la clase manglar de WorldCover 2021 y Global Mangrove Watch 2020. El manglar muestreado en las pruebas es el que cartografían los dos productos.](fig_cgsm_referencia.png)
 
 En los dos sitios se muestrearon 400 puntos por clase, sorteados una vez con el muestreo estratificado de Earth Engine (semilla 42) y compartidos por los tres sensores. En la ciénaga el sorteo usa dos regiones declaradas. La primera reúne el manglar de consenso, el humedal herbáceo y el agua dentro del área de estudio de 2.042 km². La segunda es el bosque de WorldCover sobre la caja del cubo de 4.304 km², puesto que el bosque seco de los piedemontes que sirve de control queda fuera del área de estudio en todas las pasadas de Sentinel-1 con cobertura completa del periodo y en las de ALOS-2, que son solo diez sobre la ciénaga, siete completas, insuficientes para evaluar por trayectoria.
 
@@ -98,7 +98,7 @@ La correlación de Spearman trata cada pasada como una observación independient
 
 La clave de interpretación, que responde al tercer propósito de la introducción, reúne la firma de cada cobertura en las dos bandas, como mediana entre pasadas del copolar, del cruzado y de su diferencia. Esa firma se calcula primero sobre las coberturas de los productos globales y después sobre los 720 puntos de la muestra de referencia de 2025 de la tesis, con la separabilidad de Jeffries-Matusita por pares de clases. La regla de lectura se reescribe con los umbrales medidos en esa muestra y se evalúa sobre ella (acierto de resustitución). La separabilidad se calcula como distancia de Jeffries-Matusita con la distancia de Bhattacharyya bajo supuesto gaussiano, en un guion propio (`clave_vs_muestra2025.py`). Los 720 puntos son la muestra de entrenamiento de la tesis: ocho estratos y sorteo fuera de la reserva de validación con distancia mínima de 200 m. Se etiquetaron a ciegas en seis clases sobre imagen de alta resolución de 2025, los 400 primeros se revisaron bajo un criterio escrito, y cada punto lleva marca de borde cuando la ventana de 3 × 3 píxeles mezcla clases. La Figura 3 muestra los 720 puntos por clase final sobre el área de estudio, la reserva de validación que el sorteo no toca y los bloques de 12 km de la validación cruzada espacial de la tesis.
 
-![Figure 3. The 2025 reference sample over the CGSM study area: 720 points coloured by final class (open water 212, intact mangrove 151, floating vegetation 129, degraded mangrove 111, herbaceous wetland 73, other 44), the validation reserve left out of the draw (shaded) and the 12 km blocks of the spatial cross-validation (dotted). Points were drawn outside the reserve with a minimum spacing of 200 m and labelled blind on 2025 high-resolution imagery.](fig_muestra_2025.png)
+![Figura 3. Muestra de referencia de 2025 sobre el área de estudio de la CGSM: 720 puntos coloreados por clase final (agua abierta 212, manglar intacto 151, vegetación flotante 129, manglar degradado 111, humedal herbáceo 73, otro 44), la reserva de validación que el sorteo no toca (sombreada) y los bloques de 12 km de la validación cruzada espacial (punteados). Los puntos se sortearon fuera de la reserva con una separación mínima de 200 m y se etiquetaron a ciegas sobre imagen de alta resolución de 2025.](fig_muestra_2025.png)
 
 ### 2.8 Cartografía de la señal y contraste óptico
 
@@ -143,7 +143,7 @@ Tabla 3. Mediana por cobertura y traza en las 24 escenas NISAR (dB, sigma cero) 
 
 La Figura 4 muestra las composiciones de NISAR de las dos trazas sobre Bahía de Málaga, con el contorno de manglar de consenso, y la diferencia de HH entre ellas.
 
-![Figure 4. NISAR GCOV composites of Bahía de Málaga (R = HH, G = HV, B = HH − HV) for the ascending and descending tracks two days apart, with the consensus mangrove outline, and the HH difference between tracks, which reflects the different incidence geometry.](fig_malaga_radar.png)
+![Figura 4. Compuestos NISAR GCOV de Bahía de Málaga (R = HH, G = HV, B = HH − HV) para las trazas ascendente y descendente con dos días de diferencia, con el contorno del manglar de consenso, y la diferencia de HH entre trazas, que refleja la distinta geometría de incidencia.](fig_malaga_radar.png)
 
 ### 3.2 Marea y retrodispersión del manglar en banda L (NISAR)
 
@@ -164,7 +164,7 @@ El tamaño del efecto es pequeño, cerca de 0,6 dB entre marea alta y baja, del 
 
 Una auditoría independiente de los cálculos (16 de septiembre, `auditoria_calculos.md`) rederivó esta tabla desde los datos y encontró que la versión anterior se había calculado con la predicción propia en las 24 pasadas. Los valores de esta versión corresponden a la serie mixta, y los seis estadísticos que sostienen la lectura no cambian.
 
-![Figure 5. Mangrove and forest backscatter against predicted tide height at the time of each NISAR pass, by track. Mangrove HH and HH − HV relative to the forest rise with tide; HV does not respond in either class.](fig_marea_vs_radar.png)
+![Figura 5. Retrodispersión del manglar y del bosque frente a la altura de marea predicha a la hora de cada pasada de NISAR, por traza. El HH y el HH − HV del manglar relativos al bosque suben con la marea; el HV no responde en ninguna de las dos clases.](fig_marea_vs_radar.png)
 
 La estratificación por ángulo de incidencia se hizo con unos 1.200 puntos de manglar por traza (1.232 en la ascendente y 1.212 en la descendente) y otros 1.200 de bosque divididos en tercios de incidencia dentro de cada traza. El primer hallazgo es una limitación del sitio. La caja de Bahía de Málaga ocupa una fracción tan pequeña de la franja de NISAR que la incidencia casi no varía dentro de ella, de 42° a 43° en la traza ascendente y de 34° a 37° en la descendente. Por lo tanto, la estratificación aporta poco contraste de incidencia.
 
@@ -172,7 +172,7 @@ Aun así, la respuesta a la marea del manglar relativa al bosque es positiva en 
 
 En la traza descendente el tercio de menor incidencia responde más que el de mayor, en la dirección que predice el doble rebote. Sin embargo, con dos grados de diferencia esa comparación no se sostiene como prueba. Así, el resultado no cambia de signo con la geometría dentro de cada traza. No obstante, establecer la dependencia con la incidencia exige un sitio más ancho en rango o trazas con la misma hora de paso (Figura 6).
 
-![Figure 6. Double-bounce test by incidence-angle tercile within each NISAR track: change in mangrove-minus-forest backscatter between high and low tide, with Spearman correlation and p-value. HH and HH − HV respond in every tercile; HV in none.](fig_doble_rebote_incidencia.png)
+![Figura 6. Prueba de doble rebote por tercil de ángulo de incidencia dentro de cada traza de NISAR: cambio de la retrodispersión manglar menos bosque entre marea alta y baja, con la correlación de Spearman y su valor p. HH y HH − HV responden en todos los terciles; HV en ninguno.](fig_doble_rebote_incidencia.png)
 
 ### 3.3 La misma prueba con Sentinel-1
 
@@ -191,7 +191,7 @@ En banda C no hay relación entre la marea y la señal del manglar relativa al b
 
 Por lo tanto, sobre el mismo sitio, los mismos puntos y la misma marea, la banda L responde a la marea en el manglar y la banda C no. La limitación declarada en la propuesta se mantiene. Puesto que Sentinel-1 no tiene HH, parte de la diferencia puede deberse a la polarización y no solo a la longitud de onda.
 
-![Figure 7. Sentinel-1 C-band backscatter of mangrove and forest against predicted tide height, by relative orbit. Unlike NISAR HH, no polarization rises with tide in the mangrove.](fig_s1_marea.png)
+![Figura 7. Retrodispersión de Sentinel-1 en banda C del manglar y del bosque frente a la altura de marea predicha, por órbita relativa. A diferencia del HH de NISAR, ninguna polarización sube con la marea en el manglar.](fig_s1_marea.png)
 
 ### 3.4 La misma prueba con ALOS-2
 
@@ -212,7 +212,7 @@ Con tres sensores sobre el mismo sitio, los mismos puntos y la misma marea, el b
 
 La comparación sigue sin separar del todo polarización de longitud de onda, pues la banda C se observa en VV y la banda L en HH. Aun así, la coherencia entre los dos sensores de banda L y la ausencia de respuesta en HV refuerzan la lectura física.
 
-![Figure 8. ALOS-2 PALSAR-2 L-band backscatter of mangrove and forest against tide height at the time of each pass, by path. As with NISAR, mangrove HH and HH − HV rise with tide while forest does not.](fig_alos2_marea.png)
+![Figura 8. Retrodispersión de ALOS-2 PALSAR-2 en banda L del manglar y del bosque frente a la altura de marea a la hora de cada pasada, por trayectoria. Como en NISAR, el HH y el HH − HV del manglar suben con la marea y el bosque no.](fig_alos2_marea.png)
 
 ### 3.5 La Ciénaga Grande: lluvia como forzante
 
@@ -220,7 +220,7 @@ La Figura 9 presenta dos pasadas de NISAR de la traza descendente 083, ambas de 
 
 La gran mancha negativa sobre la laguna no es inundación sino rugosidad del agua abierta, que depende del viento en el momento de la pasada. Las pasadas con el río más bajo, entre 0,9 y 1,4 m, pertenecen a la colección Provisional. Estas pasadas no se restaron, con el fin de no mezclar el cambio de calibración con el cambio de nivel.
 
-![Figure 9. NISAR GCOV σ⁰ over the CGSM, descending track 083, Beta collection (R = HH, G = HV, B = HH − HV): (a) 4 December 2025, Magdalena River at 2.67 m; (b) 9 January 2026, river at 1.69 m; (c) HH difference, (a) minus (b). Yellow or black outline: mangrove mapped by both WorldCover and GMW; white or black line: study area. The negative patch over the open lagoon reflects wind-driven surface roughness, not flooding.](fig_cgsm_radar.png)
+![Figura 9. σ⁰ de NISAR GCOV sobre la CGSM, traza descendente 083, colección Beta (R = HH, G = HV, B = HH − HV): (a) 4 de diciembre de 2025, río Magdalena a 2,67 m; (b) 9 de enero de 2026, río a 1,69 m; (c) diferencia de HH, (a) menos (b). Contorno amarillo o negro: manglar cartografiado por WorldCover y GMW; línea blanca o negra: área de estudio. La mancha negativa sobre la laguna abierta refleja la rugosidad de la superficie por el viento, no inundación.](fig_cgsm_radar.png)
 
 Como referencia óptica, la Figura 10 coloca junto a esas dos pasadas los compuestos de Sentinel-2 (Drusch et al., 2012) de las mismas fechas, en color natural (B4, B3, B2) y en infrarrojo color (B8, B4, B3). Cada compuesto es la mediana de las diez adquisiciones a menos de diez días de la pasada, enmascaradas con Cloud Score+ (Pasquarella et al., 2023).
 
@@ -228,7 +228,7 @@ En el óptico, el manglar no cambia entre las dos fechas. Su NDVI mediano es de 
 
 El óptico separa bien el agua abierta, el humedal herbáceo, el manglar cerrado y el bosque seco, y por eso sirve de apoyo a la clave de interpretación. Sin embargo, no separa la frontera entre manglar degradado y humedal (separabilidad 0,44 con el NDVI de la muestra de 2025). Tampoco registra el agua bajo el dosel, que es donde la banda L aporta la señal de la Figura 9. En Bahía de Málaga esta comparación no es posible, puesto que entre enero de 2025 y septiembre de 2026 solo ocho imágenes tienen más del 30 % del área despejada.
 
-![Figure 10. Optical and L-band views of the CGSM on the two dates of Figure 9. Rows: 4 December 2025 (Magdalena River at 2.67 m) and 9 January 2026 (1.69 m). Columns: Sentinel-2 natural colour (B4, B3, B2) and colour infrared (B8, B4, B3), median of the ten acquisitions within ten days of each pass, masked with Cloud Score+, where white gaps are pixels without a cloud-free observation; and NISAR track 083 composites (R = HH, G = HV, B = HH − HV). Yellow outline: mangrove mapped by both WorldCover and GMW; white line: study area.](fig_cgsm_optico_radar.png)
+![Figura 10. Vistas óptica y de banda L de la CGSM en las dos fechas de la Figura 9. Filas: 4 de diciembre de 2025 (río Magdalena a 2,67 m) y 9 de enero de 2026 (1,69 m). Columnas: Sentinel-2 en color natural (B4, B3, B2) e infrarrojo color (B8, B4, B3), mediana de las diez adquisiciones dentro de los diez días de cada pasada, enmascarada con Cloud Score+, donde los huecos blancos son píxeles sin observación libre de nubes; y compuestos de la traza 083 de NISAR (R = HH, G = HV, B = HH − HV). Contorno amarillo: manglar cartografiado por WorldCover y GMW; línea blanca: área de estudio.](fig_cgsm_optico_radar.png)
 
 Tabla 7. Sentinel-1 en la CGSM: correlación de Spearman entre la lluvia de treinta días y la retrodispersión, por órbita.
 
@@ -259,7 +259,7 @@ La diferencia húmeda menos seca por calendario sale con el signo contrario (−
 
 El resultado proviene de doce pasadas, usa una lluvia promediada sobre el AOI como sustituto del nivel del agua y tiene un p de 0,05 en el borde, que además no resiste la corrección por dependencia temporal de la Tabla 10 (p entre 0,21 y 0,25). Por esta razón, se reporta como una dirección coherente con el sitio mareal y no como una medida. La confirmación exige el nivel del agua de INVEMAR y las pasadas que la traza 083 siga añadiendo cada doce días.
 
-![Figure 11. CGSM: mangrove and forest backscatter against antecedent 30-day rainfall, by sensor and track. In C-band (Sentinel-1) both classes brighten with rain, the dry forest more than the mangrove; in L-band (NISAR track D083) the forest does not respond and the mangrove co-polar channel rises with rain. ALOS-2 and NISAR track A007 have too few passes to evaluate.](fig_cgsm_temporada.png)
+![Figura 11. CGSM: retrodispersión del manglar y del bosque frente a la lluvia acumulada de los 30 días previos, por sensor y traza. En banda C (Sentinel-1) las dos clases se aclaran con la lluvia, el bosque seco más que el manglar; en banda L (NISAR, traza D083) el bosque no responde y el copolar del manglar sube con la lluvia. ALOS-2 y la traza A007 de NISAR tienen muy pocas pasadas para evaluar.](fig_cgsm_temporada.png)
 
 ### 3.6 La Ciénaga Grande: nivel del río Magdalena
 
@@ -284,7 +284,7 @@ Por lo tanto, el nivel está confundido con el periodo y con la versión del pro
 
 La Tabla 10 cuantifica esa limitación. Puesto que el nivel y la señal cambian despacio y en bloque (autocorrelación de rezago 1 de 0,86 y 0,64), las catorce pasadas valen por cuatro o cinco observaciones independientes, y el valor p de 0,0003 pasa a estar entre 0,10 y 0,17. Dentro de cada versión, además, no hay relación con el nivel. En las seis pasadas Beta, con el río entre 1,69 y 2,67 m, la resta da ρ −0,14 (p 0,79), y en las ocho Provisionales, entre 0,91 y 1,42 m, ρ 0,55 (p 0,16). Una regresión de la resta sobre el nivel y un indicador de versión reparte 0,12 dB por metro al nivel y −0,52 dB a la versión. Por lo tanto, el ρ de 0,83 lo produce el escalón entre los dos bloques, y el efecto del nivel no es identificable con las pasadas actuales. Solo podrá evaluarse cuando la traza 083 acumule pasadas de nivel alto dentro de la colección Provisional.
 
-![Figure 12. CGSM: mangrove and forest backscatter against Magdalena River level at Remolino (IDEAM, hourly) at pass time, by sensor and track. In L-band (NISAR D083) the mangrove co-polar channel rises with river level and the forest control does not; in C-band (Sentinel-1) the forest rises and the mangrove does not. The eight low-level NISAR passes are all from June to September 2026 and the six high-level ones from October 2025 to January 2026.](fig_cgsm_nivel_rio.png)
+![Figura 12. CGSM: retrodispersión del manglar y del bosque frente al nivel del río Magdalena en Remolino (IDEAM, horario) a la hora de la pasada, por sensor y traza. En banda L (NISAR D083) el copolar del manglar sube con el nivel del río y el bosque de control no; en banda C (Sentinel-1) sube el bosque y no el manglar. Las ocho pasadas de nivel bajo de NISAR son todas de junio a septiembre de 2026 y las seis de nivel alto de octubre de 2025 a enero de 2026.](fig_cgsm_nivel_rio.png)
 
 ### 3.7 Dependencia temporal de las correlaciones
 
@@ -329,7 +329,7 @@ Tabla 11. Firma de cada cobertura de la CGSM en las dos bandas: mediana entre pa
 | Manglar | −9,6 | −14,9 | 5,3 | −10,9 | −17,2 | 6,1 |
 | Bosque seco (control) | −8,1 | −14,3 | 6,2 | −9,2 | −15,9 | 6,6 |
 
-![Figure 13. Signature space of the CGSM covers in the two bands: co-polarised backscatter against the co-pol minus cross-pol ratio, one point per class (median across passes). In C-band mangrove and herbaceous wetland fall on the same point; in L-band they separate, while floating vegetation moves towards open water.](fig_clave_firmas.png)
+![Figura 13. Espacio de firmas de las coberturas de la CGSM en las dos bandas: retrodispersión copolar frente al cociente copolar menos cruzada, un punto por clase (mediana entre pasadas). En banda C el manglar y el humedal herbáceo caen en el mismo punto; en banda L se separan, mientras la vegetación flotante se desplaza hacia el agua abierta.](fig_clave_firmas.png)
 
 La Figura 13 muestra el resultado principal de la clave: cada banda acerca a la separación un par distinto de clases. Por lo tanto, la elección de banda depende de qué confusión se quiera reducir y no de cuál banda sea mejor.
 
@@ -432,7 +432,7 @@ Tabla 15. Diferencia alto menos bajo del nivel del río por píxel de 50 m (medi
 | Humedal herbáceo | 207.215 | +0,46 (−0,54 a +1,82) | 62 % | −0,96 | +1,41 | +0,26 (−0,22 a +0,80) | 65 % | +0,31 |
 | Agua abierta | 663.486 | −0,39 (−0,89 a +0,02) | 26 % | −1,21 | +0,73 | −0,47 (−1,08 a 0,00) | 25 % | +0,62 |
 
-![Figure 14. NISAR D083 over the CGSM at 50 m: change in HH, HV and HH − HV between the median of the six high-river-level passes (October 2025 to January 2026) and the median of the eight low-level passes (June to September 2026). Mangrove in full colour, dry forest control faded, other covers in grey; dotted lines mark the sectors of Table 15. The HH increase concentrates in the southern mangrove, where the Magdalena River enters the lagoon through the channels, and fades northwards; HV falls by about 1.1 dB in every cover, open water included.](fig_mapa_doble_rebote.png)
+![Figura 14. NISAR D083 sobre la CGSM a 50 m: cambio de HH, HV y HH − HV entre la mediana de las seis pasadas de nivel alto del río (octubre de 2025 a enero de 2026) y la mediana de las ocho de nivel bajo (junio a septiembre de 2026). Manglar en color pleno, bosque de control atenuado, otras coberturas en gris; las líneas punteadas marcan los sectores de la Tabla 15. El aumento de HH se concentra en el manglar del sur, en la desembocadura del río Fundación, y se desvanece hacia el norte; el HV baja cerca de 1,1 dB en todas las coberturas, incluida el agua abierta.](fig_mapa_doble_rebote.png)
 
 El mapa añade dos cosas que el número por clase no decía. En primer lugar, la señal tiene estructura espacial. El aumento de HH se concentra en el manglar del sur (mediana +0,53 dB, 77 % de los píxeles positivos) y es nulo en el centro. En Isla de Salamanca, al norte, donde entra el caño Clarín, el aumento se invierte (−0,18 dB, 40 %). Cruzado con los cauces con nombre de OpenStreetMap, el foco del sur (este 555 a 565 km, mediana +0,67 dB, 85 % de píxeles positivos) coincide con la desembocadura del río Fundación, que baja de la Sierra Nevada, y no con la entrada de los caños del Magdalena: el caño Renegado termina al occidente, a 11 km del manglar, en una franja donde el cambio es menor (+0,09 a +0,25 dB), y el Clarín entra por el norte. Por lo tanto, en ese sector el nivel del Magdalena en Remolino actúa como índice regional de la temporada y no como el forzante directo. Hay también una franja positiva en la orilla oriental, entre 575 y 580 km de este y 1195 y 1210 km de norte, que los sectores por latitud no aíslan.
 
@@ -450,7 +450,7 @@ En banda C el cambio es pequeño y difuso. El manglar sube 0,09 dB (61 % de píx
 
 En banda L, en cambio, la resta es positiva (+0,07 frente a −0,36) y la señal tiene estructura. El sector sur sube 0,53 dB en HH frente a 0,21 en VV, y la correlación por píxel entre los dos cambios sobre el manglar es débil (ρ 0,21). Esa correlación por píxel no se somete a prueba, por la autocorrelación espacial, pero su valor bajo indica que los dos cambios no comparten el mismo patrón. Esa es la forma espacial del resultado de la Tabla 9.
 
-![Figure 15. The same high-minus-low river level change in the two bands on the 50 m grid: L-band HH from NISAR D083 (6 high, 8 low passes) and C-band VV from Sentinel-1 orbit 142 (13 high, 18 low passes in the same date windows). Mangrove in full colour, dry forest control faded. In L-band the rise concentrates in the southern mangrove and the forest falls; in C-band the change is small, the forest rises more than the mangrove, and the pixel-wise correlation between the two bands over mangrove is weak (ρ 0.21).](fig_mapa_c_vs_l.png)
+![Figura 15. El mismo cambio alto menos bajo del nivel del río en las dos bandas sobre la malla de 50 m: HH de banda L de NISAR D083 (6 pasadas altas, 8 bajas) y VV de banda C de Sentinel-1, órbita 142 (13 altas, 18 bajas en las mismas ventanas de fechas). Manglar en color pleno, bosque de control atenuado. En banda L el aumento se concentra en el manglar del sur y el bosque baja; en banda C el cambio es pequeño, el bosque sube más que el manglar y la correlación por píxel entre las dos bandas sobre el manglar es débil (ρ 0,21).](fig_mapa_c_vs_l.png)
 
 Como corroboración óptica se usó la clase de vegetación inundada de Dynamic World (Brown et al., 2022), que da por píxel de 10 m la probabilidad de vegetación con agua visible. Se usaron las 105 fechas de Sentinel-2 entre octubre de 2025 y septiembre de 2026 con alguna cobertura del AOI (`corroboracion_dw.py`). Sobre ellas se hicieron dos pruebas, una temporal y una espacial.
 
@@ -462,7 +462,7 @@ En la prueba espacial, la diferencia alto menos bajo de la probabilidad de Dynam
 
 Esa lectura, formulada después de ver el dato, es coherente con los mecanismos. En los claros del manglar el agua queda expuesta, el óptico la detecta y el radar la ve como superficie lisa que baja el HH. Bajo el dosel cerrado, en cambio, el óptico no ve nada y el doble rebote entre troncos y lámina sube el HH. En consecuencia, Dynamic World apoya el forzante y es compatible con la complementariedad de los sensores. Sin embargo, no corrobora la señal bajo dosel en sí, que por definición queda fuera de lo que el óptico puede ver, y una correlación de −0,15 es una compatibilidad, no una prueba.
 
-![Figure 16. Optical check with Dynamic World flooded-vegetation probability. Left: mean probability over mangrove and herbaceous wetland on the 54 cloud-free dates against river level at Remolino; the wetland follows the river (ρ 0.41), the mangrove does not (ρ 0.04). Centre: change in probability between high- and low-level dates on the 50 m grid. Right: that change against the NISAR ΔHH on mangrove pixels (ρ −0.15): where the optical sensor sees more exposed water the HH falls, and the HH rise occurs where the optical sensor sees no change.](fig_corroboracion_dw.png)
+![Figura 16. Contraste óptico con la probabilidad de vegetación inundada de Dynamic World. Izquierda: probabilidad media sobre manglar y humedal herbáceo en las 54 fechas sin nubes frente al nivel del río en Remolino; el humedal sigue al río (ρ 0,41), el manglar no (ρ 0,04). Centro: cambio de la probabilidad entre fechas de nivel alto y bajo sobre la malla de 50 m. Derecha: ese cambio frente al ΔHH de NISAR en los píxeles de manglar (ρ −0,15): donde el óptico ve más agua expuesta el HH baja, y el aumento de HH ocurre donde el óptico no ve cambio.](fig_corroboracion_dw.png)
 
 El mismo mapa se construyó en Bahía de Málaga con la marea como forzante (`mapa_doble_rebote_malaga.py`). Por traza, se calculó la mediana de las seis pasadas de marea más alta menos la mediana de las seis de marea más baja, sobre la malla de 50 m de cada traza (Tabla 16, Figura 17). En las dos trazas, de forma independiente, el manglar queda por encima del bosque de control. En la ascendente el HH del manglar sube +0,34 dB con el 75 % de los píxeles positivos y el del bosque baja −0,10. En la descendente el manglar apenas cambia (+0,05, 54 % positivos) y es el bosque el que baja (−0,39). Esa caída coincide con la versión del producto: en esa traza cuatro de las seis pasadas de marea alta son Beta y cuatro de las seis de marea baja son Provisionales, y la versión desplaza el HH de todas las clases, de modo que la resta cancela ese desplazamiento y no describe una caída real del bosque. Así, la resta manglar menos bosque es de +0,44 dB en ambas, del orden de los +0,57 dB de la Tabla 4.
 
@@ -479,7 +479,7 @@ Tabla 16. Bahía de Málaga: diferencia marea alta menos marea baja por píxel d
 | D087 (18:29) | Bosque (control) | 300.038 | −0,39 (−0,79 a −0,06) | 21 % | −0,63 | +0,32 |
 | D087 (18:29) | Agua | 214.339 | −0,42 (−0,90 a +0,05) | 27 % | −0,94 | +0,63 |
 
-![Figure 17. Bahía de Málaga at 50 m: change in HH (left) and HV (right) between the median of the six highest-tide and the six lowest-tide passes of each NISAR track, A004 (top) and D087 (bottom). Mangrove in full colour, forest control faded. HH rises along the mangrove fringes in both tracks while the forest does not; HV falls in every cover. The negative block in the north-western corner of D087 coincides with the swath edge and is treated as a coverage artefact.](fig_mapa_doble_rebote_malaga.png)
+![Figura 17. Bahía de Málaga a 50 m: cambio de HH (izquierda) y HV (derecha) entre la mediana de las seis pasadas de marea más alta y las seis de marea más baja de cada traza de NISAR, A004 (arriba) y D087 (abajo). Manglar en color pleno, bosque de control atenuado. El HH sube en las franjas del manglar en las dos trazas y el bosque no; el HV baja en todas las coberturas. El bloque negativo de la esquina noroccidental de D087 coincide con el borde de la franja y se trata como artefacto de cobertura.](fig_mapa_doble_rebote_malaga.png)
 
 
 ## 4. Discusión
@@ -498,7 +498,7 @@ La validación tiene dos límites propios. En primer lugar, los umbrales se fija
 
 Por último, la referencia tiene su propia incertidumbre. En una segunda pasada a ciegas de 60 puntos, siete días después de la primera y sin criterio escrito, la intérprete coincidió consigo misma en el 75 % [63 a 84 %] de los puntos (kappa 0,69). Bajo el criterio escrito, en una segunda pasada a ciegas de otros 60 puntos sorteados entre los 720 y hecha el 14 de octubre, siete días después de la última sesión de etiquetado, la intérprete coincidió con la clase de referencia en el 78 % [66 a 87 %] de los puntos, con kappa 0,72 (Figura 18). Manglar intacto y degradado se repitieron en todos sus puntos (14 de 14 y 6 de 6), el agua en 15 de 17 y la vegetación flotante en 7 de 11. El humedal herbáceo, en cambio, solo se repitió en 2 de 7: tres pasaron a manglar intacto y dos a agua, con una n demasiado pequeña para una cifra por clase. Por lo tanto, la referencia tiene una inconsistencia cercana al 22 % que acota lo que la clave puede alcanzar, aunque no se midió qué fracción del desacuerdo de la Tabla 14 cae en puntos inconsistentes, y la clase donde esa incertidumbre se concentra es la misma que ningún sensor separa.
 
-![Figure 18. Interpreter consistency on the 2025 reference: confusion between the reference label (clase_final, written criterion) and a second blind pass by the same interpreter on 60 points drawn at random from the 720 (seed fixed in September), seven days after the last labelling session. Agreement 0.78 [0.66–0.87], kappa 0.72. Intact and degraded mangrove repeat in every point; herbaceous wetland repeats in 2 of 7.](fig_consistencia_2025.png)
+![Figura 18. Consistencia de la intérprete sobre la referencia de 2025: confusión entre la etiqueta de referencia (clase_final, criterio escrito) y una segunda pasada a ciegas de la misma intérprete sobre 60 puntos sorteados entre los 720 (semilla fijada en septiembre), siete días después de la última sesión de etiquetado. Acuerdo 0,78 [0,66 a 0,87], kappa 0,72. Manglar intacto y degradado se repiten en todos sus puntos; el humedal herbáceo se repite en 2 de 7.](fig_consistencia_2025.png)
 
 ## 5. Conclusiones y trabajo futuro
 
@@ -574,9 +574,9 @@ Zanaga, D., Van De Kerchove, R., Daems, D., De Keersmaecker, W., Brockmann, C., 
 
 La Figura A2 es el flujo de trabajo en nueve etapas, cada una resumida en una línea con el producto que escribe a su izquierda. La Figura A1 abre sus tres primeras etapas por sensor, con la convención de los flujos de trabajo SAR revisados en el curso (De Luca et al., 2021; Yordanov y Brovelli, 2021): adquisición, calibración radiométrica y promediado, con los productos intermedios y sus conteos a la izquierda y el software a la derecha. Las Figuras 1 y A2 se generan con `figura_diseno.py` y `figura_flujo.py`; los recortes de la Figura A1 se exportan con `exportar_figuras_flujo.py` (carpeta `figuras para flujo`).
 
-![Figure A2. Workflow of the radar project in nine stages, from data access to the spatial map and optical check. Each stage is summarised in one line; the left column holds the product each stage writes, with the scene, pass and point counts reported in the text. The dashed arrow marks the stage with pending items. Stages 1 to 3 are opened per sensor in Figure A1 (Annex A); the scripts of each stage are listed in Annex A.](fig_flujo_trabajo.png)
+![Figura A2. Flujo de trabajo del proyecto de radar en nueve etapas, del acceso a datos al mapa espacial y el contraste óptico. Cada etapa se resume en una línea; la columna izquierda lleva el producto que escribe cada etapa, con los conteos de escenas, pasadas y puntos que reporta el texto. La flecha discontinua marca la etapa con pendientes. Las etapas 1 a 3 se abren por sensor en la Figura A1; los guiones de cada etapa se listan en la Tabla A1.](fig_flujo_trabajo.png)
 
-![Figure A1. SAR processing chain per sensor in five steps: acquisition and selection, radiometric calibration, preparation for analysis, output for extraction, and the extraction and organisation common to the three sensors. The quicklooks are real passes over the CGSM box: NISAR GCOV HH (track D083, 29 October 2025), ALOS-2 ScanSAR HH (2 December 2025) and Sentinel-1 GRD VV (orbit 142, 9 January 2026).](fig_cadena_sar_sensores.png)
+![Figura A1. Cadena de procesamiento SAR por sensor en cinco pasos: adquisición y selección, calibración radiométrica, preparación para el análisis, salida para extracción, y extracción y organización comunes a los tres sensores. Los recortes son pasadas reales sobre la caja de la CGSM: NISAR GCOV HH (traza D083, 29 de octubre de 2025), ALOS-2 ScanSAR HH (2 de diciembre de 2025) y Sentinel-1 GRD VV (órbita 142, 9 de enero de 2026).](fig_cadena_sar_sensores.png)
 
 Tabla A1. Etapas del flujo de trabajo (Figura A2), guiones que las ejecutan y salidas. Los guiones están en la carpeta `RADAR` del repositorio; los numerados, en `AVANCE TESIS/PUBLICACION_GEE`. La versión detallada del diagrama, con todas las operaciones de cada etapa, se genera con `figura_flujo.py --detalle`.
 
