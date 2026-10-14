@@ -52,21 +52,22 @@ def sombrear(celda, hex_color):
     pr.append(shd)
 
 
-ANCHO_FIJO = {"fig_flujo_metodologico.png": 6.3, "fig_muestra_2025.png": 3.8, "fig_consistencia_2025.png": 3.4,
-              "fig_cgsm_nivel_rio.png": 3.6, "fig_clave_firmas.png": 5.0, "fig_cgsm_referencia.png": 5.6}
+ANCHO_FIJO = {"fig_flujo_metodologico.png": 6.3, "fig_muestra_2025.png": 3.4, "fig_consistencia_2025.png": 3.0,
+              "fig_cgsm_nivel_rio.png": 3.2, "fig_clave_firmas.png": 4.4, "fig_cgsm_referencia.png": 5.0,
+              "fig_cadena_sar_sensores.png": 5.0, "fig_flujo_trabajo_es.png": 4.4}
 
 
 def ancho_figura(ruta):
-    """Ancho en pulgadas: 5,8 como máximo para las apaisadas, 4,2 para las casi cuadradas o
-    verticales, sin pasar de 4,6 de alto; ANCHO_FIJO fija excepciones por archivo."""
+    """Ancho en pulgadas: 5,2 como máximo para las apaisadas, 3,8 para las casi cuadradas o
+    verticales, sin pasar de 4,0 de alto; ANCHO_FIJO fija excepciones por archivo."""
     from PIL import Image
     w, h = Image.open(ruta).size
     aspecto = h / w
     nombre = os.path.basename(ruta)
     if nombre in ANCHO_FIJO:
         return ANCHO_FIJO[nombre]
-    ancho = 5.8 if aspecto < 0.8 else 4.2
-    return min(ancho, 4.6 / aspecto)
+    ancho = 5.2 if aspecto < 0.8 else 3.8
+    return min(ancho, 4.0 / aspecto)
 
 
 def margenes_celda(t, cm=0.05):
