@@ -547,5 +547,3 @@ Tabla A1. Scripts y productos de cada etapa del flujo de trabajo.
 | 8. Clave de interpretación | `figura_clave`, `nisar_flotante`, `clave_vs_muestra2025` | Tablas 11 a 14; Figura 13; `clave_muestra2025_*.csv` |
 | 9. Cartografía y contraste óptico | `mapa_doble_rebote`, `mapa_doble_rebote_s1`, `mapa_doble_rebote_malaga`, `corroboracion_dw` | Tablas 15 y 16; Figuras 14 a 17; `mapa_doble_rebote_50m.tif`, `mapa_s1_alto_bajo_50m.tif`, `dw_serie.csv` |
 | Informe y figuras metodológicas | `md_a_word`, `exportar_figuras_flujo`, `exportar_series`, `exportar_productos`, `figura_flujo`, `figura_cadena_sar` | Informe; Figuras 1, A1 y A2 |
-
-Nota. Los scripts están en la carpeta `RADAR` del repositorio y los numerados en `AVANCE TESIS/PUBLICACION_GEE`. La versión detallada del flujo se genera con `figura_flujo.py --detalle`.
