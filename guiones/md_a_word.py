@@ -114,9 +114,11 @@ def main(md):
     for l in cab[:-1]:
         parrafo(d, l, justificar=False, despues=0, centrar=True)
     parrafo(d, cab[-1], tam=13, negrita=True, despues=14, centrar=True)
-    i, buf = primer, []
+    i, buf, en_refs = primer, [], False
     while i < len(lineas):
         t = lineas[i].strip()
+        if t.startswith("## "):
+            en_refs = t.startswith("## Referencias")
         if t.startswith("|"):
             buf.append(t); i += 1; continue
         if buf:
@@ -139,6 +141,9 @@ def main(md):
             parrafo(d, pie, tam=8.5, cursiva=True, despues=10)
         elif t.startswith("Tabla "):
             p = parrafo(d, t, tam=8.5, cursiva=True, justificar=False, despues=2, centrar=True); p.paragraph_format.keep_with_next = True
+        elif t and en_refs:
+            p = parrafo(d, t, justificar=False, despues=4)
+            p.paragraph_format.left_indent = Cm(1.27); p.paragraph_format.first_line_indent = Cm(-1.27)
         elif t:
             parrafo(d, t)
         i += 1
