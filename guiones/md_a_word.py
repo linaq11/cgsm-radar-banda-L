@@ -138,9 +138,9 @@ def main(md):
             p = d.add_paragraph(); p.alignment = WD_ALIGN_PARAGRAPH.CENTER
             p.add_run().add_picture(ruta, width=Inches(ancho_figura(ruta)))
             p.paragraph_format.keep_with_next = True; p.paragraph_format.space_after = Pt(2)
-            parrafo(d, pie, tam=8.5, cursiva=True, despues=10)
+            parrafo(d, pie, tam=9, cursiva=True, despues=10, centrar=True)
         elif t.startswith("Tabla "):
-            p = parrafo(d, t, tam=8.5, cursiva=True, justificar=False, despues=2, centrar=True); p.paragraph_format.keep_with_next = True
+            p = parrafo(d, t, tam=9, cursiva=True, justificar=False, despues=2, centrar=True); p.paragraph_format.keep_with_next = True
         elif t and en_refs:
             p = parrafo(d, t, justificar=False, despues=4)
             p.paragraph_format.left_indent = Cm(1.27); p.paragraph_format.first_line_indent = Cm(-1.27)
