@@ -2,6 +2,17 @@
 
 Cabecera y comentarios de cada script, extraídos del código con `generar_documentacion.py`, en el orden del flujo de trabajo del informe. Cada cabecera dice qué hace el script, qué lee, qué escribe y cómo se corre.
 
+## Convenciones de redacción
+
+- script, no guion, para los archivos de Python.
+- bosque no inundable de referencia, no bosque de control, al describir el método.
+- forzante hidrológico, para coincidir con el informe.
+- diferencia HH − HV o VV − VH, nunca cociente.
+- contraste óptico para Dynamic World, no corroboración ni validación de la inundación bajo dosel.
+- señal compatible con doble rebote o respuesta copolar asociada al estado hidrológico; una imagen de intensidad no identifica por sí sola el mecanismo.
+- la diferencia manglar − bosque controla variaciones temporales compartidas; no se afirma que elimine la estacionalidad.
+- el nivel de Remolino es un indicador regional del estado hidrológico, no una medida del nivel dentro del manglar.
+
 ## 1. Acceso a datos
 
 ### `publicacion_gee/16_inventario_nisar.py`
