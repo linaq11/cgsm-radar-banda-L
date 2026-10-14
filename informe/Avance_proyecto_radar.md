@@ -3,7 +3,7 @@ Maestría en Geomática
 Radar and LiDAR Remote Sensing, 2026-2
 Avance del proyecto
 Lina María Quintero Fonseca
-Aporte de la banda L para la identificación de inundación bajo dosel de manglar en la Ciénaga Grande de Santa Marta
+Respuesta de la banda L a la inundación bajo dosel de manglar: comparación con banda C en la Ciénaga Grande de Santa Marta y Bahía de Málaga
 
 ## Resumen
 
