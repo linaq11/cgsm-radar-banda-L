@@ -965,7 +965,7 @@ Comentarios en el código:
 
 ### `figura_diseno_h.py`
 
-Figura 1 en seis columnas (diseño de Lina) armada solo con archivos reales de `figuras para flujo`:
+Figura 1 en seis columnas, armada solo con archivos reales de `figuras para flujo`:
 recortes de los tres radares, cuatro recortes Sentinel-2 SWIR por cobertura, las dos series del
 forzante y los tres mapas de producto. Las cajas de texto se dibujan aquí. Nada generado.
 
