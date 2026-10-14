@@ -1,0 +1,13 @@
+bdmn-sqnh instantaneo 2904700095: 15402 filas en 4 s, 2025-01-01T00:00:00.000 a 2026-10-06T23:00:00.000
+bdmn-sqnh instantaneo 0029047020: 0 filas en 1 s
+bdmn-sqnh instantaneo 0029047000: 15369 filas en 2 s, 2025-01-01T00:00:00.000 a 2026-10-06T23:00:00.000
+bdmn-sqnh instantaneo 0029067130: 0 filas en 1 s
+vfth-yucv maximo 2904700095: 20999 filas en 3 s, 2025-01-01T00:04:00.000 a 2026-10-06T23:03:00.000
+vfth-yucv maximo 0029047020: 0 filas en 1 s
+vfth-yucv maximo 0029047000: 20925 filas en 2 s, 2025-01-01T00:01:00.000 a 2026-10-06T23:12:00.000
+vfth-yucv maximo 0029067130: 0 filas en 1 s
+pt9a-aamx minimo 2904700095: 21126 filas en 3 s, 2025-01-01T00:50:00.000 a 2026-10-06T23:59:00.000
+pt9a-aamx minimo 0029047020: 0 filas en 1 s
+pt9a-aamx minimo 0029047000: 21032 filas en 6 s, 2025-01-01T00:00:00.000 a 2026-10-06T23:00:00.000
+pt9a-aamx minimo 0029067130: 0 filas en 3 s
+nivel del mar: sin filas desde 2025

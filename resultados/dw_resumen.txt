@@ -1,0 +1,8 @@
+Dynamic World, vegetacion inundada, AOI CGSM, 2025-10-01 a 2026-10-01: 105 fechas, 54 con cobertura >= 50 % sobre el manglar y nivel del rio
+  manglar           prob media 0.200 (min 0.126, max 0.282) | Spearman con nivel del rio rho 0.04, p 0.789
+  humedal_herbaceo  prob media 0.159 (min 0.120, max 0.225) | Spearman con nivel del rio rho 0.41, p 0.002
+  bosque            prob media 0.043 (min 0.035, max 0.055) | Spearman con nivel del rio rho -0.02, p 0.896
+  manglar: prob media en fechas de nivel alto 0.197 (n 11) frente a nivel bajo 0.191 (n 13)
+  espacial manglar           n pix 50 m 145398 | dDW mediana +0.005 | Spearman(dDW, dHH) rho -0.15, p 0 | dHH mediana donde dDW > 0,1: -0.38 dB, donde dDW < -0,1: -0.21 dB
+  espacial bosque            n pix 50 m 316800 | dDW mediana +0.000 | Spearman(dDW, dHH) rho 0.02, p 1.57e-38 | dHH mediana donde dDW > 0,1: +0.12 dB, donde dDW < -0,1: -0.08 dB
+  espacial humedal_herbaceo  n pix 50 m 207215 | dDW mediana +0.010 | Spearman(dDW, dHH) rho 0.03, p 9.29e-35 | dHH mediana donde dDW > 0,1: +0.03 dB, donde dDW < -0,1: -0.19 dB

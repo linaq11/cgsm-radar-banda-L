@@ -1,0 +1,22 @@
+clase,variable,n_pix_50m,mediana,q25,q75,frac_positiva
+manglar,VV,145398,0.09,-0.15,0.33,0.605
+manglar,VH,145398,0.01,-0.16,0.2,0.524
+manglar,VV-VH,145398,0.08,-0.09,0.25,0.628
+bosque,VV,316807,0.36,0.13,0.63,0.862
+bosque,VH,316807,0.21,-0.01,0.47,0.741
+bosque,VV-VH,316807,0.14,-0.04,0.33,0.704
+humedal_herbaceo,VV,207215,0.26,-0.22,0.8,0.653
+humedal_herbaceo,VH,207215,0.31,-0.12,1.05,0.685
+humedal_herbaceo,VV-VH,207215,-0.04,-0.41,0.23,0.459
+agua,VV,663486,-0.47,-1.08,0.0,0.25
+agua,VH,663486,0.62,0.26,0.93,0.842
+agua,VV-VH,663486,-1.05,-1.7,-0.45,0.122
+"manglar norte (Salamanca, N > 1205 km)",VV,69063,0.05,-0.17,0.3,0.556
+"manglar norte (Salamanca, N > 1205 km)",VH,69063,-0.02,-0.19,0.17,0.472
+"manglar norte (Salamanca, N > 1205 km)",VV-VH,69063,0.08,-0.09,0.25,0.625
+manglar centro y occidente (1190 a 1205 km),VV,33412,0.02,-0.22,0.24,0.53
+manglar centro y occidente (1190 a 1205 km),VH,33412,0.01,-0.16,0.21,0.523
+manglar centro y occidente (1190 a 1205 km),VV-VH,33412,0.0,-0.18,0.17,0.508
+"manglar sur (caños del Magdalena, N < 1190 km)",VV,42923,0.21,-0.01,0.39,0.743
+"manglar sur (caños del Magdalena, N < 1190 km)",VH,42923,0.06,-0.11,0.22,0.606
+"manglar sur (caños del Magdalena, N < 1190 km)",VV-VH,42923,0.14,-0.02,0.28,0.727

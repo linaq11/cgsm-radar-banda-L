@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+*.h5
+*.tif
+*.docx
+figures_tmp/
+cache_*
+nivel_ideam_*.csv
+uhslc_*.csv

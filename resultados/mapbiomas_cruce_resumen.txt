@@ -1,0 +1,36 @@
+1. Malla de 50 m (caja del cubo + 2 km), MapBiomas 2023 frente a dHH NISAR y dVV Sentinel-1 (alto menos bajo del rio):
+   MapBiomas manglar             n  123764 | dHH mediana +0.15 (positivos 57 %) | dVV mediana +0.12 | WorldCover/GMW en esos pixeles: {'manglar_WC_GMW': 85, 'otro': 8}
+   MapBiomas bosque_inundable    n   19540 | dHH mediana -0.43 (positivos 31 %) | dVV mediana -0.08 | WorldCover/GMW en esos pixeles: {'manglar_WC_GMW': 50, 'bosque_WC': 4, 'humedal_WC': 18, 'agua_WC': 19, 'otro': 8}
+   MapBiomas herbacea_inundable  n  297689 | dHH mediana +0.35 (positivos 61 %) | dVV mediana +0.25 | WorldCover/GMW en esos pixeles: {'manglar_WC_GMW': 8, 'bosque_WC': 15, 'humedal_WC': 49, 'agua_WC': 3, 'otro': 24}
+   MapBiomas bosque              n   36972 | dHH mediana -0.37 (positivos 32 %) | dVV mediana +0.31 | WorldCover/GMW en esos pixeles: {'bosque_WC': 70, 'humedal_WC': 12, 'otro': 16}
+   MapBiomas mosaico_agro        n  601212 | dHH mediana -0.47 (positivos 32 %) | dVV mediana +0.40 | WorldCover/GMW en esos pixeles: {'bosque_WC': 24, 'humedal_WC': 5, 'otro': 71}
+   MapBiomas agua                n  440711 | dHH mediana -0.51 (positivos 24 %) | dVV mediana -0.65 | WorldCover/GMW en esos pixeles: {'humedal_WC': 4, 'agua_WC': 93}
+   manglar: MapBiomas 30941 ha, WorldCover∩GMW 36349 ha, interseccion 26281 ha (Jaccard 0.64)
+   herbacea inundable (MB) frente a humedal herbaceo (WC 90): 74422 ha frente a 51803 ha, interseccion 36784 ha (Jaccard 0.41)
+
+2. Los 720 puntos de la muestra 2025 (filas: clase_final) segun MapBiomas 2023:
+mb23                 agua  bosque  bosque_inundable  herbacea_inundable  manglar  mosaico_agro  palma  playa  sin dato  sin_vegetacion  urbano
+clase_final                                                                                                                                   
+agua                  198       0                 6                   5        1             0      0      1         1               0       0
+humedal_herbaceo       14       0                 4                  48        1             5      0      1         0               0       0
+manglar_degradado      15       0                 4                  78        5             8      0      1         0               0       0
+manglar_intacto        10       1                 5                  49       84             1      0      1         0               0       0
+otro                    4       0                 0                  16        1            12      2      3         0               4       2
+vegetacion_flotante   116       1                 1                   8        2             1      0      0         0               0       0
+   humedal_herbaceo   -> {'herbacea_inundable': 0.66, 'agua': 0.19, 'mosaico_agro': 0.07}
+   manglar_degradado  -> {'herbacea_inundable': 0.7, 'agua': 0.14, 'mosaico_agro': 0.07}
+   manglar_intacto    -> {'manglar': 0.56, 'herbacea_inundable': 0.32, 'agua': 0.07}
+   otro               -> {'herbacea_inundable': 0.36, 'mosaico_agro': 0.27, 'agua': 0.09}
+   humedal: {'herbacea_inundable': 48, 'agua': 14, 'mosaico_agro': 5, 'bosque_inundable': 4, 'playa': 1, 'manglar': 1} | degradado: {'herbacea_inundable': 78, 'agua': 15, 'mosaico_agro': 8, 'manglar': 5, 'bosque_inundable': 4, 'playa': 1}
+
+3. Hectareas por clase de MapBiomas dentro del AOI, 2015 a 2023 (30 m):
+ anio  manglar  bosque_inundable  herbacea_inundable   agua  mosaico_agro
+ 2015    24464              4977               46199 100602         22224
+ 2016    22770              3859               48898 102124         21316
+ 2017    21680              3073               51832 102021         20697
+ 2018    22878              3434               52745 100240         20316
+ 2019    23906              4437               53035  97962         20296
+ 2020    25890              5308               52376  95637         20596
+ 2021    27578              4946               55811  93946         18054
+ 2022    30098              4879               54514  91752         19509
+ 2023    31689              4569               53255  90967         20150
