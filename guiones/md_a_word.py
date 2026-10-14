@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Convierte un markdown del curso de radar a .docx: carta, margenes 2,5 cm, Calibri 10,5,
+"""Convierte un markdown del curso de radar a .docx: carta, margenes 2,5 cm, Calibri 10,
 cuerpo justificado, encabezados en negrita sin numerar, tablas con encabezado sombreado.
 El bloque de cabecera (lineas antes del primer '## ') va centrado, la ultima en negrita.
 
@@ -22,7 +22,7 @@ ACENTO = "2E5090"
 BLANCO = RGBColor(0xFF, 0xFF, 0xFF)
 
 
-def corridas(p, texto, tam=10.5, negrita=False, cursiva=False, color=None):
+def corridas(p, texto, tam=10, negrita=False, cursiva=False, color=None):
     for trozo in re.split(r"(\*\*.+?\*\*)", texto):
         if not trozo:
             continue
@@ -37,7 +37,7 @@ def corridas(p, texto, tam=10.5, negrita=False, cursiva=False, color=None):
             r.font.color.rgb = color
 
 
-def parrafo(d, texto, tam=10.5, justificar=True, despues=6, negrita=False, cursiva=False, centrar=False):
+def parrafo(d, texto, tam=10, justificar=True, despues=6, negrita=False, cursiva=False, centrar=False):
     p = d.add_paragraph()
     corridas(p, texto, tam, negrita, cursiva)
     p.alignment = WD_ALIGN_PARAGRAPH.CENTER if centrar else (WD_ALIGN_PARAGRAPH.JUSTIFY if justificar else WD_ALIGN_PARAGRAPH.LEFT)
@@ -108,7 +108,7 @@ def main(md):
     sec.page_width, sec.page_height = Cm(21.59), Cm(27.94)
     for lado in ("left_margin", "right_margin", "top_margin", "bottom_margin"):
         setattr(sec, lado, Cm(2.5))
-    est = d.styles["Normal"]; est.font.name = "Calibri"; est.font.size = Pt(10.5); est.paragraph_format.line_spacing = 1.15
+    est = d.styles["Normal"]; est.font.name = "Calibri"; est.font.size = Pt(10); est.paragraph_format.line_spacing = 1.15
     primer = next(i for i, l in enumerate(lineas) if l.startswith("## "))
     cab = [l for l in lineas[:primer] if l.strip()]
     for l in cab[:-1]:
@@ -124,10 +124,10 @@ def main(md):
         if buf:
             tabla(d, buf); buf = []
         if t.startswith("#### "):
-            p = parrafo(d, t[5:], tam=10.5, negrita=True, cursiva=True, justificar=False, despues=3)
+            p = parrafo(d, t[5:], tam=10, negrita=True, cursiva=True, justificar=False, despues=3)
             p.paragraph_format.space_before = Pt(6); p.paragraph_format.keep_with_next = True
         elif t.startswith("### "):
-            p = parrafo(d, t[4:], tam=10.5, negrita=True, justificar=False, despues=3)
+            p = parrafo(d, t[4:], tam=10, negrita=True, justificar=False, despues=3)
             p.paragraph_format.space_before = Pt(8); p.paragraph_format.keep_with_next = True
         elif t.startswith("## "):
             p = parrafo(d, t[3:], tam=12, negrita=True, justificar=False, despues=4)
