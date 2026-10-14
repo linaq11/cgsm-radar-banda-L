@@ -1,0 +1,9 @@
+Imágenes reales para el diagrama de flujo del informe de radar. Generadas con exportar_figuras_flujo.py.
+
+01_NISAR_HH_D083_2025-10-29.png: NISAR L2 GCOV, traza D083, 29-oct-2025, sigma0 HH en dB (-25 a -3), 40 m, caja de la CGSM.
+02_Sentinel1_VV_D142_2026-01-09.png: COPERNICUS/S1_GRD, IW, órbita relativa 142, VV en dB (-25 a -3), caja de la CGSM.
+03_ALOS2_HH_ScanSAR_2025-12-02.png: JAXA/ALOS/PALSAR-2/Level2_2/ScanSAR, HH calibrado con sigma0 = 10 log10(DN^2) - 83 dB (-25 a -3), caja de la CGSM; mosaico de las escenas de esa fecha.
+04_agua_abierta_S2_2025_-74.5456_10.7390.png: Sentinel-2 SR armonizado, mediana 2025 sin nubes, color verdadero B4-B3-B2, 1,5 km de lado centrado en -74.54557, 10.73904 (punto 6 de la muestra 2025, 3 alta).
+05_humedal_herbaceo_S2_2025_-74.5833_10.8964.png: Sentinel-2 SR armonizado, mediana 2025 sin nubes, color verdadero B4-B3-B2, 1,5 km de lado centrado en -74.58330, 10.89643 (punto 201 de la muestra 2025, 3 alta).
+06_manglar_S2_2025_-74.4683_10.7144.png: Sentinel-2 SR armonizado, mediana 2025 sin nubes, color verdadero B4-B3-B2, 1,5 km de lado centrado en -74.46832, 10.71443 (punto 3 de la muestra 2025, 3 alta).
+07_bosque_control_S2_2025_-74.1997_11.0740.png: Sentinel-2 SR armonizado, mediana 2025 sin nubes, color verdadero B4-B3-B2, 1,5 km de lado centrado en -74.19973, 11.07396 (malla de clases a 50 m, clase 2 (bosque de WorldCover fuera del área de estudio)).

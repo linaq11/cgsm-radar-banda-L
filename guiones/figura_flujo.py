@@ -159,7 +159,7 @@ b, c = etapa(y, "5 · Per-pass class statistics", [
     "Median σ⁰ per class and pass (co-pol, cross-pol, difference); sd between dates per track",
     "Mangrove minus forest per pass removes the seasonal moisture shared by all covers",
 ], "proc", resumen="Median σ⁰ per class and pass; mangrove minus forest removes shared seasonal moisture", scripts="perfil_pacifico_24 · marea_vs_radar · cgsm_temporada")
-producto(c, "Per-pass tables", "Tables 2–3 · Figure 5\nCSV per sensor and site")
+producto(c, "Per-pass tables", "Tables 2–3 · Figure 4\nCSV per sensor and site")
 
 y = bajar(b)
 b, c = etapa(y, "6 · Hydrological test (reading rule fixed a priori)", [
@@ -168,7 +168,7 @@ b, c = etapa(y, "6 · Hydrological test (reading rule fixed a priori)", [
     "Three sensors in Málaga; NISAR D083 and Sentinel-1 in the CGSM; two-pass difference",
     "Result: L-band responds in HH and HH − HV at both sites; C-band does not",
 ], "test", resumen="Rule fixed a priori: high minus low forcing per track, Spearman ρ; L-band responds in HH, C-band does not", scripts="marea_vs_radar · s1_marea_malaga · alos2_marea_malaga · cgsm_temporada · cgsm_nivel_rio · figura_cgsm_optico")
-producto(c, "Test results", "Tables 4–9\nFigures 6, 8–9, 10–13")
+producto(c, "Test results", "Tables 4–9\nFigures 5, 7–8, 9–12")
 
 y = bajar(b)
 b, c = etapa(y, "7 · Robustness and limits", [
@@ -176,7 +176,7 @@ b, c = etapa(y, "7 · Robustness and limits", [
     "Temporal dependence: lag-1 autocorrelation, effective n (Pyper, Peterman), corrected p",
     "Independent recalculation of Table 4; Beta versus Provisional confound declared (CGSM)",
 ], "rob", resumen="Incidence terciles, temporal autocorrelation (effective n), independent recalculation, confounds declared", scripts="doble_rebote_incidencia · autocorrelacion_temporal · auditoria_calculos.md")
-producto(c, "Corrected statistics", "Table 10 · Figure 7\naudit note of 16 Sep 2026")
+producto(c, "Corrected statistics", "Table 10 · Figure 6\naudit note of 16 Sep 2026")
 
 y = bajar(b)
 b, c = etapa(y, "8 · Interpretation key by cover and mechanism", [
@@ -185,7 +185,7 @@ b, c = etapa(y, "8 · Interpretation key by cover and mechanism", [
     "Key tested on the 720 points of the 2025 sample: signatures, JM per pair, rule matrix",
     "Thresholds rewritten from the sample; rule decides 606 of 720, 68 % agreement (resubstitution)",
 ], "key", resumen="Signatures per cover in both bands; key tested on the 720 points of the 2025 sample and rewritten", scripts="figura_clave · nisar_flotante · clave_vs_muestra2025 · md_a_word")
-producto(c, "Key and report", "Tables 11 to 14 · Figure 14\nAvance_proyecto_radar.docx")
+producto(c, "Key and report", "Tables 11 to 14 · Figure 13\nAvance_proyecto_radar.docx")
 
 y = bajar(b, ls="--")
 b, c = etapa(y, "9 · Spatial map and optical check; pending items", [
@@ -193,7 +193,7 @@ b, c = etapa(y, "9 · Spatial map and optical check; pending items", [
     "Pending: INVEMAR level in the wetland; D083 passes of one version; test sample",
 ], "val", resumen="50 m map of high minus low river level; Dynamic World check; INVEMAR levels and test sample pending", scripts="mapa_doble_rebote · corroboracion_dw")
 Y9 = b
-producto(c, "Map and optical check", "Tables 15–16 · Figures 15–18\nmapa_doble_rebote_50m.tif", punteado=False)
+producto(c, "Map and optical check", "Tables 15–16 · Figures 14–17\nmapa_doble_rebote_50m.tif", punteado=False)
 
 # ------------------------------------------------------------------ software
 barras = [("Earth Engine Python API", Y1, Y4, "#b6d7a8"), ("earthaccess · h5py", Y1, Y2, "#f9cb9c"),
@@ -206,7 +206,7 @@ pie = ("Arrows into the left column: the product each stage writes to disk. Blue
        "(numbered ones in AVANCE TESIS/PUBLICACION_GEE/) that run the stage. Dashed arrow: stage with pending items."
        if DETALLE else
        "Arrows into the left column: the product each stage writes. Dashed arrow: stage 9 still has pending items (stage 8 too: an independent test sample). "
-       "The SAR processing chain of stages 1 to 3 is Figure 2; the scripts of each stage are listed in Annex A.")
+       "The SAR processing chain of stages 1 to 3 is Figure A1 (Annex A); the scripts of each stage are listed in Annex A.")
 ax.text(AX0, Y9 - 0.1, "\n".join(textwrap.wrap(pie, 150)), fontsize=5.6, color=GRIS, va="top", linespacing=1.25)
 fondo = Y9 - 0.38
 alto_total = YT + 0.05 - fondo

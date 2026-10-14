@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Cadena de procesamiento SAR del avance de radar, por sensor, en ingles (Figura 2).
+"""Cadena de procesamiento SAR del avance de radar, por sensor, en ingles (Figura A1 del anexo).
 
 Convencion de la semana 5 (De Luca et al. 2021; Yordanov y Brovelli 2021): flujo vertical
 por etapas, cada etapa abierta en tres columnas, una por sensor (NISAR, ALOS-2, Sentinel-1),

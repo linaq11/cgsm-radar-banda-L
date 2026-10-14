@@ -120,7 +120,7 @@ def main():
             ax.set_title("NISAR %s: %s" % (traza, tit), fontsize=10.5)
             ax.set_xlabel("UTM easting (km)"); ax.set_ylabel("northing (km)"); ax.tick_params(labelsize=8)
     cb = fig.colorbar(im, ax=axs, shrink=0.7, pad=0.01); cb.set_label("dB, median of the 6 highest-tide minus median of the 6 lowest-tide passes")
-    fig.suptitle("Bahía de Málaga, 50 m: backscatter change between high and low tide at pass time, per track; mangrove in full colour, dry forest control faded", fontsize=10.5)
+    fig.suptitle("Bahía de Málaga, 50 m: backscatter change between high and low tide at pass time, per track; mangrove in full colour, forest control faded", fontsize=10.5)
     fig.savefig(os.path.join(AQUI, "fig_mapa_doble_rebote_malaga.png"), dpi=160)
     print("figura: fig_mapa_doble_rebote_malaga.png")
 
