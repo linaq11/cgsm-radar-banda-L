@@ -82,7 +82,7 @@ La clave integra las firmas multifecha del canal copolar, del cruzado y de su di
 
 La separabilidad entre pares de clases se cuantificó con la distancia de Jeffries-Matusita, derivada de la distancia de Bhattacharyya bajo supuesto gaussiano (Richards, 2013). Los umbrales se definieron y se evaluaron sobre la misma muestra, de modo que el acierto corresponde a resustitución y no a una validación independiente.
 
-Los puntos se sortearon fuera de la reserva de validación de la tesis, con separación mínima de 200 m, y se etiquetaron a ciegas sobre imágenes de alta resolución de 2025, con revisión de los primeros 400 bajo un criterio escrito y marca de borde cuando la ventana de 3 × 3 píxeles mezcla clases (Figura 3).
+Los puntos se sortearon fuera de una reserva de validación definida de antemano, con separación mínima de 200 m, y se etiquetaron a ciegas sobre imágenes de alta resolución de 2025, con revisión de los primeros 400 bajo un criterio escrito y marca de borde cuando la ventana de 3 × 3 píxeles mezcla clases (Figura 3).
 
 ![Figura 3. Muestra de referencia de 2025 en la CGSM: 720 puntos distribuidos en seis clases, reserva de validación y bloques de 12 km del diseño de validación espacial.](fig_muestra_2025.png)
 
@@ -349,7 +349,7 @@ El estudio presenta cuatro limitaciones. En primer lugar, los datos son de polar
 
 En segundo lugar, la CGSM dispone de una serie NISAR todavía corta y repartida en dos bloques que coinciden con las colecciones Beta y Provisional. La corrección por dependencia temporal reduce el tamaño efectivo de muestra y la relación con el nivel deja de ser concluyente.
 
-En tercer lugar, los umbrales de la clave se definieron y se evaluaron con los mismos 720 puntos, de modo que el 68 % corresponde a resustitución y la estimación independiente será la muestra de validación de la tesis. Además, las etiquetas representan 2025 mientras que las observaciones SAR abarcan 2025 y 2026, y parte del desacuerdo puede corresponder a cambio real, sobre todo en la vegetación flotante.
+En tercer lugar, los umbrales de la clave se definieron y se evaluaron con los mismos 720 puntos, de modo que el 68 % corresponde a resustitución y la estimación independiente requiere una muestra de validación aparte. Además, las etiquetas representan 2025 mientras que las observaciones SAR abarcan 2025 y 2026, y parte del desacuerdo puede corresponder a cambio real, sobre todo en la vegetación flotante.
 
 Finalmente, la referencia presenta incertidumbre, medida como consistencia de una sola intérprete y no como exactitud. En una segunda interpretación a ciegas de 60 puntos bajo el criterio escrito, el acuerdo fue del 78 % [66 a 87 %], con kappa 0,72 (Figura 18). El manglar intacto y el degradado se repitieron en todos sus puntos, y la mayor inestabilidad se concentró en el humedal herbáceo (2 de 7), una de las clases que los sensores tampoco separan.
 
@@ -365,7 +365,7 @@ El trabajo futuro se concentra en obtener adquisiciones de NISAR de nivel alto y
 
 ## Disponibilidad de datos y código
 
-Los scripts de las nueve etapas, los resultados tabulados y las figuras del informe están en el repositorio público https://github.com/linaq11/cgsm-radar-banda-L, bajo licencia MIT. Las escenas NISAR, las series del IDEAM y del mareógrafo y los productos de Earth Engine se obtienen de sus fuentes con los scripts de la etapa 1; la muestra de referencia de 2025 pertenece a la tesis y no se distribuye con el informe.
+Los scripts de las nueve etapas, los resultados tabulados y las figuras del informe están en el repositorio público https://github.com/linaq11/cgsm-radar-banda-L, bajo licencia MIT. Las escenas NISAR, las series del IDEAM y del mareógrafo y los productos de Earth Engine se obtienen de sus fuentes con los scripts de la etapa 1; la muestra de referencia de 2025 es un producto propio en elaboración y no se distribuye con el informe.
 
 ## Referencias
 
@@ -477,7 +477,7 @@ Tabla B3. Relación entre la precipitación acumulada de 30 días y la retrodisp
 | Bosque | ρ 0,02, p 0,95 | ρ −0,34, p 0,29 | ρ 0,29, p 0,35 | +0,26 |
 | Manglar − bosque | ρ 0,58, p 0,05 | ρ 0,26, p 0,42 | ρ 0,39, p 0,22 | −0,44 |
 
-Tabla B4. Firmas multifecha de las coberturas de la CGSM en bandas C y L, en dB. La vegetación flotante se define por el polígono ZC-2025 delimitado sobre Sentinel-2 en el cubo de datos de la tesis.
+Tabla B4. Firmas multifecha de las coberturas de la CGSM en bandas C y L, en dB. La vegetación flotante se define por el polígono ZC-2025, delimitado sobre Sentinel-2.
 
 | Cobertura | VV | VH | VV − VH | HH | HV | HH − HV |
 |---|---|---|---|---|---|---|
