@@ -29,3 +29,7 @@ Productos (exportar_productos.py):
 Series del forzante (exportar_series.py):
 11_marea_malaga_ene2026.png: mareas_dimar_serie.csv (DIMAR Buenaventura 2026, respecto al nivel medio), enero de 2026, pasadas NISAR marcadas.
 12_nivel_rio_lluvia_cgsm.png: nivel_ideam_instantaneo.csv (Remolino, media diaria) oct-2025 a sep-2026 y p30 de cgsm_temporada_nisar.csv en cada pasada D083.
+
+Series del forzante (exportar_series.py):
+11_marea_malaga_ene2026.png: mareas_dimar_serie.csv (DIMAR Buenaventura 2026, respecto al nivel medio), enero de 2026, pasadas NISAR marcadas.
+12_nivel_rio_lluvia_cgsm.png: nivel_ideam_instantaneo.csv (Remolino, media diaria) oct-2025 a sep-2026 y p30 de cgsm_temporada_nisar.csv en cada pasada D083.

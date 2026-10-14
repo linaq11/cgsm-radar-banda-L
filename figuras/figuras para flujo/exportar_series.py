@@ -34,7 +34,7 @@ ax.set_ylabel("Marea (m, respecto al nivel medio)")
 ax.set_xlabel("Fecha")
 ax.set_xticks(pd.to_datetime(["2026-01-01", "2026-01-15", "2026-02-01"])); ax.set_xticklabels(["01-01", "15-01", "01-02"])
 ax.set_title("Bahía de Málaga: marea DIMAR, enero de 2026", fontsize=9.5)
-ax.legend(frameon=False, fontsize=8, loc="lower right")
+ax.legend(frameon=False, fontsize=8, loc="upper center", bbox_to_anchor=(0.5, -0.3), ncol=2)
 for s in ["top", "right"]:
     ax.spines[s].set_visible(False)
 fig.savefig(os.path.join(AQUI, "11_marea_malaga_ene2026.png"), dpi=250, bbox_inches="tight", facecolor="white")
