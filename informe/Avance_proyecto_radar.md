@@ -96,7 +96,7 @@ La separabilidad entre pares de clases se cuantificó con la distancia de Jeffri
 
 Los puntos se sortearon fuera de la reserva de validación de la tesis, con una separación mínima de 200 m, y se etiquetaron a ciegas sobre imágenes de alta resolución de 2025, con revisión de los primeros 400 bajo un criterio escrito y marca de borde cuando la ventana de 3 × 3 píxeles mezcla clases. La Figura 3 muestra su distribución por clase, la reserva de validación excluida del muestreo y los bloques de 12 km del diseño de validación espacial de la tesis.
 
-![Figura 3. Muestra de referencia de 2025 en la CGSM: 720 puntos por clase, reserva de validación y bloques de 12 km del diseño de validación espacial.](fig_muestra_2025.png)
+![Figura 3. Muestra de referencia de 2025 en la CGSM: 720 puntos distribuidos en seis clases, reserva de validación y bloques de 12 km del diseño de validación espacial.](fig_muestra_2025.png)
 
 ### 2.8 Cartografía de la señal y contraste óptico
 
