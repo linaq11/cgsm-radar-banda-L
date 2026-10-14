@@ -1,7 +1,6 @@
 Universidad Nacional de Colombia
 Maestría en Geomática
 Radar and LiDAR Remote Sensing, 2026-2
-Avance del proyecto
 Lina María Quintero Fonseca
 Respuesta de la banda L a la inundación bajo dosel de manglar: comparación con banda C en la Ciénaga Grande de Santa Marta y Bahía de Málaga
 

@@ -150,6 +150,11 @@ def main(md):
         i += 1
     if buf:
         tabla(d, buf)
+    # sin párrafo vacío al final: evita una última página en blanco tras la última tabla
+    cuerpo = d.element.body
+    ultimo = d.paragraphs[-1]
+    if not ultimo.text.strip():
+        cuerpo.remove(ultimo._p)
     d.save(salida)
     print("escrito:", salida)
 
