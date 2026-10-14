@@ -82,7 +82,7 @@ def tabla(d, filas):
     celdas = [[c.strip() for c in f.strip().strip("|").split("|")] for f in filas]
     celdas = [c for c in celdas if not all(re.fullmatch(r":?-+:?", x) for x in c)]
     enc, cuerpo = celdas[0], celdas[1:]
-    tam = 8.5 if len(enc) <= 5 else (7.5 if len(enc) <= 7 else 7)
+    tam = 7.5 if len(enc) <= 7 else 7
     t = d.add_table(rows=1, cols=len(enc))
     t.style = "Table Grid"; t.alignment = WD_TABLE_ALIGNMENT.CENTER; t.autofit = True
     margenes_celda(t)
