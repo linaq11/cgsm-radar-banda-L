@@ -145,9 +145,11 @@ La Figura 4 muestra los compuestos de las dos trayectorias y la diferencia espac
 
 ![Figura 4. Compuestos NISAR GCOV de Bahía de Málaga (R = HH, G = HV, B = HH − HV) para las trazas ascendente y descendente con dos días de diferencia, con el contorno del manglar de consenso, y la diferencia de HH entre trazas, que refleja la distinta geometría de incidencia.](fig_malaga_radar.png)
 
-### 3.2 Marea y retrodispersión del manglar en banda L (NISAR)
+### 3.2 Marea y retrodispersión del manglar en banda L: NISAR
 
-Tabla 4. Relación entre la altura de marea en la pasada y la retrodispersión, por traza (12 pasadas cada una): diferencia de medianas entre las pasadas por encima y por debajo de la mediana de marea, y correlación de Spearman con su valor p.
+La relación entre la marea y la retrodispersión fue consistente en las dos trayectorias de NISAR (Tabla 4). En HH, la señal del manglar relativa al bosque aumentó con la altura de marea tanto en A004 (ρ 0,83, p 0,001) como en D087 (ρ 0,74, p 0,006). La diferencia entre los grupos de marea alta y baja fue de +0,57 dB en las dos trayectorias. HH − HV mostró el mismo sentido de respuesta, mientras que HV no presentó asociación con la marea.
+
+Tabla 4. Relación entre la altura de marea en la pasada y la retrodispersión de NISAR, por trayectoria (12 pasadas cada una): diferencia de medianas entre las pasadas por encima y por debajo de la mediana de marea, correlación de Spearman y su valor p.
 
 | Traza | Variable | Manglar: alta − baja (dB), ρ, p | Bosque: alta − baja (dB), ρ, p | Manglar − bosque: alta − baja (dB), ρ, p |
 |---|---|---|---|---|
@@ -158,27 +160,21 @@ Tabla 4. Relación entre la altura de marea en la pasada y la retrodispersión, 
 | D087 | HV | −1,26, −0,41, 0,18 | −1,30, −0,50, 0,10 | +0,07, −0,06, 0,85 |
 | D087 | HH−HV | +0,88, 0,76, 0,005 | +0,44, 0,13, 0,68 | +0,61, 0,60, 0,04 |
 
-En las dos trazas, de forma independiente, la señal del manglar relativa al bosque sube con la marea en HH (ρ de 0,83 y 0,74, p de 0,001 y 0,006) y en HH−HV (ρ de 0,83 y 0,60), y no en HV (ρ de 0,11 y −0,06). El bosque no responde a la marea en ninguna variable. Este patrón es compatible con el doble rebote entre troncos y agua, descrito para bosques inundados desde los primeros trabajos con radar de banda L (Richards et al., 1987; Hess et al., 1990): aumenta la polarización HH y no la cruzada.
+El bosque no mostró asociación con la marea en ninguna de las variables. La respuesta se concentró, por lo tanto, en el canal copolar y en HH − HV, y no en HV. Este patrón es compatible con un aumento de la contribución de doble rebote en el manglar inundado (Richards et al., 1987; Hess et al., 1990).
 
-El tamaño del efecto es pequeño, cerca de 0,6 dB entre marea alta y baja, del orden de la variación entre fechas dentro de una traza. Esto explica por qué no se veía sin la marea. Con doce pasadas por traza y una marea tomada de la tabla oficial en 2026 y predicha en 2025, el resultado se reporta como una dirección con alta consistencia entre trazas, no como una medida definitiva. Esa dirección se somete a continuación a la estratificación por ángulo de incidencia y a la comparación con Sentinel-1 y ALOS-2 sobre el mismo sitio.
+El efecto fue pequeño, cercano a 0,6 dB en HH, y del mismo orden que la variabilidad entre adquisiciones dentro de una trayectoria. Sin embargo, su repetición independiente en A004 y D087 permite distinguirlo de una diferencia de geometría de observación (Figura 5).
 
-Una auditoría independiente de los cálculos (16 de septiembre, `auditoria_calculos.md`) rederivó esta tabla desde los datos y encontró que la versión anterior se había calculado con la predicción propia en las 24 pasadas. Los valores de esta versión corresponden a la serie mixta, y los seis estadísticos que sostienen la lectura no cambian.
+![Figura 5. Retrodispersión del manglar y del bosque frente a la altura de marea asignada a cada pasada de NISAR, por traza. El HH y el HH − HV del manglar relativos al bosque suben con la marea; el HV no responde en ninguna de las dos clases.](fig_marea_vs_radar.png)
 
-![Figura 5. Retrodispersión del manglar y del bosque frente a la altura de marea predicha a la hora de cada pasada de NISAR, por traza. El HH y el HH − HV del manglar relativos al bosque suben con la marea; el HV no responde en ninguna de las dos clases.](fig_marea_vs_radar.png)
+La estratificación por ángulo de incidencia confirmó el sentido de la respuesta, aunque el rango angular disponible fue reducido, de 42° a 43° en A004 y de 34° a 37° en D087. La diferencia manglar menos bosque aumentó entre marea baja y alta en HH en los seis terciles de incidencia (+0,27 a +0,77 dB, ρ de 0,48 a 0,97), con p menor que 0,05 en cinco de ellos, y también fue positiva en HH − HV. HV no mostró asociación en ningún tercil (Figura 6).
 
-La estratificación por ángulo de incidencia se hizo con unos 1.200 puntos de manglar por traza (1.232 en la ascendente y 1.212 en la descendente) y otros 1.200 de bosque divididos en tercios de incidencia dentro de cada traza. El primer hallazgo es una limitación del sitio. La caja de Bahía de Málaga ocupa una fracción tan pequeña de la franja de NISAR que la incidencia casi no varía dentro de ella, de 42° a 43° en la traza ascendente y de 34° a 37° en la descendente. Por lo tanto, la estratificación aporta poco contraste de incidencia.
-
-Aun así, la respuesta a la marea del manglar relativa al bosque es positiva en HH en los seis tercios (entre +0,27 y +0,77 dB de marea alta a baja, ρ de 0,48 a 0,97, p menor que 0,05 en cinco de seis) y en HH−HV en los seis. En cambio, HV no responde en ninguno (ρ entre −0,34 y 0,37, todos con p mayor que 0,2).
-
-En la traza descendente el tercio de menor incidencia responde más que el de mayor, en la dirección que predice el doble rebote. Sin embargo, con dos grados de diferencia esa comparación no se sostiene como prueba. Así, el resultado no cambia de signo con la geometría dentro de cada traza. No obstante, establecer la dependencia con la incidencia exige un sitio más ancho en rango o trazas con la misma hora de paso (Figura 6).
+Debido al escaso rango de incidencia dentro de cada trayectoria, este análisis permite comprobar que la respuesta no cambia de signo con la geometría local, pero no establecer una relación entre la magnitud del efecto y el ángulo de incidencia.
 
 ![Figura 6. Prueba de doble rebote por tercil de ángulo de incidencia dentro de cada traza de NISAR: cambio de la retrodispersión manglar menos bosque entre marea alta y baja, con la correlación de Spearman y su valor p. HH y HH − HV responden en todos los terciles; HV en ninguno.](fig_doble_rebote_incidencia.png)
 
-### 3.3 La misma prueba con Sentinel-1
+### 3.3 Comparación con Sentinel-1 en banda C
 
-Con el fin de establecer si la banda C muestra la misma respuesta, se repitió la prueba con todas las pasadas de Sentinel-1 GRD que cubren la caja entre octubre de 2025 y septiembre de 2026. En total son 89 pasadas con cobertura completa, en dos órbitas relativas, la 48 ascendente a las 18:21 hora local cada doce días (26 pasadas) y la 142 descendente a las 05:50 cada cinco o seis días (63 pasadas). La prueba se hizo sobre los mismos 1.600 puntos y con la marea predicha a la hora de cada pasada.
-
-Veintitrés de esas pasadas caen a menos de tres días de una pasada de NISAR. La Tabla 5 resume el resultado con la misma regla.
+La misma prueba se aplicó a las 89 adquisiciones de Sentinel-1 con cobertura completa de Bahía de Málaga entre octubre de 2025 y septiembre de 2026, 26 de la órbita ascendente 48 y 63 de la órbita descendente 142, con los mismos puntos de muestreo y la altura de marea de cada adquisición. A diferencia de NISAR, la señal del manglar relativa al bosque no mostró relación con la marea en VV, VH ni VV − VH en ninguna de las dos órbitas (Tabla 5, Figura 7).
 
 Tabla 5. Sentinel-1: relación entre la altura de marea en la pasada y la retrodispersión del manglar relativa al bosque, por órbita (diferencia de medianas alta − baja, ρ de Spearman y valor p).
 
@@ -187,17 +183,17 @@ Tabla 5. Sentinel-1: relación entre la altura de marea en la pasada y la retrod
 | 48 ascendente (18:21, 26) | −0,07 dB, ρ −0,18, p 0,37 | −0,11 dB, ρ −0,30, p 0,14 | +0,16 dB, ρ 0,23, p 0,26 |
 | 142 descendente (05:50, 63) | −0,07 dB, ρ −0,13, p 0,32 | 0,00 dB, ρ −0,08, p 0,55 | −0,15 dB, ρ −0,15, p 0,24 |
 
-En banda C no hay relación entre la marea y la señal del manglar relativa al bosque en ninguna órbita ni polarización (Figura 7), con muestras de 26 y 63 pasadas, mayores que las de NISAR. Además, en el copolar los signos son contrarios a los de la banda L. En VV − VH la órbita 48 da +0,16 dB sin significancia. La única correlación con valor p bajo es la del manglar solo en VV de la órbita 142, negativa (ρ −0,39, p 0,002). Esta correlación desaparece al restar el bosque y, en todo caso, va en la dirección opuesta al doble rebote.
+Aunque el manglar analizado de forma aislada presentó en VV de la órbita 142 una correlación negativa con la marea (ρ −0,39, p 0,002), esa asociación desapareció al descontar el bosque y además tuvo signo contrario al observado en HH de banda L.
 
-Por lo tanto, sobre el mismo sitio, los mismos puntos y la misma marea, la banda L responde a la marea en el manglar y la banda C no. La limitación declarada en la propuesta se mantiene. Puesto que Sentinel-1 no tiene HH, parte de la diferencia puede deberse a la polarización y no solo a la longitud de onda.
+Así, sobre el mismo sitio y con la misma referencia hidrológica, NISAR mostró una respuesta positiva del manglar relativo al bosque en el canal copolar, mientras que Sentinel-1 no presentó una respuesta equivalente. Esta comparación no separa del todo el efecto de la longitud de onda del de la polarización, puesto que Sentinel-1 observa VV y NISAR HH.
 
-![Figura 7. Retrodispersión de Sentinel-1 en banda C del manglar y del bosque frente a la altura de marea predicha, por órbita relativa. A diferencia del HH de NISAR, ninguna polarización sube con la marea en el manglar.](fig_s1_marea.png)
+![Figura 7. Retrodispersión de Sentinel-1 en banda C del manglar y del bosque frente a la altura de marea asignada a cada pasada, por órbita relativa. A diferencia del HH de NISAR, ninguna polarización sube con la marea en el manglar.](fig_s1_marea.png)
 
-### 3.4 La misma prueba con ALOS-2
+### 3.4 Corroboración con ALOS-2 en banda L
 
-Puesto que Sentinel-1 no tiene HH, se repitió la prueba con ALOS-2 PALSAR-2 ScanSAR, el otro sensor de banda L, que sí observa en HH y HV. Se reunieron 72 escenas con ambas polarizaciones entre enero de 2025 y septiembre de 2026, mosaicadas en 57 pasadas, de las cuales 39 cubren la caja completa. De estas, 36 están en dos trayectorias descendentes que pasan al mediodía (path 139, 21 pasadas a las 11:53, y path 140, 15 pasadas a las 12:00) y 3 en una ascendente nocturna (path 47) que no se evalúa.
+Para comprobar si la respuesta observada con NISAR se reproducía con otro sensor de banda L, se analizaron 72 escenas de ALOS-2 PALSAR-2 ScanSAR adquiridas entre enero de 2025 y septiembre de 2026, agrupadas en 57 pasadas. Treinta y nueve cubrieron por completo el área de estudio, y el análisis se concentró en las trayectorias descendentes 139 (21 pasadas) y 140 (15 pasadas), ambas adquiridas alrededor del mediodía.
 
-La prueba se hizo sobre los mismos 1.600 puntos y con la marea a la hora de cada pasada, tomada de la predicción armónica extendida a 2025. La Tabla 6 resume el resultado con la misma regla.
+ALOS-2 reprodujo el patrón observado con NISAR (Tabla 6, Figura 8). La señal HH del manglar relativa al bosque aumentó con la marea en las dos trayectorias, con ρ 0,65 (p 0,002) en el path 139 y ρ 0,72 (p 0,002) en el path 140. HH − HV presentó igualmente asociaciones positivas, mientras que HV no mostró el mismo comportamiento.
 
 Tabla 6. ALOS-2: relación entre la altura de marea en la pasada y la retrodispersión del manglar relativa al bosque, por trayectoria (diferencia de medianas alta − baja, ρ de Spearman y valor p).
 
@@ -206,11 +202,9 @@ Tabla 6. ALOS-2: relación entre la altura de marea en la pasada y la retrodispe
 | 139 descendente (11:53, 21) | +0,25 dB, ρ 0,65, p 0,002 | +0,06 dB, ρ 0,05, p 0,81 | +0,13 dB, ρ 0,47, p 0,03 |
 | 140 descendente (12:00, 15) | +0,49 dB, ρ 0,72, p 0,002 | −0,16 dB, ρ −0,45, p 0,10 | +0,91 dB, ρ 0,79, p < 0,001 |
 
-ALOS-2 reproduce el resultado de NISAR (Figura 8). En las dos trayectorias la señal del manglar relativa al bosque sube con la marea en HH y en HH−HV, y no en HV, y el bosque solo no responde en HH (ρ −0,04 y −0,11). En el path 139 el HV de las dos coberturas, bosque incluido, baja con la marea (ρ −0,66 y −0,62). Esto muestra que en pasadas de mediodía la altura de marea queda ligada a la estación y arrastra el efecto estacional de HV. La resta del bosque elimina ese sesgo, y por eso es el estadístico que se reporta.
+En el path 139, HV disminuyó con la marea tanto en el manglar como en el bosque (ρ −0,66 y −0,62), lo que indica una variación compartida por las dos coberturas, ligada a la estación en pasadas de mediodía. Esa señal se redujo al usar la diferencia manglar menos bosque.
 
-Con tres sensores sobre el mismo sitio, los mismos puntos y la misma marea, el balance es el siguiente. En NISAR HH, ρ es de 0,83 y 0,74, en ALOS-2 HH es de 0,65 y 0,72 y en Sentinel-1 VV es de −0,18 y −0,13. Dos sensores de banda L con geometría y hora de paso distintas coinciden, y en ambos la respuesta está en la polarización paralela y no en la cruzada, que es la firma del doble rebote.
-
-La comparación sigue sin separar del todo polarización de longitud de onda, pues la banda C se observa en VV y la banda L en HH. Aun así, la coherencia entre los dos sensores de banda L y la ausencia de respuesta en HV refuerzan la lectura física.
+La comparación entre sensores muestra un patrón consistente en el canal copolar de banda L: NISAR presentó ρ 0,83 y 0,74 y ALOS-2 ρ 0,65 y 0,72, mientras que Sentinel-1 presentó ρ −0,18 y −0,13 en VV. En los dos sensores de banda L, la asociación positiva se concentró en HH y HH − HV y estuvo ausente en HV.
 
 ![Figura 8. Retrodispersión de ALOS-2 PALSAR-2 en banda L del manglar y del bosque frente a la altura de marea a la hora de cada pasada, por trayectoria. Como en NISAR, el HH y el HH − HV del manglar suben con la marea y el bosque no.](fig_alos2_marea.png)
 
