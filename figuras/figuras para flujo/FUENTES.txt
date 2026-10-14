@@ -25,3 +25,7 @@ Productos (exportar_productos.py):
 08_mapa_senal_50m_HH_viridis.png: NISAR D083, mediana de las 6 pasadas de nivel alto (29-oct-2025 a 9-ene-2026), σ⁰ HH a 50 m, viridis −25 a −5 dB.
 09_mapa_cambio_50m_dHH_viridis.png: banda 1 de mapa_doble_rebote_50m.tif, ΔHH entre las 6 pasadas de nivel alto y las 8 de nivel bajo, viridis −2 a +2 dB.
 10_dynamic_world_clases.png: GOOGLE/DYNAMICWORLD/V1, clase modal de 1-oct-2025 a 31-ene-2026 (ventana de nivel alto), agrupada en agua, vegetación inundada, vegetación terrestre (árboles, pasto, arbustos, cultivos) y otras (construido, suelo desnudo).
+
+Series del forzante (exportar_series.py):
+11_marea_malaga_ene2026.png: mareas_dimar_serie.csv (DIMAR Buenaventura 2026, respecto al nivel medio), enero de 2026, pasadas NISAR marcadas.
+12_nivel_rio_lluvia_cgsm.png: nivel_ideam_instantaneo.csv (Remolino, media diaria) oct-2025 a sep-2026 y p30 de cgsm_temporada_nisar.csv en cada pasada D083.
