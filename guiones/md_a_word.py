@@ -69,7 +69,7 @@ def ancho_figura(ruta):
     return min(ancho, 4.6 / aspecto)
 
 
-def margenes_celda(t, cm=0.08):
+def margenes_celda(t, cm=0.05):
     pr = t._tbl.tblPr
     m = OxmlElement("w:tblCellMar")
     for lado in ("left", "right"):
@@ -81,7 +81,7 @@ def tabla(d, filas):
     celdas = [[c.strip() for c in f.strip().strip("|").split("|")] for f in filas]
     celdas = [c for c in celdas if not all(re.fullmatch(r":?-+:?", x) for x in c)]
     enc, cuerpo = celdas[0], celdas[1:]
-    tam = 9 if len(enc) <= 5 else (8 if len(enc) <= 7 else 7.5)
+    tam = 8.5 if len(enc) <= 5 else (7.5 if len(enc) <= 7 else 7)
     t = d.add_table(rows=1, cols=len(enc))
     t.style = "Table Grid"; t.alignment = WD_TABLE_ALIGNMENT.CENTER; t.autofit = True
     margenes_celda(t)
@@ -96,7 +96,8 @@ def tabla(d, filas):
             nueva[k].text = ""; corridas(nueva[k].paragraphs[0], c, tam)
             nueva[k].paragraphs[0].paragraph_format.space_after = Pt(0)
             nueva[k].paragraphs[0].paragraph_format.line_spacing = 1.0
-    d.add_paragraph().paragraph_format.space_after = Pt(2)
+    fin = d.add_paragraph(); fin.paragraph_format.space_after = Pt(0); fin.paragraph_format.space_before = Pt(0)
+    for r in fin.runs: r.font.size = Pt(4)
 
 
 def main(md):
@@ -137,7 +138,7 @@ def main(md):
             p.paragraph_format.keep_with_next = True; p.paragraph_format.space_after = Pt(2)
             parrafo(d, pie, tam=9.5, cursiva=True, despues=10)
         elif t.startswith("Tabla "):
-            p = parrafo(d, t, tam=9.5, cursiva=True, justificar=False, despues=3, centrar=True); p.paragraph_format.keep_with_next = True
+            p = parrafo(d, t, tam=9, cursiva=True, justificar=False, despues=2, centrar=True); p.paragraph_format.keep_with_next = True
         elif t:
             parrafo(d, t)
         i += 1
