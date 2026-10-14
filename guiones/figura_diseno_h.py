@@ -13,11 +13,11 @@ from matplotlib.patches import FancyBboxPatch, Rectangle
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 F = os.path.join(AQUI, "figuras para flujo")
-plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 7})
+plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 9})
 
-fig = plt.figure(figsize=(16, 7.2))
-gs = fig.add_gridspec(1, 6, left=0.006, right=0.994, top=0.985, bottom=0.01, wspace=0.06, width_ratios=[1.05, 1, 1.05, 1.15, 1, 1.2])
-P = [fig.add_subplot(gs[0, i]) for i in range(6)]
+fig = plt.figure(figsize=(11.5, 12.5))
+gs = fig.add_gridspec(2, 3, left=0.008, right=0.992, top=0.99, bottom=0.008, wspace=0.07, hspace=0.05)
+P = [fig.add_subplot(gs[i // 3, i % 3]) for i in range(6)]
 
 
 def panel(ax, n, titulo):
@@ -25,8 +25,8 @@ def panel(ax, n, titulo):
     ax.add_patch(FancyBboxPatch((0, 0), 1, 1, boxstyle="round,pad=0,rounding_size=0.02", fc="#fafafa", ec="#555555", lw=0.9, transform=ax.transAxes))
     ax.add_patch(Rectangle((0, 0.92), 1, 0.08, fc="#e6e6e6", ec="none", transform=ax.transAxes))
     ax.add_patch(plt.Circle((0.09, 0.96), 0.035, color="#333333", transform=ax.transAxes))
-    ax.text(0.09, 0.96, str(n), color="white", ha="center", va="center", fontsize=9, fontweight="bold", transform=ax.transAxes)
-    ax.text(0.57, 0.96, titulo, ha="center", va="center", fontsize=9, fontweight="bold", transform=ax.transAxes, linespacing=1.1)
+    ax.text(0.09, 0.96, str(n), color="white", ha="center", va="center", fontsize=10, fontweight="bold", transform=ax.transAxes)
+    ax.text(0.57, 0.96, titulo, ha="center", va="center", fontsize=11, fontweight="bold", transform=ax.transAxes, linespacing=1.1)
 
 
 def imagen(ax, ruta, x, y, w, h):
@@ -39,7 +39,7 @@ def imagen(ax, ruta, x, y, w, h):
     return a
 
 
-def caja(ax, y, h, texto, fs=7.2):
+def caja(ax, y, h, texto, fs=8.6):
     ax.add_patch(FancyBboxPatch((0.07, y), 0.86, h, boxstyle="round,pad=0.01,rounding_size=0.02", fc="#f0f0f0", ec="#777777", lw=0.6, transform=ax.transAxes))
     ax.text(0.5, y + h / 2, texto, ha="center", va="center", fontsize=fs, transform=ax.transAxes, linespacing=1.3)
 
@@ -53,17 +53,17 @@ for i, t in enumerate(titulos):
     panel(P[i], i + 1, t)
 
 # 1. datos de entrada
-P[0].text(0.07, 0.885, "Imágenes SAR", fontweight="bold", fontsize=8, transform=P[0].transAxes)
+P[0].text(0.07, 0.895, "Imágenes SAR", fontweight="bold", fontsize=9.5, transform=P[0].transAxes)
 for k, (f, lab) in enumerate([("01_NISAR_HH_D083_2025-10-29.png", "NISAR\nBanda L (HH, HV)\nD083, 29-oct-2025"),
                               ("03_ALOS2_HH_ScanSAR_2025-12-02.png", "ALOS-2 PALSAR-2\nBanda L (HH, HV)\nScanSAR, 2-dic-2025"),
                               ("02_Sentinel1_VV_D142_2026-01-09.png", "Sentinel-1\nBanda C (VV, VH)\nórbita 142, 9-ene-2026")]):
     y = 0.70 - k * 0.19
-    imagen(P[0], f, 0.03, y - 0.01, 0.50, 0.19)
-    P[0].text(0.58, y + 0.085, lab, va="center", fontsize=7, transform=P[0].transAxes, linespacing=1.3)
+    imagen(P[0], f, 0.03, y, 0.50, 0.17)
+    P[0].text(0.58, y + 0.085, lab, va="center", fontsize=8.6, transform=P[0].transAxes, linespacing=1.3)
 P[0].plot([0.07, 0.93], [0.29, 0.29], color="#999999", lw=0.6, ls="--", transform=P[0].transAxes)
-P[0].text(0.07, 0.25, "Datos auxiliares", fontweight="bold", fontsize=8, transform=P[0].transAxes)
+P[0].text(0.07, 0.25, "Datos auxiliares", fontweight="bold", fontsize=9.5, transform=P[0].transAxes)
 P[0].text(0.09, 0.21, "• Coberturas globales\n   (WorldCover 2021, GMW)\n• Forzantes hidrológicos\n   (marea, lluvia, nivel del río)\n• Muestra de referencia 2025\n• Dynamic World",
-          va="top", fontsize=7, transform=P[0].transAxes, linespacing=1.45)
+          va="top", fontsize=8.6, transform=P[0].transAxes, linespacing=1.45)
 
 # 2. preprocesamiento
 ys = [0.74, 0.57, 0.40, 0.23, 0.06]
@@ -79,9 +79,9 @@ for k, (f, lab) in enumerate([("04_agua_abierta_swir_S2_2025.png", "Agua abierta
                               ("06_manglar_swir_S2_2025.png", "Manglar"), ("07_bosque_control_swir_S2_2025.png", "Bosque no inundable\n(control)")]):
     y = 0.715 - k * 0.195
     imagen(P[2], f, 0.05, y - 0.005, 0.44, 0.19)
-    P[2].text(0.50, y + 0.09, lab, va="center", fontsize=7.5, transform=P[2].transAxes, linespacing=1.3)
+    P[2].text(0.50, y + 0.09, lab, va="center", fontsize=8.6, transform=P[2].transAxes, linespacing=1.3)
 P[2].plot([0.07, 0.93], [0.115, 0.115], color="#999999", lw=0.6, ls="--", transform=P[2].transAxes)
-P[2].text(0.5, 0.06, "Sentinel-2 SWIR 2025, 1,5 km de lado.\n400 puntos por clase, compartidos\nentre sensores", ha="center", va="center", fontsize=6.8, transform=P[2].transAxes, linespacing=1.3)
+P[2].text(0.5, 0.06, "Sentinel-2 SWIR 2025, 1,5 km de lado.\n400 puntos por clase, compartidos\nentre sensores", ha="center", va="center", fontsize=8.2, transform=P[2].transAxes, linespacing=1.3)
 
 # 4. forzante
 imagen(P[3], "11_marea_malaga_ene2026.png", 0.03, 0.47, 0.94, 0.44)
@@ -101,11 +101,11 @@ for k, (f, lab) in enumerate([("09_mapa_cambio_50m_dHH_viridis.png", "Cambio ΔH
                               ("08_mapa_senal_50m_HH_viridis.png", "Mapa de señal a 50 m (σ⁰ HH, dB)"),
                               ("10_dynamic_world_clases.png", "Contraste con Dynamic World")]):
     y = 0.63 - k * 0.30
-    P[5].text(0.5, y + 0.265, lab, ha="center", va="center", fontsize=7.2, fontweight="bold", transform=P[5].transAxes)
+    P[5].text(0.5, y + 0.265, lab, ha="center", va="center", fontsize=8.6, fontweight="bold", transform=P[5].transAxes)
     imagen(P[5], f, 0.05, y, 0.90, 0.25)
 
-for i in range(1, 6):
-    P[i].annotate("", xy=(0.0, 0.5), xytext=(-0.07, 0.5), xycoords=P[i].transAxes, arrowprops=dict(arrowstyle="-|>", lw=1.6, color="#333333"))
+for i in (1, 2, 4, 5):
+    P[i].annotate("", xy=(0.0, 0.5), xytext=(-0.08, 0.5), xycoords=P[i].transAxes, arrowprops=dict(arrowstyle="-|>", lw=1.6, color="#333333"))
 out = os.path.join(AQUI, "fig_diseno_estudio_h.png")
 fig.savefig(out, dpi=220)
 print("ok", out)
