@@ -20,3 +20,8 @@ Versiones en falso color (exportar_falso_color.py):
 06_manglar_swir_S2_2025.png: Sentinel-2 mediana 2025, bandas B11-B8-B4, 1,5 km centrado en -74.4683, 10.7144.
 07_bosque_control_infrarrojo_S2_2025.png: Sentinel-2 mediana 2025, bandas B8-B4-B3, 1,5 km centrado en -74.1997, 11.0740.
 07_bosque_control_swir_S2_2025.png: Sentinel-2 mediana 2025, bandas B11-B8-B4, 1,5 km centrado en -74.1997, 11.0740.
+
+Productos (exportar_productos.py):
+08_mapa_senal_50m_HH_viridis.png: NISAR D083, mediana de las 6 pasadas de nivel alto (29-oct-2025 a 9-ene-2026), σ⁰ HH a 50 m, viridis −25 a −5 dB.
+09_mapa_cambio_50m_dHH_viridis.png: banda 1 de mapa_doble_rebote_50m.tif, ΔHH entre las 6 pasadas de nivel alto y las 8 de nivel bajo, viridis −2 a +2 dB.
+10_dynamic_world_clases.png: GOOGLE/DYNAMICWORLD/V1, clase modal de 1-oct-2025 a 31-ene-2026 (ventana de nivel alto), agrupada en agua, vegetación inundada, vegetación terrestre (árboles, pasto, arbustos, cultivos) y otras (construido, suelo desnudo).
