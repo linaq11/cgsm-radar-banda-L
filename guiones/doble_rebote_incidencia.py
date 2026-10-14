@@ -1,16 +1,29 @@
 # -*- coding: utf-8 -*-
-"""Paso 3 completo: la prueba del doble rebote estratificada por angulo de incidencia.
+"""Análisis de robustez de la respuesta hidrológica de NISAR frente al ángulo de incidencia en
+Bahía de Málaga.
 
-REGLA (escrita antes de mirar). Si el aumento de HH del manglar con la marea es doble
-rebote tronco-agua, debe ser mayor donde la incidencia es menor (el haz llega mas
-vertical y el rebote esquina es mas eficiente) y no depender de la incidencia en el
-bosque. Dentro de cada traza se dividen los puntos de manglar en tres tercios de
-incidencia y se repite, para cada tercio, la correlacion de Spearman entre la marea
-de la pasada y la mediana de HH, HV y HH-HV del tercio, restando fecha a fecha la
-mediana del bosque del mismo tercio.
+PROPÓSITO
+Comprobar si la respuesta del manglar relativa al bosque se mantiene al estratificar las
+observaciones por ángulo de incidencia.
 
-Lee los 24 recortes NISAR y mareas_buenaventura.csv. Escribe doble_rebote_incidencia.csv
-y fig_doble_rebote_incidencia.png.
+MÉTODO
+Dentro de cada trayectoria, los puntos de manglar se dividen en tres terciles de incidencia y los
+mismos límites angulares se aplican al bosque de referencia. Para cada tercil se calcula la
+correlación de Spearman entre la altura de marea y la mediana de HH, HV y HH-HV, y además la
+diferencia manglar - bosque de cada fecha. El análisis evalúa la estabilidad de la respuesta
+frente a la geometría local. Por el rango angular reducido dentro de cada trayectoria, no se usa
+para establecer una relación general entre la magnitud del efecto y el ángulo de incidencia.
+
+ENTRADAS
+- 24 recortes NISAR de Bahía de Málaga
+- mareas_buenaventura.csv
+
+SALIDAS
+- doble_rebote_incidencia.csv
+- fig_doble_rebote_incidencia.png
+
+USO
+    python doble_rebote_incidencia.py
 """
 import glob
 import os

@@ -1,28 +1,33 @@
 # -*- coding: utf-8 -*-
-r"""La clave de interpretacion del avance de radar, sometida a la muestra de referencia 2025.
+"""Evalúa la clave de interpretación SAR con la muestra de referencia de 2025.
 
-PARA QUE. La seccion "Clave de interpretacion por cobertura y mecanismo" del informe se construyo
-con 400 puntos por clase de los productos globales (WorldCover 2021 y GMW 2020). La muestra 2025
-(720 puntos, clase_final: revisada bajo el criterio v1 en los ids 1-400 y primera pasada en 401-720)
-es la referencia propia que la clave no tenia. Aqui se mide, sobre esos 720 puntos y sin reajustar
-ningun umbral:
-  1. la firma por clase en las dos bandas (mediana entre pasadas del copolar, del cruzado y de su
-     diferencia), comparable con la Tabla 10 del informe;
-  2. la separabilidad por pares (Jeffries-Matusita) con banda C sola, banda L sola y las dos;
-  3. la regla de lectura de cinco pasos, aplicada punto a punto como arbol de decision con los
-     umbrales tal como estan escritos en el informe, contra clase_final (matriz de confusion y
-     exactitud por clase). El paso 4 (manglar frente a bosque seco por respuesta hidrologica) y el
-     paso 5 (firma de inundacion) son de series temporales, no de un pixel: no se aplican aqui.
+PROPÓSITO
+Contrastar las firmas y los umbrales derivados inicialmente de las coberturas de referencia con
+una muestra propia de 720 puntos distribuidos en seis clases.
 
-DATOS. Sentinel-1 GRD IW, orbita descendente 142, oct-2025 a sep-2026, pasadas con cobertura >= 90 %
-del AOI, VV y VH en dB tal como los entrega Earth Engine, valor del pixel de 10 m en cada punto y
-mediana entre pasadas. NISAR L2 GCOV traza descendente 083, los recortes NISAR_AOI_*.h5 del disco
-(gamma0 RTC -> sigma0 con rtcGammaToSigmaFactor, dB), media 3x3 y mediana entre pasadas; las
-cinco escenas de la traza ascendente 007 se excluyen como en el informe.
+ANÁLISIS
+1. Firmas multifecha por clase en bandas C y L: copolar, cruzada y diferencia copolar - cruzada.
+2. Separabilidad de Jeffries-Matusita entre pares de clases con banda C, banda L y las dos.
+3. Aplicación punto a punto de las cuatro decisiones estáticas de la clave y comparación con la
+   clase de referencia: agua abierta (VV < -17 dB y VH < -25 dB); superficie oscura con
+   vegetación o borde (VV < -12 dB), compatible con vegetación flotante si VV-VH >= 6,5 dB y sin
+   decisión en caso contrario; dosel cerrado (VV >= -12 dB y HH-HV < 7,3 dB); dosel abierto o
+   herbáceo (VV >= -12 dB y HH-HV >= 7,3 dB). La respuesta hidrológica que distingue manglar de
+   bosque no inundable es de series temporales y no se evalúa a escala de punto.
 
-USO: python clave_vs_muestra2025.py [s1] [nisar] [clave]
-     sin argumentos corre todo. Salidas: clave_muestra2025_puntos.csv (valores por punto),
-     clave_muestra2025_firmas.csv, clave_muestra2025_jm.csv, clave_muestra2025_regla.csv
+IMPORTANTE
+Los umbrales se definen y se evalúan con la misma muestra de 720 puntos, de modo que las métricas
+corresponden a resustitución y no a validación independiente.
+
+DATOS
+Sentinel-1 GRD, órbita descendente 142, y NISAR L2 GCOV, trayectoria descendente D083, en el
+periodo del informe. Valor del píxel de 10 m en cada punto (media 3 x 3 en NISAR) y mediana
+entre pasadas.
+
+USO
+    python clave_vs_muestra2025.py [s1] [nisar] [clave]
+Sin argumentos ejecuta el flujo completo. Salidas: clave_muestra2025_puntos.csv,
+clave_muestra2025_firmas.csv, clave_muestra2025_jm.csv y clave_muestra2025_regla.csv.
 """
 import glob
 import os
@@ -145,23 +150,22 @@ def jm(a, b):
 
 
 def regla(r):
-    """Pasos 1 a 3 de la regla de lectura del informe, con sus umbrales literales.
-    1. copolar < -17 dB y cruzado < -25 dB: agua abierta (se evalua en banda C, VV/VH).
-    2. VV entre -17 y -12 con VV-VH cerca de 7,5 dB (se toma 6,5 a 8,5): vegetacion sobre lamina.
-    3. VV > -11: dosel o vegetacion densa; la banda L desempata: HH-HV cerca de 8 (>= 7,25) es
-       humedal herbaceo; cerca de 6,5 (< 7,25) es manglar o bosque. Sin banda L: 'dosel'.
-    Lo que no cae en ninguna franja queda 'sin regla'."""
+    """Las cuatro decisiones estáticas de la clave del informe, con sus umbrales literales.
+    1. agua abierta: VV < -17 dB y VH < -25 dB;
+    2. superficie oscura con vegetación o borde: VV < -12 dB sin cumplir la anterior; con
+       VV-VH >= 6,5 dB es compatible con vegetación flotante, en caso contrario no hay decisión;
+    3. dosel cerrado: VV >= -12 dB y HH-HV < 7,3 dB (compatible sobre todo con manglar intacto);
+    4. dosel abierto o herbáceo: VV >= -12 dB y HH-HV >= 7,3 dB (manglar degradado, humedal
+       herbáceo y parte de la clase otro, que no se separan con estas bandas)."""
     if np.isnan(r.VV):
-        return "sin dato"
+        return "sin decision"
     if r.VV < -17 and r.VH < -25:
-        return "agua"
-    if -17 <= r.VV < -12 and 6.5 <= r.VVmVH <= 8.5:
-        return "vegetacion_flotante"
-    if r.VV > -11:
-        if np.isnan(r.HHmHV):
-            return "dosel (sin banda L)"
-        return "humedal_herbaceo" if r.HHmHV >= 7.25 else "manglar_o_bosque"
-    return "sin regla"
+        return "1 agua abierta"
+    if r.VV < -12:
+        return "2 vegetacion flotante" if r.VVmVH >= 6.5 else "sin decision"
+    if np.isnan(r.HHmHV):
+        return "sin decision"
+    return "3 dosel cerrado" if r.HHmHV < 7.3 else "4 dosel abierto"
 
 
 def analizar(d):
@@ -194,12 +198,15 @@ def analizar(d):
     cm = pd.crosstab(t.clase_final, t.regla)
     cm.to_csv(os.path.join(AQUI, "clave_muestra2025_regla.csv"))
     print("\nRegla de lectura (filas: clase_final; columnas: lo que dice la regla):\n" + cm.to_string())
-    ok = {"agua": ["agua"], "vegetacion_flotante": ["vegetacion_flotante"], "humedal_herbaceo": ["humedal_herbaceo"],
-          "manglar_degradado": ["manglar_o_bosque"], "manglar_intacto": ["manglar_o_bosque"], "otro": ["manglar_o_bosque", "sin regla"]}
+    ok = {"agua": "1 agua abierta", "vegetacion_flotante": "2 vegetacion flotante", "manglar_intacto": "3 dosel cerrado",
+          "manglar_degradado": "4 dosel abierto", "humedal_herbaceo": "4 dosel abierto", "otro": "4 dosel abierto"}
+    dec = t[t.regla != "sin decision"]
+    aciertos = sum(int(((dec.clase_final == c) & (dec.regla == v)).sum()) for c, v in ok.items())
+    print("  decide en %d de %d puntos y acierta en %d (%.1f %% de los decididos, %.1f %% del total); resustitución" % (
+        len(dec), len(t), aciertos, 100 * aciertos / len(dec), 100 * aciertos / len(t)))
     for c in CLASES:
         g = t[t.clase_final == c]
-        print("  %-22s n %3d | acierta %3d (%.2f) | sin regla %3d | sin dato %3d" % (
-            c, len(g), g.regla.isin(ok[c]).sum(), g.regla.isin(ok[c]).mean(), (g.regla == "sin regla").sum(), (g.regla == "sin dato").sum()))
+        print("  %-22s n %3d | acierta %3d | sin decisión %3d" % (c, len(g), int((g.regla == ok[c]).sum()), int((g.regla == "sin decision").sum())))
     return t
 
 

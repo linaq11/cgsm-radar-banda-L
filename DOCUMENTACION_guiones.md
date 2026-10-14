@@ -123,26 +123,28 @@ USO
 
 ### `nivel_ideam_descarga.py`
 
-Descarga el nivel del río Magdalena (y candidatos cercanos) desde los datos abiertos del
-IDEAM en datos.gov.co, para usarlo como forzamiento hidrológico de la prueba de doble
-rebote en la CGSM en lugar de la lluvia.
+Descarga las series de nivel hidrológico del IDEAM usadas para caracterizar la condición
+hidrológica de la CGSM.
 
-Conjuntos de datos (Socrata, sin registro):
-  bdmn-sqnh  Nivel Instantáneo del Río
-  vfth-yucv  Nivel Máximo del Río
-  pt9a-aamx  Nivel Mínimo del Río
-  ia8x-22em  Nivel del Mar
-Estaciones (Catálogo Nacional de Estaciones, hp9r-jxuu):
-  2904700095 Remolino AUT (Magdalena, automática con telemetría)
-  0029047020 Las Flores (Magdalena, Barranquilla)
-  0029047000 Tebsa Barranquilla AUT
-  0029067130 Puente Ferrocarril Aracataca (río Aracataca)
+PROPÓSITO
+Obtener el nivel del río Magdalena en la estación automática Remolino y evaluar otras estaciones
+disponibles como posibles referencias hidrológicas. El nivel de Remolino se usa como indicador
+regional del estado hidrológico de la CGSM y complementa el análisis exploratorio basado en la
+precipitación antecedente de ERA5-Land.
 
-Salida: nivel_ideam_<dataset>.csv por conjunto con datos, y nivel_ideam_resumen.txt.
+FUENTE
+Datos Abiertos Colombia, IDEAM, a través de la API Socrata.
+
+SALIDAS
+- nivel_ideam_<dataset>.csv
+- nivel_ideam_resumen.txt
+
+USO
+    python nivel_ideam_descarga.py
 
 Comentarios en el código:
 
-- línea 58: Nivel del mar en el Caribe (por si hay mareógrafo cerca de la CGSM)
+- línea 60: Nivel del mar en el Caribe (por si hay mareógrafo cerca de la CGSM)
 
 ## 2. Preprocesamiento y calibración
 
@@ -163,34 +165,45 @@ USO
 
 ### `alos2_marea_malaga.py`
 
-La misma prueba de marea con ALOS-2 PALSAR-2 ScanSAR (banda L, HH y HV como NISAR)
-sobre Bahia de Malaga. Separa polarizacion de longitud de onda: si ALOS-2 muestra la
-subida de HH con la marea que muestra NISAR y no muestra Sentinel-1, la diferencia con
-Sentinel-1 es de longitud de onda.
+Corroboración independiente de la respuesta a la marea con ALOS-2 PALSAR-2 ScanSAR en banda L
+sobre Bahía de Málaga.
 
-Datos: JAXA/ALOS/PALSAR-2/Level2_2/ScanSAR en Earth Engine (25 m, DN), 2025-01 a 2026-09,
-dB = 10*log10(DN^2) - 83 (misma conversion que 22_alos2_gee.py). Los cuadros de una misma
-pasada (mismo path, menos de 5 min) se mosaican. Se agrupa por path (RSP_Path_Number),
-que fija hora y geometria, como las trazas de NISAR. Mismos 1.600 puntos y misma marea
-(serie de trabajo mareas_buenaventura.csv, que debe cubrir desde ene-2025).
+PROPÓSITO
+Evaluar si la respuesta observada con NISAR se reproduce con otro sensor de banda L. El análisis
+usa HH y HV y mantiene separadas las trayectorias para no mezclar geometrías de adquisición.
+La comparación con Sentinel-1 evalúa si existe una respuesta equivalente en banda C, aunque no
+separa del todo el efecto de la longitud de onda del de la polarización, porque Sentinel-1
+observa VV y VH y ALOS-2 HH y HV.
 
-Salidas: alos2_marea_malaga.csv, alos2_marea_resumen.csv, fig_alos2_marea.png
+DATOS
+ALOS-2 PALSAR-2 ScanSAR Level 2.2 en Google Earth Engine, 25 m, enero de 2025 a septiembre de
+2026. Los DN se convierten a sigma cero con sigma0_dB = 10 * log10(DN**2) - 83. Los cuadros de
+una misma pasada se mosaican y las observaciones se agrupan por trayectoria. Se usan los mismos
+1.600 puntos de referencia y la misma serie de marea del análisis con NISAR.
+
+SALIDAS
+- alos2_marea_malaga.csv
+- alos2_marea_resumen.csv
+- fig_alos2_marea.png
+
+USO
+    python alos2_marea_malaga.py
 
 Comentarios en el código:
 
-- línea 58: algunas escenas son solo HH
+- línea 69: algunas escenas son solo HH
 
 ### `s1_marea_malaga.py`
 
-La misma prueba de marea con Sentinel-1 (banda C) sobre Bahia de Malaga.
+La misma prueba de marea con Sentinel-1 (banda C) sobre Bahía de Málaga.
 
 Toma todas las escenas Sentinel-1 GRD IW (VV, VH, sigma cero en dB, corregidas por
 terreno en Earth Engine) que cubren la caja entre oct-2025 y sep-2026, las agrupa por
-orbita relativa (cada orbita tiene su hora y su geometria, como las trazas de NISAR),
+órbita relativa (cada órbita tiene su hora y su geometria, como las trazas de NISAR),
 muestrea los mismos 1.600 puntos (manglar de consenso, bosque, humedal, agua; semilla
 42) y asigna a cada escena la marea predicha a SU hora de adquisicion. Luego aplica
 la misma regla que marea_vs_radar.py: manglar menos bosque contra marea, diferencia
-alta-baja y Spearman, por orbita.
+alta-baja y Spearman, por órbita.
 
 Ademas restringe a las escenas a +-3 dias de una pasada NISAR para la comparacion
 directa "mismas fechas".
@@ -202,18 +215,18 @@ Comentarios en el código:
 - línea 32: --- puntos, identicos a perfil_pacifico_24.py
 - línea 43: --- marea
 - línea 54: --- escenas S1
-- línea 60: una pasada = todos los cuadros de la misma orbita con menos de 5 minutos entre si;
+- línea 60: una pasada = todos los cuadros de la misma órbita con menos de 5 minutos entre si;
 - línea 61: se mosaican, porque los cuadros parten la caja (80 % + 20 %)
 - línea 88: --- mismas fechas que NISAR (+-3 dias)
-- línea 94: --- prueba por orbita
+- línea 94: --- prueba por órbita
 - línea 121: --- figura
 
 ## 3. Coberturas de referencia y muestreo
 
 ### `perfil_pacifico.py`
 
-Primer perfil de retrodispersion NISAR sobre Bahia de Malaga: mediana de HH, HV y
-HH-HV (dB, sigma cero) por cobertura de WorldCover 2021 y por escena, con el angulo
+Primer perfil de retrodispersión NISAR sobre Bahía de Málaga: mediana de HH, HV y
+HH-HV (dB, sigma cero) por cobertura de WorldCover 2021 y por escena, con el ángulo
 de incidencia. Valida ademas los recortes (proyeccion, tamano, cobertura).
 
 Coberturas: manglar (95), agua (80), bosque (10), humedal herbaceo (90).
@@ -224,13 +237,13 @@ Comentarios en el código:
 - línea 28: --- puntos por clase desde WorldCover, dentro de la caja del AOI
 - línea 38: --- segunda mascara de manglar, independiente: Global Mangrove Watch v3, extension 2020
 - línea 47: puntos donde los dos productos coinciden en manglar, y donde solo uno lo dice
-- línea 102: --- Dynamic World: probabilidad de vegetacion inundada y de agua en los mismos puntos,
+- línea 102: --- Dynamic World: probabilidad de vegetación inundada y de agua en los mismos puntos,
 - línea 103: con las imagenes de +-10 dias alrededor de cada escena NISAR (el Pacifico es nuboso)
 - línea 121: label 2 = flooded_vegetation
 
 ### `perfil_pacifico_24.py`
 
-Paso 1 del trabajo de radar: perfil de retrodispersion NISAR sobre Bahia de Malaga
+Paso 1 del trabajo de radar: perfil de retrodispersión NISAR sobre Bahía de Málaga
 con las 24 escenas (12 ascendentes A004, 05:00 local; 12 descendentes D087, 18:00
 local), por cobertura y por traza, con columna de marea lista para llenar.
 
@@ -240,7 +253,7 @@ herbaceo (WC 90); agua (WC 80).
 
 MAREA. Si existe mareas_buenaventura.csv (columnas: fecha_hora_utc en formato
 YYYY-MM-DD HH:MM, altura_m), se asigna a cada pasada la altura interpolada a la hora
-exacta de adquisicion. Si no existe, la columna queda vacia y el guion lo dice.
+exacta de adquisicion. Si no existe, la columna queda vacia y el script lo dice.
 
 SALIDAS (en RADAR/):
   perfil_pacifico_24.csv     mediana e IQR de HH, HV, HH-HV por escena y clase, con traza,
@@ -259,28 +272,41 @@ Comentarios en el código:
 - línea 92: ----------------------------------------------------------------- lectura de escenas
 - línea 137: ----------------------------------------------------------------- resumen
 - línea 154: ----------------------------------------------------------------- figura
-- línea 164: la linea se corta donde hay mas de 40 dias sin escenas (hueco feb-jun), para no
+- línea 164: la linea se corta donde hay más de 40 dias sin escenas (hueco feb-jun), para no
 - línea 165: dibujar una tendencia que no se observo
 
 ### `doble_rebote_incidencia.py`
 
-Paso 3 completo: la prueba del doble rebote estratificada por angulo de incidencia.
+Análisis de robustez de la respuesta hidrológica de NISAR frente al ángulo de incidencia en
+Bahía de Málaga.
 
-REGLA (escrita antes de mirar). Si el aumento de HH del manglar con la marea es doble
-rebote tronco-agua, debe ser mayor donde la incidencia es menor (el haz llega mas
-vertical y el rebote esquina es mas eficiente) y no depender de la incidencia en el
-bosque. Dentro de cada traza se dividen los puntos de manglar en tres tercios de
-incidencia y se repite, para cada tercio, la correlacion de Spearman entre la marea
-de la pasada y la mediana de HH, HV y HH-HV del tercio, restando fecha a fecha la
-mediana del bosque del mismo tercio.
+PROPÓSITO
+Comprobar si la respuesta del manglar relativa al bosque se mantiene al estratificar las
+observaciones por ángulo de incidencia.
 
-Lee los 24 recortes NISAR y mareas_buenaventura.csv. Escribe doble_rebote_incidencia.csv
-y fig_doble_rebote_incidencia.png.
+MÉTODO
+Dentro de cada trayectoria, los puntos de manglar se dividen en tres terciles de incidencia y los
+mismos límites angulares se aplican al bosque de referencia. Para cada tercil se calcula la
+correlación de Spearman entre la altura de marea y la mediana de HH, HV y HH-HV, y además la
+diferencia manglar - bosque de cada fecha. El análisis evalúa la estabilidad de la respuesta
+frente a la geometría local. Por el rango angular reducido dentro de cada trayectoria, no se usa
+para establecer una relación general entre la magnitud del efecto y el ángulo de incidencia.
+
+ENTRADAS
+- 24 recortes NISAR de Bahía de Málaga
+- mareas_buenaventura.csv
+
+SALIDAS
+- doble_rebote_incidencia.csv
+- fig_doble_rebote_incidencia.png
+
+USO
+    python doble_rebote_incidencia.py
 
 Comentarios en el código:
 
-- línea 58: valores por punto y escena
-- línea 86: tercios de incidencia por traza (definidos sobre los puntos de manglar; el bosque usa los mismos cortes)
+- línea 71: valores por punto y escena
+- línea 99: tercios de incidencia por traza (definidos sobre los puntos de manglar; el bosque usa los mismos cortes)
 
 ### `figuras_cgsm.py`
 
@@ -307,7 +333,7 @@ Comentarios en el código:
 
 ### `figuras_pacifico.py`
 
-Figuras de mapa para el informe de radar, Bahia de Malaga (ingles).
+Figuras de mapa para el informe de radar, Bahía de Málaga (ingles).
 
 fig_malaga_radar.png     composiciones NISAR (R = HH, G = HV, B = HH-HV) de una escena
                          ascendente y una descendente cercanas en fecha, con el contorno
@@ -329,7 +355,7 @@ Comentarios en el código:
 Figuras del ejercicio de SAR basics de GEE, corrido sobre el AOI de la tesis.
 
 Replica los tres pasos del tutorial (cobertura, orbitas e incidencia,
-retrodispersion) usando COPERNICUS/S1_GRD sobre AOI_tesis_CGSM_v1 en vez del
+retrodispersión) usando COPERNICUS/S1_GRD sobre AOI_tesis_CGSM_v1 en vez del
 area de ejemplo. Escribe PNG en figuras/.
 
 Comentarios en el código:
@@ -385,8 +411,8 @@ Comentarios en el código:
 ### `mareas_dimar_a_serie.py`
 
 Convierte la tabla oficial de pleamares y bajamares de la DIMAR (CCCP, pronostico de
-Malaga) en la serie cada 10 minutos que lee perfil_pacifico_24.py, y la compara con
-la prediccion armonica propia.
+Málaga) en la serie cada 10 minutos que lee perfil_pacifico_24.py, y la compara con
+la predicción armonica propia.
 
 ENTRADA: mareas_dimar_malaga.csv con una fila por extremo, columnas:
     fecha_hora_local, altura_lat_m
@@ -405,26 +431,35 @@ Comentarios en el código:
 - línea 28: acepta uno o varios archivos: los que se pasen por linea de comandos, o por defecto
 - línea 29: mareas_dimar_malaga.csv y todos los "Málaga-Tabla-Pronóstico-AAAA.csv" descargados de la DIMAR
 - línea 45: tabla de la DIMAR, con o sin comillas: "Pleamar","03:43:00","4.24m","11/09/2026"
-- línea 71: serie de trabajo: oficial donde existe, prediccion propia fuera de su cobertura
-- línea 87: comparacion con la prediccion propia en las 24 pasadas NISAR
+- línea 71: serie de trabajo: oficial donde existe, predicción propia fuera de su cobertura
+- línea 87: comparacion con la predicción propia en las 24 pasadas NISAR
 
 ### `marea_vs_radar.py`
 
-Paso 3, version preliminar: relacion entre la altura de marea en la pasada y la
-retrodispersion NISAR del manglar, por traza, con el bosque como control.
+Relación entre la altura de marea y la retrodispersión NISAR del manglar en Bahía de Málaga,
+analizada por trayectoria y con el bosque no inundable como referencia.
 
-REGLA DE LECTURA (escrita antes de mirar los numeros). Si la banda L ve la inundacion
-bajo el dosel, dentro de cada traza el manglar debe mostrar mayor HH (y mayor HH-HV)
-en marea alta que en baja, y el bosque no. Se compara la mediana de las pasadas por
-encima de la mediana de marea contra las de abajo, y la correlacion de Spearman entre
-marea y HH. El efecto estacional se descuenta restando, fecha a fecha, el valor del
-bosque (que no se inunda) al del manglar.
+REGLA DE LECTURA
+La regla se definió antes del análisis. Si la banda L responde al agua bajo el dosel, dentro de
+una misma trayectoria se espera un aumento de HH y de HH-HV en el manglar con la altura de marea,
+sin una respuesta equivalente en el bosque no inundable ni en HV. Para cada trayectoria se
+comparan las adquisiciones por encima y por debajo de la mediana de marea y se calcula la
+correlación de Spearman entre la marea y la retrodispersión. La diferencia manglar - bosque se
+calcula fecha a fecha para controlar las variaciones temporales compartidas por las dos coberturas.
 
-Lee perfil_pacifico_24.csv (con marea_m) y escribe marea_vs_radar.csv y una figura.
+ENTRADA
+perfil_pacifico_24.csv y la serie de marea asignada a cada pasada.
+
+SALIDAS
+- marea_vs_radar.csv
+- fig_marea_vs_radar.png
+
+USO
+    python marea_vs_radar.py
 
 Comentarios en el código:
 
-- línea 42: manglar menos bosque, fecha a fecha: descuenta lo estacional
+- línea 51: manglar menos bosque, fecha a fecha: descuenta lo estacional
 
 ### `cgsm_nivel_rio.py`
 
@@ -455,50 +490,67 @@ Comentarios en el código:
 
 ### `cgsm_temporada.py`
 
-La prueba de inundacion bajo dosel en la CGSM, donde no hay marea: la variable
-hidrologica es la lluvia acumulada en los 30 dias previos a cada pasada (ERA5-Land,
-promedio sobre el AOI) y, como particion, epoca seca (dic-abr) frente a humeda
-(may-nov). Misma regla que en el Pacifico: manglar menos bosque contra la variable,
-diferencia entre las pasadas de mas y menos lluvia, Spearman; el bosque (WorldCover 10,
-sobre todo bosque seco de los piedemontes) es el control que no se inunda.
+Análisis inicial de la respuesta hidrológica de las coberturas de la CGSM.
 
-Sensores: NISAR (recortes locales en D:\TESIS_DATACUBE\NISAR, HH y HV), Sentinel-1 GRD
-(VV y VH, Earth Engine) y ALOS-2 ScanSAR (HH y HV, Earth Engine), oct-2025 a sep-2026,
-todos sobre los mismos 1.600 puntos del AOI (manglar WorldCover∩GMW, bosque, humedal
-herbaceo, agua; 400 por clase). Los sensores sin recortes en disco se saltan.
+PROPÓSITO
+Evaluar la relación entre la retrodispersión SAR y la precipitación acumulada en los 30 días
+anteriores a cada adquisición, obtenida de ERA5-Land. Se conserva la partición estacional entre
+época seca y húmeda como descripción complementaria.
 
-USO: python cgsm_temporada.py [nisar|s1|alos2 ...]   (por defecto los tres)
-Salidas: cgsm_temporada_<sensor>.csv, cgsm_temporada_resumen.csv, fig_cgsm_temporada.png
+MÉTODO
+Para cada sensor y trayectoria se calcula la mediana de retrodispersión por cobertura. La señal
+del manglar se analiza de forma individual y relativa al bosque no inundable mediante la
+diferencia manglar - bosque. Se usan cuatro coberturas de referencia, manglar, bosque no
+inundable, humedal herbáceo y agua, con 400 puntos por clase.
+
+SENSORES
+- NISAR: HH y HV (recortes locales NISAR_AOI_*.h5).
+- Sentinel-1: VV y VH (Earth Engine).
+- ALOS-2: HH y HV (Earth Engine).
+
+SALIDAS
+- cgsm_temporada_<sensor>.csv
+- cgsm_temporada_resumen.csv
+- fig_cgsm_temporada.png
+
+USO
+    python cgsm_temporada.py
 
 Comentarios en el código:
 
-- línea 39: Dos regiones, declaradas (antes las cuatro clases se muestreaban sobre la caja del cubo,
-- línea 40: 4.304 km2, sin decirlo: el 39 % de los puntos de agua caia en mar abierto y el 40 % de
-- línea 41: los de humedal fuera del area de estudio).
-- línea 42: AOI     : el poligono de la tesis, 2.042 km2. Manglar, humedal y agua salen de aqui.
-- línea 43: CONTROL : la caja del cubo, 4.304 km2. El bosque seco de los piedemontes, que es el
-- línea 44: control que no se inunda, esta fuera del AOI a proposito.
-- línea 47: lluvia ERA5-Land y control de cobertura de cada pasada
-- línea 60: lluvia diaria ERA5-Land sobre el AOI (mm), para acumular 30 dias antes de cada pasada
-- línea 88: ------------------------------------------------------------------ NISAR local
-- línea 125: cobertura sobre el AOI, no sobre la caja: una pasada que cubre el area de
-- línea 126: estudio entera no debe descartarse por no cubrir el mar ni los piedemontes
-- línea 152: ------------------------------------------------------------------ prueba
-- línea 175: ------------------------------------------------------------------ figura
-- línea 189: deja sitio al título general
+- línea 50: Dos regiones, declaradas (antes las cuatro clases se muestreaban sobre la caja del cubo,
+- línea 51: 4.304 km2, sin decirlo: el 39 % de los puntos de agua caia en mar abierto y el 40 % de
+- línea 52: los de humedal fuera del area de estudio).
+- línea 53: AOI     : el poligono de la tesis, 2.042 km2. Manglar, humedal y agua salen de aqui.
+- línea 54: CONTROL : la caja del cubo, 4.304 km2. El bosque seco de los piedemontes, que es el
+- línea 55: control que no se inunda, esta fuera del AOI a proposito.
+- línea 58: lluvia ERA5-Land y control de cobertura de cada pasada
+- línea 71: lluvia diaria ERA5-Land sobre el AOI (mm), para acumular 30 dias antes de cada pasada
+- línea 99: ------------------------------------------------------------------ NISAR local
+- línea 136: cobertura sobre el AOI, no sobre la caja: una pasada que cubre el area de
+- línea 137: estudio entera no debe descartarse por no cubrir el mar ni los piedemontes
+- línea 163: ------------------------------------------------------------------ prueba
+- línea 186: ------------------------------------------------------------------ figura
+- línea 200: deja sitio al título general
 
 ### `figura_cgsm_optico.py`
 
-Figura de contexto óptico para el informe de radar (inglés): Sentinel-2 en color natural
-(B4, B3, B2) y en infrarrojo color (B8, B4, B3) junto a las composiciones NISAR de las mismas
-dos fechas de la Figura 7 (río alto, 4-dic-2025; río más bajo, 9-ene-2026), sobre la CGSM.
+Genera la comparación óptica y radar de las dos adquisiciones NISAR de la Figura 9 del informe
+(CGSM).
 
-Sentinel-2: COPERNICUS/S2_SR_HARMONIZED, mediana de las escenas a ±10 días de cada pasada,
-enmascaradas con Cloud Score+ (cs >= 0,60). Se reportan además, para el texto, el NDVI mediano
-del manglar de consenso y el área de agua abierta (MNDWI > 0) dentro del AOI en cada fecha.
-El radar submuestreado y los PNG ópticos se guardan en C: para no depender de D:.
+La figura combina Sentinel-2 en color natural (B4, B3, B2) e infrarrojo color (B8, B4, B3) con
+las composiciones NISAR de las mismas fechas, 4 de diciembre de 2025 y 9 de enero de 2026.
+Sentinel-2 usa COPERNICUS/S2_SR_HARMONIZED y la mediana de las adquisiciones dentro de 10 días
+de cada fecha NISAR, enmascaradas con Cloud Score+ (cs >= 0,60). Además de la figura, el script
+calcula el NDVI mediano del manglar de consenso y la proporción de agua abierta dentro del área
+de estudio.
 
-Salida: fig_cgsm_optico_radar.png y cgsm_optico_resumen.csv
+SALIDAS
+- fig_cgsm_optico_radar.png
+- cgsm_optico_resumen.csv
+
+USO
+    python figura_cgsm_optico.py
 
 ### `figuras_informe.py`
 
@@ -517,22 +569,31 @@ Comentarios en el código:
 
 ### `autocorrelacion_temporal.py`
 
-Comprueba si las correlaciones con la marea y con la lluvia estan infladas por dependencia temporal.
+Evalúa la sensibilidad de las correlaciones hidrológicas a la dependencia temporal entre
+adquisiciones.
 
-Spearman trata cada pasada como una observacion independiente. Si la serie de radar y la del
-forzante (marea, lluvia de 30 dias) se parecen a si mismas de una pasada a la siguiente, las n
-pasadas valen por menos. Para cada traza se mide la autocorrelacion de rezago 1 de las dos
-series (sobre rangos, en orden de fecha) y se calcula el tamano efectivo de Pyper y Peterman
-(1998): n_ef = n (1 - r1x r1y) / (1 + r1x r1y), acotado a n. El p se recalcula con n_ef.
+Spearman supone observaciones independientes. Cuando el forzante y la señal SAR presentan
+autocorrelación temporal, el número de observaciones independientes puede ser menor que el
+número nominal de pasadas. Para cada serie se estima el tamaño efectivo de muestra de Pyper y
+Peterman (1998) de dos formas: con la autocorrelación de rezago 1 (n_ef, p_ef) y con todos los
+rezagos hasta n/5 (n_ef_rezagos, p_ef_rezagos), que es la versión que reporta el informe. Los
+valores p se recalculan con el tamaño efectivo. La variable SAR es la señal copolar del manglar
+relativa al bosque. El script trabaja solo con las tablas ya generadas y no descarga ni reprocesa
+imágenes.
 
-La variable de radar es manglar menos bosque en copolarizacion, que es la que usa el informe.
-No reentrena ni descarga nada: lee las tablas por fecha que ya estan en la carpeta.
+ENTRADAS
+perfil_pacifico_24.csv, s1_marea_malaga.csv, alos2_marea_malaga.csv, cgsm_temporada_*.csv y la
+serie de nivel del río.
 
-USO: python autocorrelacion_temporal.py
+SALIDA
+autocorrelacion_temporal.csv, base de la tabla de dependencia temporal del informe.
+
+USO
+    python autocorrelacion_temporal.py
 
 Comentarios en el código:
 
-- línea 22: archivo, columna de traza, forzante, copolarizacion, etiqueta
+- línea 31: archivo, columna de traza, forzante, copolarizacion, etiqueta
 
 ### `figura_incidencia.py`
 
@@ -543,29 +604,37 @@ tercios en posiciones fijas (T1 a T3) y los rotulos sin superposicion.
 
 ### `figura_clave.py`
 
-Figura de la clave de interpretacion: espacio de firmas de la CGSM en banda C y en
-banda L. Eje x, copolar (VV o HH); eje y, cociente copolar menos cruzada, que separa
-superficie de volumen. Un punto por clase, con la mediana entre pasadas.
+Genera el espacio de firmas usado para la clave de interpretación de la CGSM.
 
-Fuentes: cgsm_temporada_s1.csv (S1 D142, 61 pasadas), cgsm_temporada_nisar.csv (NISAR
-traza D083, 12 pasadas) y nisar_flotante.csv para la vegetacion flotante del evento de
-2025, que no es una clase de WorldCover y se define por la firma optica de dic-2025.
-Salida: fig_clave_firmas.png
+El eje x representa la retrodispersión copolar (VV en banda C o HH en banda L) y el eje y la
+diferencia copolar - cruzada (VV-VH o HH-HV), en dB. Cada cobertura se representa por la mediana
+multifecha de las dos variables.
+
+FUENTES
+- cgsm_temporada_s1.csv
+- cgsm_temporada_nisar.csv
+- nisar_flotante.csv
+
+SALIDA
+fig_clave_firmas.png
+
+USO
+    python figura_clave.py
 
 Comentarios en el código:
 
-- línea 32: en banda C la flotante se mide en el compuesto de dic-2025 (ver nisar_flotante.py)
-- línea 35: donde dos clases casi coinciden, cada etiqueta lleva su desplazamiento y su alineacion
+- línea 40: en banda C la flotante se mide en el compuesto de dic-2025 (ver nisar_flotante.py)
+- línea 43: donde dos clases casi coinciden, cada etiqueta lleva su desplazamiento y su alineacion
 
 ### `nisar_flotante.py`
 
-Banda L frente a banda C sobre la vegetacion flotante de 2025 (evento de Hydrilla).
+Banda L frente a banda C sobre la vegetación flotante de 2025 (evento de Hydrilla).
 
 PARA QUE. En la ventana del informe (oct-2025 a sep-2026) el 14 % de los puntos de agua
-de WorldCover 2021 dentro del AOI se cubrio de vegetacion flotante. En Sentinel-1 esos
+de WorldCover 2021 dentro del AOI se cubrio de vegetación flotante. En Sentinel-1 esos
 puntos estan 7,4 dB por encima del agua abierta (−13,3 frente a −20,6 dB en VV,
 diciembre de 2025). La pregunta es si la banda L los separa igual, mejor o peor, que es
-un aporte propio para la clave de interpretacion (objetivo especifico 4).
+un aporte propio para la clave de interpretación (objetivo especifico 4).
 
 COMO. Los mismos 400 puntos de agua (WorldCover 80, AOI, semilla 42) se parten en dos
 grupos con la firma optica de diciembre de 2025 (NDVI > 0,25 y NDWI < 0, la regla del
@@ -582,81 +651,91 @@ Comentarios en el código:
 
 ### `clave_vs_muestra2025.py`
 
-La clave de interpretacion del avance de radar, sometida a la muestra de referencia 2025.
+Evalúa la clave de interpretación SAR con la muestra de referencia de 2025.
 
-PARA QUE. La seccion "Clave de interpretacion por cobertura y mecanismo" del informe se construyo
-con 400 puntos por clase de los productos globales (WorldCover 2021 y GMW 2020). La muestra 2025
-(720 puntos, clase_final: revisada bajo el criterio v1 en los ids 1-400 y primera pasada en 401-720)
-es la referencia propia que la clave no tenia. Aqui se mide, sobre esos 720 puntos y sin reajustar
-ningun umbral:
-  1. la firma por clase en las dos bandas (mediana entre pasadas del copolar, del cruzado y de su
-     diferencia), comparable con la Tabla 10 del informe;
-  2. la separabilidad por pares (Jeffries-Matusita) con banda C sola, banda L sola y las dos;
-  3. la regla de lectura de cinco pasos, aplicada punto a punto como arbol de decision con los
-     umbrales tal como estan escritos en el informe, contra clase_final (matriz de confusion y
-     exactitud por clase). El paso 4 (manglar frente a bosque seco por respuesta hidrologica) y el
-     paso 5 (firma de inundacion) son de series temporales, no de un pixel: no se aplican aqui.
+PROPÓSITO
+Contrastar las firmas y los umbrales derivados inicialmente de las coberturas de referencia con
+una muestra propia de 720 puntos distribuidos en seis clases.
 
-DATOS. Sentinel-1 GRD IW, orbita descendente 142, oct-2025 a sep-2026, pasadas con cobertura >= 90 %
-del AOI, VV y VH en dB tal como los entrega Earth Engine, valor del pixel de 10 m en cada punto y
-mediana entre pasadas. NISAR L2 GCOV traza descendente 083, los recortes NISAR_AOI_*.h5 del disco
-(gamma0 RTC -> sigma0 con rtcGammaToSigmaFactor, dB), media 3x3 y mediana entre pasadas; las
-cinco escenas de la traza ascendente 007 se excluyen como en el informe.
+ANÁLISIS
+1. Firmas multifecha por clase en bandas C y L: copolar, cruzada y diferencia copolar - cruzada.
+2. Separabilidad de Jeffries-Matusita entre pares de clases con banda C, banda L y las dos.
+3. Aplicación punto a punto de las cuatro decisiones estáticas de la clave y comparación con la
+   clase de referencia: agua abierta (VV < -17 dB y VH < -25 dB); superficie oscura con
+   vegetación o borde (VV < -12 dB), compatible con vegetación flotante si VV-VH >= 6,5 dB y sin
+   decisión en caso contrario; dosel cerrado (VV >= -12 dB y HH-HV < 7,3 dB); dosel abierto o
+   herbáceo (VV >= -12 dB y HH-HV >= 7,3 dB). La respuesta hidrológica que distingue manglar de
+   bosque no inundable es de series temporales y no se evalúa a escala de punto.
 
-USO: python clave_vs_muestra2025.py [s1] [nisar] [clave]
-     sin argumentos corre todo. Salidas: clave_muestra2025_puntos.csv (valores por punto),
-     clave_muestra2025_firmas.csv, clave_muestra2025_jm.csv, clave_muestra2025_regla.csv
+IMPORTANTE
+Los umbrales se definen y se evalúan con la misma muestra de 720 puntos, de modo que las métricas
+corresponden a resustitución y no a validación independiente.
+
+DATOS
+Sentinel-1 GRD, órbita descendente 142, y NISAR L2 GCOV, trayectoria descendente D083, en el
+periodo del informe. Valor del píxel de 10 m en cada punto (media 3 x 3 en NISAR) y mediana
+entre pasadas.
+
+USO
+    python clave_vs_muestra2025.py [s1] [nisar] [clave]
+Sin argumentos ejecuta el flujo completo. Salidas: clave_muestra2025_puntos.csv,
+clave_muestra2025_firmas.csv, clave_muestra2025_jm.csv y clave_muestra2025_regla.csv.
 
 Comentarios en el código:
 
-- línea 40: mismo periodo que el informe
-- línea 41: descendente, la de la Tabla 10
-- línea 42: descendente 083
-- línea 169: 1) firmas por clase
-- línea 178: 2) separabilidad por pares
-- línea 192: 3) regla de lectura
+- línea 45: mismo periodo que el informe
+- línea 46: descendente, la de la Tabla 10
+- línea 47: descendente 083
+- línea 173: 1) firmas por clase
+- línea 182: 2) separabilidad por pares
+- línea 196: 3) regla de lectura
 
 ## 9. Mapa y corroboración óptica
 
 ### `mapa_doble_rebote.py`
 
-Mapa de la senal de inundacion bajo dosel en la CGSM con NISAR (traza D083): diferencia
-por pixel entre las pasadas de nivel alto del rio Magdalena y las de nivel bajo.
+Cartografía del cambio de retrodispersión asociado al contraste hidrológico en la CGSM con
+NISAR D083.
 
-PARA QUE. La propuesta del curso promete "mapas de retrodispersion"; la prueba del nivel del
-rio (cgsm_nivel_rio.py) es un numero por clase. Aqui la misma regla, alto menos bajo, se
-aplica pixel a pixel para ver DONDE aparece el doble rebote y donde no.
+PROPÓSITO
+Representar espacialmente la diferencia de retrodispersión entre los grupos de nivel alto y bajo
+del río Magdalena y evaluar dónde se concentra la respuesta copolar observada en el análisis por
+clases.
 
-COMO. Las 14 escenas NISAR_AOI_*D083*.h5 comparten la malla UTM 18N de 10 m (7590 x 6469).
-Cada escena: gamma0 RTC -> sigma0 con rtcGammaToSigmaFactor, agregacion a 50 m por media de
-bloques 5 x 5 en potencia, dB. Grupos: nivel alto = tercio alto de cgsm_nivel_rio.py (6
-pasadas, oct-2025 a ene-2026) y nivel bajo = las 8 de jun a sep 2026; mediana por grupo y
-diferencia alto - bajo para HH, HV y HH - HV. La mascara de manglar (WorldCover 95 y GMW
-2020), bosque (WorldCover 10), humedal herbaceo (90) y agua (80) se descarga de Earth Engine
-sobre la misma malla de 50 m. Se escriben la figura, un GeoTIFF con las tres diferencias y
-un resumen por clase (mediana, cuartiles y fraccion de pixeles con diferencia positiva).
+MÉTODO
+Las 14 adquisiciones NISAR D083 se convierten de gamma cero RTC a sigma cero y se agregan a una
+malla de 50 m por bloques de 5 x 5 píxeles en potencia. Se calculan las medianas de los grupos de
+nivel alto y bajo y su diferencia para HH, HV y HH-HV. Los resultados se resumen por cobertura y,
+para el manglar, por sector geográfico.
 
-LIMITE. Los dos grupos coinciden con el periodo y con la version del producto (Beta frente a
-Provisional); el mapa muestra la estructura espacial de la senal, no su causa.
+LIMITACIÓN
+Los grupos de nivel alto y bajo coinciden con periodos y versiones distintas del producto NISAR
+(Beta y Provisional). El mapa describe la estructura espacial de la señal observada, pero no
+permite atribuirla de forma independiente al cambio de nivel del río.
 
-USO: python mapa_doble_rebote.py        Salidas: fig_mapa_doble_rebote.png,
-     mapa_doble_rebote_50m.tif, mapa_doble_rebote_resumen.csv
+SALIDAS
+- fig_mapa_doble_rebote.png
+- mapa_doble_rebote_50m.tif
+- mapa_doble_rebote_resumen.csv
+
+USO
+    python mapa_doble_rebote.py [--desde-tif]
 
 Comentarios en el código:
 
-- línea 28: PostGIS deja un proj.db viejo en PROJ_DATA; rasterio necesita el suyo, y hay que fijarlo antes de importarlo
-- línea 42: 5 x 5 pixeles de 10 m -> 50 m
-- línea 100: esquina exterior del primer pixel de 10 m
-- línea 125: Resumen por clase y, para el manglar, por sector de norte a sur
-- línea 140: Figura: manglar a todo color, bosque de control atenuado, el resto en gris claro; sin contornos
+- línea 33: PostGIS deja un proj.db viejo en PROJ_DATA; rasterio necesita el suyo, y hay que fijarlo antes de importarlo
+- línea 47: 5 x 5 pixeles de 10 m -> 50 m
+- línea 105: esquina exterior del primer pixel de 10 m
+- línea 130: Resumen por clase y, para el manglar, por sector de norte a sur
+- línea 145: Figura: manglar a todo color, bosque no inundable de referencia atenuado, el resto en gris claro; sin contornos
 
 ### `mapa_doble_rebote_s1.py`
 
 Mapa comparativo en banda C: el mismo "alto menos bajo" del nivel del rio que
-mapa_doble_rebote.py hace con NISAR, ahora con Sentinel-1 GRD (orbita descendente 142) sobre
-la misma malla de 50 m, para que la Figura del informe compare las dos bandas pixel a pixel.
+mapa_doble_rebote.py hace con NISAR, ahora con Sentinel-1 GRD (órbita descendente 142) sobre
+la misma malla de 50 m, para que la Figura del informe compare las dos bandas píxel a píxel.
 
-COMO. En Earth Engine, pasadas de la orbita 142 en las mismas dos ventanas de fechas que los
+COMO. En Earth Engine, pasadas de la órbita 142 en las mismas dos ventanas de fechas que los
 grupos de NISAR (nivel alto: 20-oct-2025 a 15-ene-2026; nivel bajo: 20-jun a 30-sep-2026);
 mediana de VV y VH (dB, como las sirve Earth Engine) por grupo, diferencia alto menos bajo,
 promediada a 50 m (reduceResolution, media) y descargada sobre la malla UTM 18N del GeoTIFF de
@@ -669,57 +748,64 @@ Salidas: mapa_s1_alto_bajo_50m.tif, mapa_doble_rebote_s1_resumen.csv, fig_mapa_c
 Comentarios en el código:
 
 - línea 51: reduceResolution agota la memoria de Earth Engine con la mediana de 13 pasadas a 10 m; se usa
-- línea 52: una media movil de 5 x 5 pixeles (50 m) en la malla nativa y se muestrea en la malla de 50 m
+- línea 52: una media movil de 5 x 5 píxeles (50 m) en la malla nativa y se muestrea en la malla de 50 m
 
 ### `mapa_doble_rebote_malaga.py`
 
-Mapa de la senal de doble rebote en Bahia de Malaga con NISAR: diferencia por pixel entre las
-pasadas de marea alta y las de marea baja, por traza (A004 a las 05:46, D087 a las 18:29).
+Cartografía del cambio de retrodispersión entre marea alta y baja en Bahía de Málaga con NISAR.
 
-Mismo metodo que mapa_doble_rebote.py en la CGSM, con la marea como forzante: cada traza tiene
-12 pasadas; se usan las 6 de marea mas alta y las 6 de marea mas baja en la pasada (marea de
-perfil_pacifico_24.csv, columna marea_m), mediana por grupo y diferencia alta menos baja de HH,
-HV y HH - HV. Las escenas de cada traza comparten malla UTM; las dos trazas se mapean por
-separado y nunca se mezclan. Agregacion a 50 m (bloques 5 x 5 en potencia), sigma0 dB.
-Mascara de clases (manglar WorldCover 95 y GMW 2020, bosque 10, humedal 90, agua 80) desde
-Earth Engine sobre cada malla.
+Para cada trayectoria se seleccionan las seis adquisiciones de mayor marea y las seis de menor
+marea, se calculan las medianas de los dos grupos y la diferencia alta - baja para HH, HV y
+HH-HV. Las trayectorias A004 y D087 se procesan por separado para no mezclar geometrías de
+adquisición. Los resultados se agregan a 50 m y se resumen para manglar, bosque no inundable,
+humedal herbáceo y agua.
 
-USO: python mapa_doble_rebote_malaga.py   (requiere D:\TESIS_DATACUBE\NISAR_PACIFICO)
-Salidas: fig_mapa_doble_rebote_malaga.png, mapa_malaga_<traza>_50m.tif, mapa_doble_rebote_malaga_resumen.csv
+SALIDAS
+- fig_mapa_doble_rebote_malaga.png
+- mapa_malaga_<traza>_50m.tif
+- mapa_doble_rebote_malaga_resumen.csv
+
+USO
+    python mapa_doble_rebote_malaga.py
 
 ### `corroboracion_dw.py`
 
-Corroboracion optica de la inundacion bajo dosel con Dynamic World (Brown et al., 2022):
-la clase "vegetacion inundada" (flooded_vegetation, probabilidad por pixel a 10 m) en las
-fechas sin nubes de Sentinel-2, frente al nivel del rio y frente al mapa de NISAR.
+Contraste óptico de la respuesta hidrológica con Dynamic World (Brown et al., 2022).
 
-DOS PRUEBAS.
-  1. Temporal: para cada imagen de Dynamic World sobre el AOI entre oct-2025 y sep-2026, la
-     probabilidad media de vegetacion inundada sobre el manglar (WorldCover 95 y GMW), el
-     humedal herbaceo y el bosque de control, con la fraccion de pixeles validos (sin nube).
-     Se conservan las fechas con cobertura >= COB_MIN sobre el manglar y se correlaciona
-     (Spearman) con el nivel del rio en Remolino ese dia (IDEAM, nivel_ideam_instantaneo.csv).
-  2. Espacial: mediana de la probabilidad por pixel en las fechas del grupo de nivel alto
-     (20-oct-2025 a 15-ene-2026) y del grupo de nivel bajo (20-jun a 30-sep-2026), en la misma
-     malla de 50 m de mapa_doble_rebote_50m.tif; diferencia alto - bajo y correlacion de
-     Spearman con el dHH de NISAR sobre los pixeles de manglar con al menos 2 observaciones
-     validas por grupo.
+PROPÓSITO
+Comparar la señal SAR con la probabilidad de flooded_vegetation de Dynamic World en las zonas
+donde la inundación puede manifestarse desde el óptico.
 
-LIMITE. Dynamic World ve el dosel desde arriba: su "vegetacion inundada" responde a agua
-visible entre vegetacion baja o abierta, no al agua bajo un dosel cerrado. Una correlacion
-positiva corrobora; una nula no refuta.
+ANÁLISIS
+1. Temporal: para cada fecha válida se calcula la probabilidad media de flooded_vegetation sobre
+   manglar, humedal herbáceo y bosque no inundable, y se compara con Spearman con el nivel del
+   río en Remolino.
+2. Espacial: se calcula la diferencia entre los periodos de nivel alto y bajo sobre la misma
+   malla de 50 m de NISAR y se compara con delta HH sobre el manglar.
 
-USO: python corroboracion_dw.py      (requiere mapa_doble_rebote_50m.tif ya escrito)
-Salidas: dw_serie.csv, dw_resumen.txt, fig_corroboracion_dw.png, dw_alto_bajo_50m.tif
+LIMITACIÓN
+Dynamic World observa la superficie y el dosel desde el óptico. Su clase flooded_vegetation es
+sensible sobre todo al agua visible entre vegetación baja o abierta y no es una observación
+directa del agua bajo un dosel cerrado. Por ello, el análisis se usa como contraste óptico y no
+como validación independiente de la señal de banda L.
+
+SALIDAS
+- dw_serie.csv
+- dw_resumen.txt
+- fig_corroboracion_dw.png
+- dw_alto_bajo_50m.tif
+
+USO
+    python corroboracion_dw.py [--solo-figura]
 
 Comentarios en el código:
 
-- línea 29: PostGIS deja un proj.db viejo en PROJ_DATA; rasterio necesita el suyo, y hay que fijarlo antes de importarlo
-- línea 86: una fila por fecha (varias teselas S2 el mismo dia): media ponderada por cobertura
-- línea 119: relee dw_serie.csv y dw_alto_bajo_50m.tif
-- línea 120: 1. temporal
-- línea 138: 2. espacial
-- línea 168: figura: serie temporal y mapa de dDW sobre manglar + dispersion
+- línea 34: PostGIS deja un proj.db viejo en PROJ_DATA; rasterio necesita el suyo, y hay que fijarlo antes de importarlo
+- línea 91: una fila por fecha (varias teselas S2 el mismo dia): media ponderada por cobertura
+- línea 124: relee dw_serie.csv y dw_alto_bajo_50m.tif
+- línea 125: 1. temporal
+- línea 143: 2. espacial
+- línea 173: figura: serie temporal y mapa de dDW sobre manglar + dispersion
 
 ### `mapbiomas_cruce.py`
 
@@ -736,7 +822,7 @@ Tres preguntas:
 
 Codigos de la leyenda MapBiomas Colombia col. 2 (verificar en el sitio antes de citar):
   3 bosque, 5 manglar, 6 bosque inundable, 11 formacion herbacea inundable, 21 mosaico
-  agropecuario, 23 playas y dunas, 24 infraestructura urbana, 25 otras areas sin vegetacion,
+  agropecuario, 23 playas y dunas, 24 infraestructura urbana, 25 otras areas sin vegetación,
   33 rio, lago y oceano, 35 palma aceitera.
 
 USO: python mapbiomas_cruce.py      Salidas: mapbiomas_cruce_resumen.txt, mapbiomas_aoi_serie.csv
@@ -751,7 +837,7 @@ Comentarios en el código:
 
 ### `md_a_word.py`
 
-Convierte un markdown del curso de radar a .docx: carta, margenes 2,5 cm, Calibri 11,
+Convierte un markdown del curso de radar a .docx: carta, margenes 2,5 cm, Calibri 10,
 cuerpo justificado, encabezados en negrita sin numerar, tablas con encabezado sombreado.
 El bloque de cabecera (lineas antes del primer '## ') va centrado, la ultima en negrita.
 
@@ -772,37 +858,30 @@ informe_radar.html con las imagenes embebidas como data URI.
 
 ### `figura_flujo.py`
 
-Diagrama del flujo de trabajo del avance de radar, en ingles, para el informe.
+Genera el diagrama del flujo de trabajo del estudio en nueve etapas.
 
-Sigue la convencion vista en clase (semana 5: De Luca et al. 2021, Yordanov y Brovelli
-2021): flujo vertical por etapas, cada etapa con las operaciones que ejecuta, los
-productos intermedios a la izquierda con sus conteos y el software a la derecha con
-barras que marcan en que etapas interviene. Al pie de cada etapa, en monoespaciada
-azul, los guiones de RADAR/ (los numerados, de AVANCE TESIS/PUBLICACION_GEE/) que la
-ejecutan. Las cifras son las del informe.
-
-Esta pensado para la pagina: md_a_word.py inserta las figuras a 6,3 pulgadas de ancho,
-de modo que la figura se dibuja a ese ancho y con letra de 6,8 pt para que se imprima
-tal cual. La altura se calcula del texto y se avisa si supera lo que cabe en una
-pagina carta con margenes de 2,5 cm (unas 8,4 pulgadas con leyenda).
+La versión resumida representa una línea por etapa con el producto que escribe y la versión
+detallada documenta todas las operaciones de cada etapa. La figura sigue la organización de los
+flujos de procesamiento de De Luca et al. (2021) y Yordanov y Brovelli (2021). Los conteos,
+tablas y figuras corresponden a la versión final del informe.
 
 USO
-    python figura_flujo.py             -> fig_flujo_trabajo.png (resumen: una linea por etapa, Figura 1)
-    python figura_flujo.py --detalle   -> fig_flujo_trabajo_detalle.png (todas las operaciones, anexo)
+    python figura_flujo.py             -> fig_flujo_trabajo.png
+    python figura_flujo.py --detalle   -> fig_flujo_trabajo_detalle.png
 
 Comentarios en el código:
 
-- línea 42: geometria en pulgadas (1 unidad de eje = 1 pulgada)
-- línea 44: productos intermedios
-- línea 45: etapas (sin barras de software en el resumen)
-- línea 46: barras de software
-- línea 48: caracteres por linea de vineta
-- línea 50: lineas de vineta, para medir desbordes
-- línea 51: alto de linea
-- línea 52: separacion entre etapas
-- línea 112: ------------------------------------------------------------------ cabecera
-- línea 119: ------------------------------------------------------------------ etapas
-- línea 198: ------------------------------------------------------------------ software
+- línea 35: geometria en pulgadas (1 unidad de eje = 1 pulgada)
+- línea 37: productos intermedios
+- línea 38: etapas (sin barras de software en el resumen)
+- línea 39: barras de software
+- línea 41: caracteres por linea de vineta
+- línea 43: lineas de vineta, para medir desbordes
+- línea 44: alto de linea
+- línea 45: separacion entre etapas
+- línea 105: ------------------------------------------------------------------ cabecera
+- línea 112: ------------------------------------------------------------------ etapas
+- línea 191: ------------------------------------------------------------------ software
 
 ### `figura_cadena_sar.py`
 
@@ -830,17 +909,26 @@ Comentarios en el código:
 
 ### `figura_muestra_2025.py`
 
-Figura de la muestra de referencia de 2025 sobre el AOI de la CGSM: los 720 puntos por clase
-final, la reserva de validacion (que la muestra no toca) y los bloques de 12 km de la validacion
-cruzada. Para la seccion 2.7 del informe de radar (y reutilizable en la tesis).
+Genera la figura de la muestra de referencia de 2025 sobre el área de estudio de la CGSM.
 
-Fuentes: AVANCE TESIS/MUESTRA_2025/etiquetas_2025.csv (clase_final, lon, lat), pliegues_cv.csv
-(bloque12), reserva_validacion.geojson; AOI desde el asset de Earth Engine.
-USO: python figura_muestra_2025.py   -> fig_muestra_2025.png
+La figura muestra los 720 puntos distribuidos por clase final, la reserva de validación excluida
+del muestreo y los bloques de 12 km del diseño de validación espacial.
+
+FUENTES
+- etiquetas_2025.csv
+- pliegues_cv.csv
+- reserva_validacion.geojson
+- área de estudio de la CGSM
+
+SALIDA
+fig_muestra_2025.png
+
+USO
+    python figura_muestra_2025.py
 
 Comentarios en el código:
 
-- línea 48: bloques de 12 km del esquema de validacion cruzada (codigo = floor(x/12km)*10000 + floor(y/12km))
+- línea 57: bloques de 12 km del esquema de validacion cruzada (codigo = floor(x/12km)*10000 + floor(y/12km))
 
 ### `figura_consistencia.py`
 
@@ -855,17 +943,39 @@ USO: python figura_consistencia.py   -> fig_consistencia_2025.png
 
 ### `figura_diseno.py`
 
-Figura 1 del informe: diseño analítico del estudio en seis filas, esquemático, con dos
-miniaturas reales (recorte HH de NISAR y malla de clases a 50 m). Nada ilustrativo ni inventado.
+Genera la Figura 1 alternativa del informe: síntesis del diseño analítico en seis filas.
 
-USO: python figura_diseno.py   -> fig_diseno_estudio.png
-Lee: D:\TESIS_DATACUBE\NISAR\NISAR_AOI_20251029_083_4.h5 y mapa_doble_rebote_50m.tif.
+La figura usa exclusivamente productos del análisis, incluidos un recorte HH de NISAR y la malla
+de clases a 50 m, y no incluye representaciones simuladas.
+
+USO
+    python figura_diseno.py
+
+SALIDA
+fig_diseno_estudio.png
 
 Comentarios en el código:
 
-- línea 49: ---------- 1. datos de entrada (y 72-99)
-- línea 75: ---------- 2. preprocesamiento (y 57-70)
-- línea 89: ---------- 3. muestreo (y 40-53.5)
-- línea 107: ---------- 4. forzante (y 31-38)
-- línea 113: ---------- 5. pruebas (y 17-29)
-- línea 124: ---------- 6. productos (y 3-15)
+- línea 54: ---------- 1. datos de entrada (y 72-99)
+- línea 80: ---------- 2. preprocesamiento (y 57-70)
+- línea 94: ---------- 3. muestreo (y 40-53.5)
+- línea 112: ---------- 4. forzante (y 31-38)
+- línea 118: ---------- 5. pruebas (y 17-29)
+- línea 129: ---------- 6. productos (y 3-15)
+
+### `figura_diseno_h.py`
+
+Figura 1 en seis columnas (diseño de Lina) armada solo con archivos reales de `figuras para flujo`:
+recortes de los tres radares, cuatro recortes Sentinel-2 SWIR por cobertura, las dos series del
+forzante y los tres mapas de producto. Las cajas de texto se dibujan aquí. Nada generado.
+
+USO: python figura_diseno_h.py  -> fig_diseno_estudio_h.png
+
+Comentarios en el código:
+
+- línea 55: 1. datos de entrada
+- línea 68: 2. preprocesamiento
+- línea 77: 3. muestreo
+- línea 86: 4. forzante
+- línea 90: 5. pruebas
+- línea 99: 6. productos

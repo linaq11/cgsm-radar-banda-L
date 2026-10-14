@@ -1,18 +1,29 @@
 # -*- coding: utf-8 -*-
-r"""La prueba de inundacion bajo dosel en la CGSM, donde no hay marea: la variable
-hidrologica es la lluvia acumulada en los 30 dias previos a cada pasada (ERA5-Land,
-promedio sobre el AOI) y, como particion, epoca seca (dic-abr) frente a humeda
-(may-nov). Misma regla que en el Pacifico: manglar menos bosque contra la variable,
-diferencia entre las pasadas de mas y menos lluvia, Spearman; el bosque (WorldCover 10,
-sobre todo bosque seco de los piedemontes) es el control que no se inunda.
+"""Análisis inicial de la respuesta hidrológica de las coberturas de la CGSM.
 
-Sensores: NISAR (recortes locales en D:\TESIS_DATACUBE\NISAR, HH y HV), Sentinel-1 GRD
-(VV y VH, Earth Engine) y ALOS-2 ScanSAR (HH y HV, Earth Engine), oct-2025 a sep-2026,
-todos sobre los mismos 1.600 puntos del AOI (manglar WorldCover∩GMW, bosque, humedal
-herbaceo, agua; 400 por clase). Los sensores sin recortes en disco se saltan.
+PROPÓSITO
+Evaluar la relación entre la retrodispersión SAR y la precipitación acumulada en los 30 días
+anteriores a cada adquisición, obtenida de ERA5-Land. Se conserva la partición estacional entre
+época seca y húmeda como descripción complementaria.
 
-USO: python cgsm_temporada.py [nisar|s1|alos2 ...]   (por defecto los tres)
-Salidas: cgsm_temporada_<sensor>.csv, cgsm_temporada_resumen.csv, fig_cgsm_temporada.png
+MÉTODO
+Para cada sensor y trayectoria se calcula la mediana de retrodispersión por cobertura. La señal
+del manglar se analiza de forma individual y relativa al bosque no inundable mediante la
+diferencia manglar - bosque. Se usan cuatro coberturas de referencia, manglar, bosque no
+inundable, humedal herbáceo y agua, con 400 puntos por clase.
+
+SENSORES
+- NISAR: HH y HV (recortes locales NISAR_AOI_*.h5).
+- Sentinel-1: VV y VH (Earth Engine).
+- ALOS-2: HH y HV (Earth Engine).
+
+SALIDAS
+- cgsm_temporada_<sensor>.csv
+- cgsm_temporada_resumen.csv
+- fig_cgsm_temporada.png
+
+USO
+    python cgsm_temporada.py
 """
 import glob
 import os

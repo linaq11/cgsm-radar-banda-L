@@ -1,25 +1,30 @@
 # -*- coding: utf-8 -*-
-r"""Mapa de la senal de inundacion bajo dosel en la CGSM con NISAR (traza D083): diferencia
-por pixel entre las pasadas de nivel alto del rio Magdalena y las de nivel bajo.
+"""Cartografía del cambio de retrodispersión asociado al contraste hidrológico en la CGSM con
+NISAR D083.
 
-PARA QUE. La propuesta del curso promete "mapas de retrodispersion"; la prueba del nivel del
-rio (cgsm_nivel_rio.py) es un numero por clase. Aqui la misma regla, alto menos bajo, se
-aplica pixel a pixel para ver DONDE aparece el doble rebote y donde no.
+PROPÓSITO
+Representar espacialmente la diferencia de retrodispersión entre los grupos de nivel alto y bajo
+del río Magdalena y evaluar dónde se concentra la respuesta copolar observada en el análisis por
+clases.
 
-COMO. Las 14 escenas NISAR_AOI_*D083*.h5 comparten la malla UTM 18N de 10 m (7590 x 6469).
-Cada escena: gamma0 RTC -> sigma0 con rtcGammaToSigmaFactor, agregacion a 50 m por media de
-bloques 5 x 5 en potencia, dB. Grupos: nivel alto = tercio alto de cgsm_nivel_rio.py (6
-pasadas, oct-2025 a ene-2026) y nivel bajo = las 8 de jun a sep 2026; mediana por grupo y
-diferencia alto - bajo para HH, HV y HH - HV. La mascara de manglar (WorldCover 95 y GMW
-2020), bosque (WorldCover 10), humedal herbaceo (90) y agua (80) se descarga de Earth Engine
-sobre la misma malla de 50 m. Se escriben la figura, un GeoTIFF con las tres diferencias y
-un resumen por clase (mediana, cuartiles y fraccion de pixeles con diferencia positiva).
+MÉTODO
+Las 14 adquisiciones NISAR D083 se convierten de gamma cero RTC a sigma cero y se agregan a una
+malla de 50 m por bloques de 5 x 5 píxeles en potencia. Se calculan las medianas de los grupos de
+nivel alto y bajo y su diferencia para HH, HV y HH-HV. Los resultados se resumen por cobertura y,
+para el manglar, por sector geográfico.
 
-LIMITE. Los dos grupos coinciden con el periodo y con la version del producto (Beta frente a
-Provisional); el mapa muestra la estructura espacial de la senal, no su causa.
+LIMITACIÓN
+Los grupos de nivel alto y bajo coinciden con periodos y versiones distintas del producto NISAR
+(Beta y Provisional). El mapa describe la estructura espacial de la señal observada, pero no
+permite atribuirla de forma independiente al cambio de nivel del río.
 
-USO: python mapa_doble_rebote.py        Salidas: fig_mapa_doble_rebote.png,
-     mapa_doble_rebote_50m.tif, mapa_doble_rebote_resumen.csv
+SALIDAS
+- fig_mapa_doble_rebote.png
+- mapa_doble_rebote_50m.tif
+- mapa_doble_rebote_resumen.csv
+
+USO
+    python mapa_doble_rebote.py [--desde-tif]
 """
 import glob
 import os
@@ -137,7 +142,7 @@ def main():
     res.to_csv(os.path.join(AQUI, "mapa_doble_rebote_resumen.csv"), index=False)
     print(res.to_string(index=False))
 
-    # Figura: manglar a todo color, bosque de control atenuado, el resto en gris claro; sin contornos
+    # Figura: manglar a todo color, bosque no inundable de referencia atenuado, el resto en gris claro; sin contornos
     ext = [x0 / 1000, (x0 + nx * B * 10) / 1000, (y0 - ny * B * 10) / 1000, y0 / 1000]
     fig, axs = plt.subplots(1, 3, figsize=(15, 5.6), constrained_layout=True)
     for ax, (tit, a) in zip(axs, (("ΔHH, high − low river level (dB)", d_hh), ("ΔHV (dB)", d_hv), ("Δ(HH − HV) (dB)", d_q))):

@@ -1,12 +1,20 @@
 # -*- coding: utf-8 -*-
-r"""Figura de la clave de interpretacion: espacio de firmas de la CGSM en banda C y en
-banda L. Eje x, copolar (VV o HH); eje y, cociente copolar menos cruzada, que separa
-superficie de volumen. Un punto por clase, con la mediana entre pasadas.
+"""Genera el espacio de firmas usado para la clave de interpretación de la CGSM.
 
-Fuentes: cgsm_temporada_s1.csv (S1 D142, 61 pasadas), cgsm_temporada_nisar.csv (NISAR
-traza D083, 12 pasadas) y nisar_flotante.csv para la vegetacion flotante del evento de
-2025, que no es una clase de WorldCover y se define por la firma optica de dic-2025.
-Salida: fig_clave_firmas.png
+El eje x representa la retrodispersión copolar (VV en banda C o HH en banda L) y el eje y la
+diferencia copolar - cruzada (VV-VH o HH-HV), en dB. Cada cobertura se representa por la mediana
+multifecha de las dos variables.
+
+FUENTES
+- cgsm_temporada_s1.csv
+- cgsm_temporada_nisar.csv
+- nisar_flotante.csv
+
+SALIDA
+fig_clave_firmas.png
+
+USO
+    python figura_clave.py
 """
 import os
 

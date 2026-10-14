@@ -1,15 +1,24 @@
 # -*- coding: utf-8 -*-
-"""Paso 3, version preliminar: relacion entre la altura de marea en la pasada y la
-retrodispersion NISAR del manglar, por traza, con el bosque como control.
+"""Relación entre la altura de marea y la retrodispersión NISAR del manglar en Bahía de Málaga,
+analizada por trayectoria y con el bosque no inundable como referencia.
 
-REGLA DE LECTURA (escrita antes de mirar los numeros). Si la banda L ve la inundacion
-bajo el dosel, dentro de cada traza el manglar debe mostrar mayor HH (y mayor HH-HV)
-en marea alta que en baja, y el bosque no. Se compara la mediana de las pasadas por
-encima de la mediana de marea contra las de abajo, y la correlacion de Spearman entre
-marea y HH. El efecto estacional se descuenta restando, fecha a fecha, el valor del
-bosque (que no se inunda) al del manglar.
+REGLA DE LECTURA
+La regla se definió antes del análisis. Si la banda L responde al agua bajo el dosel, dentro de
+una misma trayectoria se espera un aumento de HH y de HH-HV en el manglar con la altura de marea,
+sin una respuesta equivalente en el bosque no inundable ni en HV. Para cada trayectoria se
+comparan las adquisiciones por encima y por debajo de la mediana de marea y se calcula la
+correlación de Spearman entre la marea y la retrodispersión. La diferencia manglar - bosque se
+calcula fecha a fecha para controlar las variaciones temporales compartidas por las dos coberturas.
 
-Lee perfil_pacifico_24.csv (con marea_m) y escribe marea_vs_radar.csv y una figura.
+ENTRADA
+perfil_pacifico_24.csv y la serie de marea asignada a cada pasada.
+
+SALIDAS
+- marea_vs_radar.csv
+- fig_marea_vs_radar.png
+
+USO
+    python marea_vs_radar.py
 """
 import os
 

@@ -1,20 +1,22 @@
 # -*- coding: utf-8 -*-
-"""Descarga el nivel del río Magdalena (y candidatos cercanos) desde los datos abiertos del
-IDEAM en datos.gov.co, para usarlo como forzamiento hidrológico de la prueba de doble
-rebote en la CGSM en lugar de la lluvia.
+"""Descarga las series de nivel hidrológico del IDEAM usadas para caracterizar la condición
+hidrológica de la CGSM.
 
-Conjuntos de datos (Socrata, sin registro):
-  bdmn-sqnh  Nivel Instantáneo del Río
-  vfth-yucv  Nivel Máximo del Río
-  pt9a-aamx  Nivel Mínimo del Río
-  ia8x-22em  Nivel del Mar
-Estaciones (Catálogo Nacional de Estaciones, hp9r-jxuu):
-  2904700095 Remolino AUT (Magdalena, automática con telemetría)
-  0029047020 Las Flores (Magdalena, Barranquilla)
-  0029047000 Tebsa Barranquilla AUT
-  0029067130 Puente Ferrocarril Aracataca (río Aracataca)
+PROPÓSITO
+Obtener el nivel del río Magdalena en la estación automática Remolino y evaluar otras estaciones
+disponibles como posibles referencias hidrológicas. El nivel de Remolino se usa como indicador
+regional del estado hidrológico de la CGSM y complementa el análisis exploratorio basado en la
+precipitación antecedente de ERA5-Land.
 
-Salida: nivel_ideam_<dataset>.csv por conjunto con datos, y nivel_ideam_resumen.txt.
+FUENTE
+Datos Abiertos Colombia, IDEAM, a través de la API Socrata.
+
+SALIDAS
+- nivel_ideam_<dataset>.csv
+- nivel_ideam_resumen.txt
+
+USO
+    python nivel_ideam_descarga.py
 """
 import io
 import os

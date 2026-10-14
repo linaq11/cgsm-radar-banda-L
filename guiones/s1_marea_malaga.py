@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-"""La misma prueba de marea con Sentinel-1 (banda C) sobre Bahia de Malaga.
+"""La misma prueba de marea con Sentinel-1 (banda C) sobre Bahía de Málaga.
 
 Toma todas las escenas Sentinel-1 GRD IW (VV, VH, sigma cero en dB, corregidas por
 terreno en Earth Engine) que cubren la caja entre oct-2025 y sep-2026, las agrupa por
-orbita relativa (cada orbita tiene su hora y su geometria, como las trazas de NISAR),
+órbita relativa (cada órbita tiene su hora y su geometria, como las trazas de NISAR),
 muestrea los mismos 1.600 puntos (manglar de consenso, bosque, humedal, agua; semilla
 42) y asigna a cada escena la marea predicha a SU hora de adquisicion. Luego aplica
 la misma regla que marea_vs_radar.py: manglar menos bosque contra marea, diferencia
-alta-baja y Spearman, por orbita.
+alta-baja y Spearman, por órbita.
 
 Ademas restringe a las escenas a +-3 dias de una pasada NISAR para la comparacion
 directa "mismas fechas".
@@ -57,7 +57,7 @@ col = (ee.ImageCollection("COPERNICUS/S1_GRD").filterBounds(caja).filterDate("20
        .filter(ee.Filter.listContains("transmitterReceiverPolarisation", "VH")))
 meta = col.reduceColumns(ee.Reducer.toList(4), ["system:index", "system:time_start", "orbitProperties_pass", "relativeOrbitNumber_start"]).get("list").getInfo()
 print("escenas S1 IW VV+VH sobre la caja:", len(meta), flush=True)
-# una pasada = todos los cuadros de la misma orbita con menos de 5 minutos entre si;
+# una pasada = todos los cuadros de la misma órbita con menos de 5 minutos entre si;
 # se mosaican, porque los cuadros parten la caja (80 % + 20 %)
 meta = sorted(meta, key=lambda x: x[1])
 pasadas = []
@@ -91,7 +91,7 @@ cerca = df.drop_duplicates("escena").copy()
 cerca["dias_a_nisar"] = cerca.fecha_utc.apply(lambda t: (nisar.fecha_utc - t).abs().min().total_seconds() / 86400)
 print("\nescenas S1 usadas: %d | a menos de 3 dias de una pasada NISAR: %d" % (len(cerca), (cerca.dias_a_nisar <= 3).sum()), flush=True)
 
-# --- prueba por orbita
+# --- prueba por órbita
 res = []
 for orb, g in df.groupby("orbita"):
     if g.escena.nunique() < 8:

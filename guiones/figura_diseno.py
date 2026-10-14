@@ -1,9 +1,14 @@
 # -*- coding: utf-8 -*-
-"""Figura 1 del informe: diseño analítico del estudio en seis filas, esquemático, con dos
-miniaturas reales (recorte HH de NISAR y malla de clases a 50 m). Nada ilustrativo ni inventado.
+"""Genera la Figura 1 alternativa del informe: síntesis del diseño analítico en seis filas.
 
-USO: python figura_diseno.py   -> fig_diseno_estudio.png
-Lee: D:\\TESIS_DATACUBE\\NISAR\\NISAR_AOI_20251029_083_4.h5 y mapa_doble_rebote_50m.tif.
+La figura usa exclusivamente productos del análisis, incluidos un recorte HH de NISAR y la malla
+de clases a 50 m, y no incluye representaciones simuladas.
+
+USO
+    python figura_diseno.py
+
+SALIDA
+fig_diseno_estudio.png
 """
 import os
 import h5py

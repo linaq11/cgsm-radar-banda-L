@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Figuras de mapa para el informe de radar, Bahia de Malaga (ingles).
+"""Figuras de mapa para el informe de radar, Bahía de Málaga (ingles).
 
 fig_malaga_radar.png     composiciones NISAR (R = HH, G = HV, B = HH-HV) de una escena
                          ascendente y una descendente cercanas en fecha, con el contorno

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """Convierte la tabla oficial de pleamares y bajamares de la DIMAR (CCCP, pronostico de
-Malaga) en la serie cada 10 minutos que lee perfil_pacifico_24.py, y la compara con
-la prediccion armonica propia.
+Málaga) en la serie cada 10 minutos que lee perfil_pacifico_24.py, y la compara con
+la predicción armonica propia.
 
 ENTRADA: mareas_dimar_malaga.csv con una fila por extremo, columnas:
     fecha_hora_local, altura_lat_m
@@ -68,7 +68,7 @@ oficial = pd.DataFrame({"t": t, "altura_m": np.round(h - nivel, 3)})
 oficial.to_csv(os.path.join(AQUI, "mareas_dimar_serie.csv"), index=False)
 print("serie oficial: %d registros cada 10 min, %s a %s, nivel medio %.2f m LAT restado" % (len(oficial), t[0], t[-1], nivel))
 
-# serie de trabajo: oficial donde existe, prediccion propia fuera de su cobertura
+# serie de trabajo: oficial donde existe, predicción propia fuera de su cobertura
 destino = os.path.join(AQUI, "mareas_buenaventura.csv")
 prop = os.path.join(AQUI, "mareas_prediccion_propia.csv")
 if not os.path.exists(prop):
@@ -84,7 +84,7 @@ pd.DataFrame({"fecha_hora_utc": hib.t.dt.strftime("%Y-%m-%d %H:%M"), "altura_m":
 print("serie de trabajo escrita en mareas_buenaventura.csv: %d registros DIMAR, %d de prediccion propia" % (en_oficial.sum(), (~en_oficial).sum()))
 serie = oficial.rename(columns={"t": "fecha_hora_utc"})
 
-# comparacion con la prediccion propia en las 24 pasadas NISAR
+# comparacion con la predicción propia en las 24 pasadas NISAR
 perf = os.path.join(AQUI, "perfil_pacifico_24.csv")
 prop = os.path.join(AQUI, "mareas_prediccion_propia.csv")
 if os.path.exists(perf) and os.path.exists(prop):

@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-r"""Banda L frente a banda C sobre la vegetacion flotante de 2025 (evento de Hydrilla).
+r"""Banda L frente a banda C sobre la vegetación flotante de 2025 (evento de Hydrilla).
 
 PARA QUE. En la ventana del informe (oct-2025 a sep-2026) el 14 % de los puntos de agua
-de WorldCover 2021 dentro del AOI se cubrio de vegetacion flotante. En Sentinel-1 esos
+de WorldCover 2021 dentro del AOI se cubrio de vegetación flotante. En Sentinel-1 esos
 puntos estan 7,4 dB por encima del agua abierta (−13,3 frente a −20,6 dB en VV,
 diciembre de 2025). La pregunta es si la banda L los separa igual, mejor o peor, que es
-un aporte propio para la clave de interpretacion (objetivo especifico 4).
+un aporte propio para la clave de interpretación (objetivo especifico 4).
 
 COMO. Los mismos 400 puntos de agua (WorldCover 80, AOI, semilla 42) se parten en dos
 grupos con la firma optica de diciembre de 2025 (NDVI > 0,25 y NDWI < 0, la regla del

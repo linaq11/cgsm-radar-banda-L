@@ -1,11 +1,20 @@
 # -*- coding: utf-8 -*-
-r"""Figura de la muestra de referencia de 2025 sobre el AOI de la CGSM: los 720 puntos por clase
-final, la reserva de validacion (que la muestra no toca) y los bloques de 12 km de la validacion
-cruzada. Para la seccion 2.7 del informe de radar (y reutilizable en la tesis).
+"""Genera la figura de la muestra de referencia de 2025 sobre el área de estudio de la CGSM.
 
-Fuentes: AVANCE TESIS/MUESTRA_2025/etiquetas_2025.csv (clase_final, lon, lat), pliegues_cv.csv
-(bloque12), reserva_validacion.geojson; AOI desde el asset de Earth Engine.
-USO: python figura_muestra_2025.py   -> fig_muestra_2025.png
+La figura muestra los 720 puntos distribuidos por clase final, la reserva de validación excluida
+del muestreo y los bloques de 12 km del diseño de validación espacial.
+
+FUENTES
+- etiquetas_2025.csv
+- pliegues_cv.csv
+- reserva_validacion.geojson
+- área de estudio de la CGSM
+
+SALIDA
+fig_muestra_2025.png
+
+USO
+    python figura_muestra_2025.py
 """
 import json
 import os

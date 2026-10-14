@@ -12,7 +12,7 @@ Tres preguntas:
 
 Codigos de la leyenda MapBiomas Colombia col. 2 (verificar en el sitio antes de citar):
   3 bosque, 5 manglar, 6 bosque inundable, 11 formacion herbacea inundable, 21 mosaico
-  agropecuario, 23 playas y dunas, 24 infraestructura urbana, 25 otras areas sin vegetacion,
+  agropecuario, 23 playas y dunas, 24 infraestructura urbana, 25 otras areas sin vegetación,
   33 rio, lago y oceano, 35 palma aceitera.
 
 USO: python mapbiomas_cruce.py      Salidas: mapbiomas_cruce_resumen.txt, mapbiomas_aoi_serie.csv

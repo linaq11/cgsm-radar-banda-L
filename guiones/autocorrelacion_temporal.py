@@ -1,16 +1,25 @@
 # -*- coding: utf-8 -*-
-r"""Comprueba si las correlaciones con la marea y con la lluvia estan infladas por dependencia temporal.
+"""Evalúa la sensibilidad de las correlaciones hidrológicas a la dependencia temporal entre
+adquisiciones.
 
-Spearman trata cada pasada como una observacion independiente. Si la serie de radar y la del
-forzante (marea, lluvia de 30 dias) se parecen a si mismas de una pasada a la siguiente, las n
-pasadas valen por menos. Para cada traza se mide la autocorrelacion de rezago 1 de las dos
-series (sobre rangos, en orden de fecha) y se calcula el tamano efectivo de Pyper y Peterman
-(1998): n_ef = n (1 - r1x r1y) / (1 + r1x r1y), acotado a n. El p se recalcula con n_ef.
+Spearman supone observaciones independientes. Cuando el forzante y la señal SAR presentan
+autocorrelación temporal, el número de observaciones independientes puede ser menor que el
+número nominal de pasadas. Para cada serie se estima el tamaño efectivo de muestra de Pyper y
+Peterman (1998) de dos formas: con la autocorrelación de rezago 1 (n_ef, p_ef) y con todos los
+rezagos hasta n/5 (n_ef_rezagos, p_ef_rezagos), que es la versión que reporta el informe. Los
+valores p se recalculan con el tamaño efectivo. La variable SAR es la señal copolar del manglar
+relativa al bosque. El script trabaja solo con las tablas ya generadas y no descarga ni reprocesa
+imágenes.
 
-La variable de radar es manglar menos bosque en copolarizacion, que es la que usa el informe.
-No reentrena ni descarga nada: lee las tablas por fecha que ya estan en la carpeta.
+ENTRADAS
+perfil_pacifico_24.csv, s1_marea_malaga.csv, alos2_marea_malaga.csv, cgsm_temporada_*.csv y la
+serie de nivel del río.
 
-USO: python autocorrelacion_temporal.py
+SALIDA
+autocorrelacion_temporal.csv, base de la tabla de dependencia temporal del informe.
+
+USO
+    python autocorrelacion_temporal.py
 """
 from pathlib import Path
 

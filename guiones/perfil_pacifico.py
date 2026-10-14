@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-"""Primer perfil de retrodispersion NISAR sobre Bahia de Malaga: mediana de HH, HV y
-HH-HV (dB, sigma cero) por cobertura de WorldCover 2021 y por escena, con el angulo
+"""Primer perfil de retrodispersión NISAR sobre Bahía de Málaga: mediana de HH, HV y
+HH-HV (dB, sigma cero) por cobertura de WorldCover 2021 y por escena, con el ángulo
 de incidencia. Valida ademas los recortes (proyeccion, tamano, cobertura).
 
 Coberturas: manglar (95), agua (80), bosque (10), humedal herbaceo (90).
@@ -99,7 +99,7 @@ for r in rutas:
                           HH_p25=np.nanpercentile(vhh[m], 25), HH_p75=np.nanpercentile(vhh[m], 75)))
 out = pd.DataFrame(filas)
 
-# --- Dynamic World: probabilidad de vegetacion inundada y de agua en los mismos puntos,
+# --- Dynamic World: probabilidad de vegetación inundada y de agua en los mismos puntos,
 # con las imagenes de +-10 dias alrededor de cada escena NISAR (el Pacifico es nuboso)
 fc = ee.FeatureCollection([ee.Feature(ee.Geometry.Point([float(a), float(b)]), {"clase": c}) for a, b, c in zip(df.lon, df.lat, df.clase)])
 dw_filas = []

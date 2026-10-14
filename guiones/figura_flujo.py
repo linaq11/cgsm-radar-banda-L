@@ -1,21 +1,14 @@
 # -*- coding: utf-8 -*-
-"""Diagrama del flujo de trabajo del avance de radar, en ingles, para el informe.
+"""Genera el diagrama del flujo de trabajo del estudio en nueve etapas.
 
-Sigue la convencion vista en clase (semana 5: De Luca et al. 2021, Yordanov y Brovelli
-2021): flujo vertical por etapas, cada etapa con las operaciones que ejecuta, los
-productos intermedios a la izquierda con sus conteos y el software a la derecha con
-barras que marcan en que etapas interviene. Al pie de cada etapa, en monoespaciada
-azul, los guiones de RADAR/ (los numerados, de AVANCE TESIS/PUBLICACION_GEE/) que la
-ejecutan. Las cifras son las del informe.
-
-Esta pensado para la pagina: md_a_word.py inserta las figuras a 6,3 pulgadas de ancho,
-de modo que la figura se dibuja a ese ancho y con letra de 6,8 pt para que se imprima
-tal cual. La altura se calcula del texto y se avisa si supera lo que cabe en una
-pagina carta con margenes de 2,5 cm (unas 8,4 pulgadas con leyenda).
+La versión resumida representa una línea por etapa con el producto que escribe y la versión
+detallada documenta todas las operaciones de cada etapa. La figura sigue la organización de los
+flujos de procesamiento de De Luca et al. (2021) y Yordanov y Brovelli (2021). Los conteos,
+tablas y figuras corresponden a la versión final del informe.
 
 USO
-    python figura_flujo.py             -> fig_flujo_trabajo.png (resumen: una linea por etapa, Figura 1)
-    python figura_flujo.py --detalle   -> fig_flujo_trabajo_detalle.png (todas las operaciones, anexo)
+    python figura_flujo.py             -> fig_flujo_trabajo.png
+    python figura_flujo.py --detalle   -> fig_flujo_trabajo_detalle.png
 """
 import os
 import sys

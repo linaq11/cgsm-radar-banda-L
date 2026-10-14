@@ -1,26 +1,31 @@
 # -*- coding: utf-8 -*-
-r"""Corroboracion optica de la inundacion bajo dosel con Dynamic World (Brown et al., 2022):
-la clase "vegetacion inundada" (flooded_vegetation, probabilidad por pixel a 10 m) en las
-fechas sin nubes de Sentinel-2, frente al nivel del rio y frente al mapa de NISAR.
+"""Contraste óptico de la respuesta hidrológica con Dynamic World (Brown et al., 2022).
 
-DOS PRUEBAS.
-  1. Temporal: para cada imagen de Dynamic World sobre el AOI entre oct-2025 y sep-2026, la
-     probabilidad media de vegetacion inundada sobre el manglar (WorldCover 95 y GMW), el
-     humedal herbaceo y el bosque de control, con la fraccion de pixeles validos (sin nube).
-     Se conservan las fechas con cobertura >= COB_MIN sobre el manglar y se correlaciona
-     (Spearman) con el nivel del rio en Remolino ese dia (IDEAM, nivel_ideam_instantaneo.csv).
-  2. Espacial: mediana de la probabilidad por pixel en las fechas del grupo de nivel alto
-     (20-oct-2025 a 15-ene-2026) y del grupo de nivel bajo (20-jun a 30-sep-2026), en la misma
-     malla de 50 m de mapa_doble_rebote_50m.tif; diferencia alto - bajo y correlacion de
-     Spearman con el dHH de NISAR sobre los pixeles de manglar con al menos 2 observaciones
-     validas por grupo.
+PROPÓSITO
+Comparar la señal SAR con la probabilidad de flooded_vegetation de Dynamic World en las zonas
+donde la inundación puede manifestarse desde el óptico.
 
-LIMITE. Dynamic World ve el dosel desde arriba: su "vegetacion inundada" responde a agua
-visible entre vegetacion baja o abierta, no al agua bajo un dosel cerrado. Una correlacion
-positiva corrobora; una nula no refuta.
+ANÁLISIS
+1. Temporal: para cada fecha válida se calcula la probabilidad media de flooded_vegetation sobre
+   manglar, humedal herbáceo y bosque no inundable, y se compara con Spearman con el nivel del
+   río en Remolino.
+2. Espacial: se calcula la diferencia entre los periodos de nivel alto y bajo sobre la misma
+   malla de 50 m de NISAR y se compara con delta HH sobre el manglar.
 
-USO: python corroboracion_dw.py      (requiere mapa_doble_rebote_50m.tif ya escrito)
-Salidas: dw_serie.csv, dw_resumen.txt, fig_corroboracion_dw.png, dw_alto_bajo_50m.tif
+LIMITACIÓN
+Dynamic World observa la superficie y el dosel desde el óptico. Su clase flooded_vegetation es
+sensible sobre todo al agua visible entre vegetación baja o abierta y no es una observación
+directa del agua bajo un dosel cerrado. Por ello, el análisis se usa como contraste óptico y no
+como validación independiente de la señal de banda L.
+
+SALIDAS
+- dw_serie.csv
+- dw_resumen.txt
+- fig_corroboracion_dw.png
+- dw_alto_bajo_50m.tif
+
+USO
+    python corroboracion_dw.py [--solo-figura]
 """
 import io
 import os

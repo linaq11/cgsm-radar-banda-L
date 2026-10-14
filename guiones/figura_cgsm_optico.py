@@ -1,14 +1,20 @@
 # -*- coding: utf-8 -*-
-"""Figura de contexto óptico para el informe de radar (inglés): Sentinel-2 en color natural
-(B4, B3, B2) y en infrarrojo color (B8, B4, B3) junto a las composiciones NISAR de las mismas
-dos fechas de la Figura 7 (río alto, 4-dic-2025; río más bajo, 9-ene-2026), sobre la CGSM.
+"""Genera la comparación óptica y radar de las dos adquisiciones NISAR de la Figura 9 del informe
+(CGSM).
 
-Sentinel-2: COPERNICUS/S2_SR_HARMONIZED, mediana de las escenas a ±10 días de cada pasada,
-enmascaradas con Cloud Score+ (cs >= 0,60). Se reportan además, para el texto, el NDVI mediano
-del manglar de consenso y el área de agua abierta (MNDWI > 0) dentro del AOI en cada fecha.
-El radar submuestreado y los PNG ópticos se guardan en C: para no depender de D:.
+La figura combina Sentinel-2 en color natural (B4, B3, B2) e infrarrojo color (B8, B4, B3) con
+las composiciones NISAR de las mismas fechas, 4 de diciembre de 2025 y 9 de enero de 2026.
+Sentinel-2 usa COPERNICUS/S2_SR_HARMONIZED y la mediana de las adquisiciones dentro de 10 días
+de cada fecha NISAR, enmascaradas con Cloud Score+ (cs >= 0,60). Además de la figura, el script
+calcula el NDVI mediano del manglar de consenso y la proporción de agua abierta dentro del área
+de estudio.
 
-Salida: fig_cgsm_optico_radar.png y cgsm_optico_resumen.csv
+SALIDAS
+- fig_cgsm_optico_radar.png
+- cgsm_optico_resumen.csv
+
+USO
+    python figura_cgsm_optico.py
 """
 import io
 import json

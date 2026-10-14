@@ -1,17 +1,19 @@
 # -*- coding: utf-8 -*-
-r"""Mapa de la senal de doble rebote en Bahia de Malaga con NISAR: diferencia por pixel entre las
-pasadas de marea alta y las de marea baja, por traza (A004 a las 05:46, D087 a las 18:29).
+"""Cartografía del cambio de retrodispersión entre marea alta y baja en Bahía de Málaga con NISAR.
 
-Mismo metodo que mapa_doble_rebote.py en la CGSM, con la marea como forzante: cada traza tiene
-12 pasadas; se usan las 6 de marea mas alta y las 6 de marea mas baja en la pasada (marea de
-perfil_pacifico_24.csv, columna marea_m), mediana por grupo y diferencia alta menos baja de HH,
-HV y HH - HV. Las escenas de cada traza comparten malla UTM; las dos trazas se mapean por
-separado y nunca se mezclan. Agregacion a 50 m (bloques 5 x 5 en potencia), sigma0 dB.
-Mascara de clases (manglar WorldCover 95 y GMW 2020, bosque 10, humedal 90, agua 80) desde
-Earth Engine sobre cada malla.
+Para cada trayectoria se seleccionan las seis adquisiciones de mayor marea y las seis de menor
+marea, se calculan las medianas de los dos grupos y la diferencia alta - baja para HH, HV y
+HH-HV. Las trayectorias A004 y D087 se procesan por separado para no mezclar geometrías de
+adquisición. Los resultados se agregan a 50 m y se resumen para manglar, bosque no inundable,
+humedal herbáceo y agua.
 
-USO: python mapa_doble_rebote_malaga.py   (requiere D:\TESIS_DATACUBE\NISAR_PACIFICO)
-Salidas: fig_mapa_doble_rebote_malaga.png, mapa_malaga_<traza>_50m.tif, mapa_doble_rebote_malaga_resumen.csv
+SALIDAS
+- fig_mapa_doble_rebote_malaga.png
+- mapa_malaga_<traza>_50m.tif
+- mapa_doble_rebote_malaga_resumen.csv
+
+USO
+    python mapa_doble_rebote_malaga.py
 """
 import glob
 import importlib.util

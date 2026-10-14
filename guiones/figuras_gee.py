@@ -2,7 +2,7 @@
 """Figuras del ejercicio de SAR basics de GEE, corrido sobre el AOI de la tesis.
 
 Replica los tres pasos del tutorial (cobertura, orbitas e incidencia,
-retrodispersion) usando COPERNICUS/S1_GRD sobre AOI_tesis_CGSM_v1 en vez del
+retrodispersión) usando COPERNICUS/S1_GRD sobre AOI_tesis_CGSM_v1 en vez del
 area de ejemplo. Escribe PNG en figuras/.
 """
 import json

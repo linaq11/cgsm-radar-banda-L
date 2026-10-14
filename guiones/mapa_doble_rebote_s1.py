@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 r"""Mapa comparativo en banda C: el mismo "alto menos bajo" del nivel del rio que
-mapa_doble_rebote.py hace con NISAR, ahora con Sentinel-1 GRD (orbita descendente 142) sobre
-la misma malla de 50 m, para que la Figura del informe compare las dos bandas pixel a pixel.
+mapa_doble_rebote.py hace con NISAR, ahora con Sentinel-1 GRD (órbita descendente 142) sobre
+la misma malla de 50 m, para que la Figura del informe compare las dos bandas píxel a píxel.
 
-COMO. En Earth Engine, pasadas de la orbita 142 en las mismas dos ventanas de fechas que los
+COMO. En Earth Engine, pasadas de la órbita 142 en las mismas dos ventanas de fechas que los
 grupos de NISAR (nivel alto: 20-oct-2025 a 15-ene-2026; nivel bajo: 20-jun a 30-sep-2026);
 mediana de VV y VH (dB, como las sirve Earth Engine) por grupo, diferencia alto menos bajo,
 promediada a 50 m (reduceResolution, media) y descargada sobre la malla UTM 18N del GeoTIFF de
@@ -49,7 +49,7 @@ def grupo(ini, fin, x0, y0, nx, ny):
     n = col.size().getInfo()
     med = col.median()
     # reduceResolution agota la memoria de Earth Engine con la mediana de 13 pasadas a 10 m; se usa
-    # una media movil de 5 x 5 pixeles (50 m) en la malla nativa y se muestrea en la malla de 50 m
+    # una media movil de 5 x 5 píxeles (50 m) en la malla nativa y se muestrea en la malla de 50 m
     img = ee.Image.cat(med.select("VV"), med.select("VH"), col.select("VV").count().rename("n").toFloat())
     img = img.setDefaultProjection("EPSG:32618", [10, 0, x0, 0, -10, y0]).focalMean(2, "square", "pixels")
     sal = []

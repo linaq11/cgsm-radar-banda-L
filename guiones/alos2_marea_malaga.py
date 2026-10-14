@@ -1,16 +1,27 @@
 # -*- coding: utf-8 -*-
-"""La misma prueba de marea con ALOS-2 PALSAR-2 ScanSAR (banda L, HH y HV como NISAR)
-sobre Bahia de Malaga. Separa polarizacion de longitud de onda: si ALOS-2 muestra la
-subida de HH con la marea que muestra NISAR y no muestra Sentinel-1, la diferencia con
-Sentinel-1 es de longitud de onda.
+"""Corroboración independiente de la respuesta a la marea con ALOS-2 PALSAR-2 ScanSAR en banda L
+sobre Bahía de Málaga.
 
-Datos: JAXA/ALOS/PALSAR-2/Level2_2/ScanSAR en Earth Engine (25 m, DN), 2025-01 a 2026-09,
-dB = 10*log10(DN^2) - 83 (misma conversion que 22_alos2_gee.py). Los cuadros de una misma
-pasada (mismo path, menos de 5 min) se mosaican. Se agrupa por path (RSP_Path_Number),
-que fija hora y geometria, como las trazas de NISAR. Mismos 1.600 puntos y misma marea
-(serie de trabajo mareas_buenaventura.csv, que debe cubrir desde ene-2025).
+PROPÓSITO
+Evaluar si la respuesta observada con NISAR se reproduce con otro sensor de banda L. El análisis
+usa HH y HV y mantiene separadas las trayectorias para no mezclar geometrías de adquisición.
+La comparación con Sentinel-1 evalúa si existe una respuesta equivalente en banda C, aunque no
+separa del todo el efecto de la longitud de onda del de la polarización, porque Sentinel-1
+observa VV y VH y ALOS-2 HH y HV.
 
-Salidas: alos2_marea_malaga.csv, alos2_marea_resumen.csv, fig_alos2_marea.png
+DATOS
+ALOS-2 PALSAR-2 ScanSAR Level 2.2 en Google Earth Engine, 25 m, enero de 2025 a septiembre de
+2026. Los DN se convierten a sigma cero con sigma0_dB = 10 * log10(DN**2) - 83. Los cuadros de
+una misma pasada se mosaican y las observaciones se agrupan por trayectoria. Se usan los mismos
+1.600 puntos de referencia y la misma serie de marea del análisis con NISAR.
+
+SALIDAS
+- alos2_marea_malaga.csv
+- alos2_marea_resumen.csv
+- fig_alos2_marea.png
+
+USO
+    python alos2_marea_malaga.py
 """
 import os
 

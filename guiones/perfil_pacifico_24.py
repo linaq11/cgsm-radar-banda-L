@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Paso 1 del trabajo de radar: perfil de retrodispersion NISAR sobre Bahia de Malaga
+"""Paso 1 del trabajo de radar: perfil de retrodispersión NISAR sobre Bahía de Málaga
 con las 24 escenas (12 ascendentes A004, 05:00 local; 12 descendentes D087, 18:00
 local), por cobertura y por traza, con columna de marea lista para llenar.
 
@@ -9,7 +9,7 @@ herbaceo (WC 90); agua (WC 80).
 
 MAREA. Si existe mareas_buenaventura.csv (columnas: fecha_hora_utc en formato
 YYYY-MM-DD HH:MM, altura_m), se asigna a cada pasada la altura interpolada a la hora
-exacta de adquisicion. Si no existe, la columna queda vacia y el guion lo dice.
+exacta de adquisicion. Si no existe, la columna queda vacia y el script lo dice.
 
 SALIDAS (en RADAR/):
   perfil_pacifico_24.csv     mediana e IQR de HH, HV, HH-HV por escena y clase, con traza,
@@ -161,7 +161,7 @@ for ax, var, tit in zip(axes, ["HH", "HV", "HHmHV"], ["HH (dB)", "HV (dB)", "HH 
             s = out[(out.clase == c) & (out.direccion == dr)].sort_values("fecha_utc")
             if not len(s):
                 continue
-            # la linea se corta donde hay mas de 40 dias sin escenas (hueco feb-jun), para no
+            # la linea se corta donde hay más de 40 dias sin escenas (hueco feb-jun), para no
             # dibujar una tendencia que no se observo
             s = s.copy()
             s["tramo"] = (s.fecha_utc.diff() > pd.Timedelta(days=40)).cumsum()
