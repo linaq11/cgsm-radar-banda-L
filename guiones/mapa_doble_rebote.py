@@ -78,7 +78,7 @@ def mascara_gee(x0, y0, nx, ny):
 
 
 SECTORES = [("norte (Salamanca, N > 1205 km)", 1205e3, 1e9), ("centro y occidente (1190 a 1205 km)", 1190e3, 1205e3),
-            ("sur (caños del Magdalena, N < 1190 km)", -1e9, 1190e3)]
+            ("sur (río Fundación, N < 1190 km)", -1e9, 1190e3)]
 
 
 def calcular():
