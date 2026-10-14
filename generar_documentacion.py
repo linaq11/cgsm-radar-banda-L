@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-"""Reúne en un solo Markdown todo lo redactado en los guiones: la cabecera (docstring) y los
-comentarios de cada uno, en el orden del flujo de trabajo. Escribe DOCUMENTACION_guiones.md.
+"""Reúne en un solo Markdown todo lo redactado en los scripts: la cabecera (docstring) y los
+comentarios de cada uno, en el orden del flujo de trabajo. Escribe DOCUMENTACION_scripts.md.
 
 USO: python generar_documentacion.py
 """
@@ -34,7 +34,7 @@ def cabecera_y_comentarios(ruta):
     return doc, coms
 
 
-salida = ["# Documentación de los guiones", "", "Cabecera y comentarios de cada guion, extraídos del código con `generar_documentacion.py`, en el orden del flujo de trabajo del informe. Cada cabecera dice qué hace el guion, qué lee, qué escribe y cómo se corre.", ""]
+salida = ["# Documentación de los scripts", "", "Cabecera y comentarios de cada script, extraídos del código con `generar_documentacion.py`, en el orden del flujo de trabajo del informe. Cada cabecera dice qué hace el script, qué lee, qué escribe y cómo se corre.", ""]
 vistos = set()
 for etapa, lista in ORDEN:
     salida += ["## " + etapa, ""]
@@ -53,5 +53,5 @@ if faltan:
     for f in faltan:
         doc, coms = cabecera_y_comentarios(os.path.join(AQUI, "guiones", f))
         salida += ["### `%s`" % f, "", doc.strip(), ""] + (["Comentarios en el código:", ""] + ["- línea %d: %s" % (n, c) for n, c in coms] + [""] if coms else [])
-open(os.path.join(AQUI, "DOCUMENTACION_guiones.md"), "w", encoding="utf-8", newline="\n").write("\n".join(salida))
-print("DOCUMENTACION_guiones.md:", len(vistos) + len(faltan), "guiones,", sum(len(x.split()) for x in salida), "palabras")
+open(os.path.join(AQUI, "DOCUMENTACION_scripts.md"), "w", encoding="utf-8", newline="\n").write("\n".join(salida))
+print("DOCUMENTACION_scripts.md:", len(vistos) + len(faltan), "scripts,", sum(len(x.split()) for x in salida), "palabras")

@@ -1,6 +1,6 @@
-# Documentación de los guiones
+# Documentación de los scripts
 
-Cabecera y comentarios de cada guion, extraídos del código con `generar_documentacion.py`, en el orden del flujo de trabajo del informe. Cada cabecera dice qué hace el guion, qué lee, qué escribe y cómo se corre.
+Cabecera y comentarios de cada script, extraídos del código con `generar_documentacion.py`, en el orden del flujo de trabajo del informe. Cada cabecera dice qué hace el script, qué lee, qué escribe y cómo se corre.
 
 ## 1. Acceso a datos
 
