@@ -523,25 +523,29 @@ Yordanov, V. y Brovelli, M. A. (2021). Deforestation mapping using Sentinel-1 an
 
 Zanaga, D., Van De Kerchove, R., Daems, D., De Keersmaecker, W., Brockmann, C., Kirches, G., Wevers, J., Cartus, O., Santoro, M., Fritz, S., Lesiv, M., Herold, M., Tsendbazar, N.-E., Xu, P., Ramoino, F. y Arino, O. (2022). *ESA WorldCover 10 m 2021 v200* [Conjunto de datos]. Zenodo. https://doi.org/10.5281/zenodo.7254221
 
-## Anexo A. Guiones por etapa
+## Anexo A. Flujo de trabajo, guiones y productos
 
-La Figura A2 es el flujo de trabajo en nueve etapas, cada una resumida en una línea con el producto que escribe a su izquierda. La Figura A1 abre sus tres primeras etapas por sensor, con la convención de los flujos de trabajo SAR revisados en el curso (De Luca et al., 2021; Yordanov y Brovelli, 2021): adquisición, calibración radiométrica y promediado, con los productos intermedios y sus conteos a la izquierda y el software a la derecha. Las Figuras 1 y A2 se generan con `figura_diseno.py` y `figura_flujo.py`; los recortes de la Figura A1 se exportan con `exportar_figuras_flujo.py` (carpeta `figuras para flujo`).
+Este anexo documenta la trazabilidad computacional del análisis. La Figura A1 presenta la cadena de procesamiento de cada sensor para las etapas de adquisición, calibración y preparación de los datos SAR, y la Figura A2 resume el flujo completo del estudio en nueve etapas, desde el acceso a los datos hasta la cartografía y el contraste óptico. La organización de la cadena SAR sigue los flujos de procesamiento revisados por De Luca et al. (2021) y Yordanov y Brovelli (2021).
 
-![Figura A2. Flujo de trabajo del proyecto de radar en nueve etapas, del acceso a datos al mapa espacial y el contraste óptico. Cada etapa se resume en una línea; la columna izquierda lleva el producto que escribe cada etapa, con los conteos de escenas, pasadas y puntos que reporta el texto. La flecha discontinua marca la etapa con pendientes. Las etapas 1 a 3 se abren por sensor en la Figura A1; los guiones de cada etapa se listan en la Tabla A1.](fig_flujo_trabajo.png)
+Las figuras metodológicas se generan con `figura_diseno_h.py`, `figura_flujo.py` y `figura_cadena_sar.py`, y los recortes de la Figura A1 se exportan con `exportar_figuras_flujo.py`. La Tabla A1 relaciona cada etapa con los guiones que la ejecutan y sus principales productos.
 
-![Figura A1. Cadena de procesamiento SAR por sensor en cinco pasos: adquisición y selección, calibración radiométrica, preparación para el análisis, salida para extracción, y extracción y organización comunes a los tres sensores. Los recortes son pasadas reales sobre la caja de la CGSM: NISAR GCOV HH (traza D083, 29 de octubre de 2025), ALOS-2 ScanSAR HH (2 de diciembre de 2025) y Sentinel-1 GRD VV (órbita 142, 9 de enero de 2026).](fig_cadena_sar_sensores.png)
+![Figura A1. Cadena de procesamiento SAR por sensor, desde la adquisición y la calibración radiométrica hasta la extracción de la retrodispersión. Los ejemplos corresponden a NISAR D083 HH (29 de octubre de 2025), ALOS-2 ScanSAR HH (2 de diciembre de 2025) y Sentinel-1 D142 VV (9 de enero de 2026) sobre la CGSM.](fig_cadena_sar_sensores.png)
 
-Tabla A1. Etapas del flujo de trabajo (Figura A2), guiones que las ejecutan y salidas. Los guiones están en la carpeta `RADAR` del repositorio; los numerados, en `AVANCE TESIS/PUBLICACION_GEE`. La versión detallada del diagrama, con todas las operaciones de cada etapa, se genera con `figura_flujo.py --detalle`.
+![Figura A2. Flujo de trabajo del estudio en nueve etapas, desde el acceso a los datos hasta la cartografía de la señal y el contraste óptico.](fig_flujo_trabajo.png)
 
-| Etapa | Guiones | Salidas |
+Tabla A1. Guiones y productos de cada etapa del flujo de trabajo.
+
+| Etapa | Guiones | Principales salidas |
 |---|---|---|
-| 1. Acceso a datos | `16_inventario_nisar`, `17_descargar_nisar`, `18_nisar_recorte_remoto`, `23_nisar_recorte_pacifico`, `24_nisar_recorte_cgsm`, `nivel_ideam_descarga` | Tabla 1; `nisar_cgsm_granulos.json`, escenas `NISAR_AOI_*.h5` (45), `nivel_ideam_*.csv` |
+| 1. Acceso a datos | `16_inventario_nisar`, `17_descargar_nisar`, `18_nisar_recorte_remoto`, `23_nisar_recorte_pacifico`, `24_nisar_recorte_cgsm`, `nivel_ideam_descarga` | Tabla 1; `nisar_cgsm_granulos.json`; 45 escenas `NISAR_AOI_*.h5`; `nivel_ideam_*.csv` |
 | 2. Preprocesamiento y calibración | `18_nisar_recorte_remoto`, `20_nisar_incidencia`, `alos2_marea_malaga`, `s1_marea_malaga` | σ⁰ por sensor y pasada; malla de incidencia de NISAR; Figura 4 |
-| 3. Coberturas de referencia y muestreo | `perfil_pacifico_24`, `doble_rebote_incidencia`, `figuras_cgsm`, `figuras_pacifico` | 1.600 puntos por sitio; 2.444 de manglar y 2.400 de bosque para los tercios de incidencia; Figura 2 |
-| 4. Forzante hidrológico | `mareas_buenaventura`, `mareas_dimar_a_serie`, `marea_vs_radar`, `cgsm_nivel_rio` | marea, lluvia o nivel del río a la hora de cada pasada |
+| 3. Coberturas de referencia y muestreo | `perfil_pacifico_24`, `doble_rebote_incidencia`, `figuras_cgsm`, `figuras_pacifico` | 1.600 puntos por sitio; 2.444 puntos de manglar y 2.400 de bosque para el análisis por terciles de incidencia; Figura 2 |
+| 4. Forzante hidrológico | `mareas_buenaventura`, `mareas_dimar_a_serie`, `marea_vs_radar`, `cgsm_nivel_rio` | Marea, precipitación antecedente y nivel del río asignados a cada pasada |
 | 5. Estadística por pasada | `perfil_pacifico_24`, `marea_vs_radar`, `cgsm_temporada` | `cgsm_temporada_*.csv`; Tablas 2 y 3 |
-| 6. Prueba hidrológica | `marea_vs_radar`, `s1_marea_malaga`, `alos2_marea_malaga`, `cgsm_temporada`, `cgsm_nivel_rio`, `figura_cgsm_optico` | Tablas 4 a 9; Figuras 5, 7, 8, 9 a 12 |
-| 7. Robustez y límites | `doble_rebote_incidencia`, `autocorrelacion_temporal`, `auditoria_calculos.md` | Tabla 10, Figura 6; nota de auditoría del 16-sep-2026 |
-| 8. Clave de interpretación | `figura_clave`, `nisar_flotante`, `clave_vs_muestra2025` | Tablas 11 a 14, Figura 13; `clave_muestra2025_*.csv` |
-| 9. Mapa y corroboración óptica | `mapa_doble_rebote`, `mapa_doble_rebote_s1`, `mapa_doble_rebote_malaga`, `corroboracion_dw` | Tablas 15 y 16, Figuras 14 a 17; `mapa_doble_rebote_50m.tif`, `mapa_s1_alto_bajo_50m.tif`, `dw_serie.csv` |
-| Informe y figuras de método | `md_a_word`, `figura_diseno`, `figura_flujo`, `figura_cadena_sar` | `Avance_proyecto_radar.docx`, Figuras 1, A1 y A2 |
+| 6. Prueba hidrológica | `marea_vs_radar`, `s1_marea_malaga`, `alos2_marea_malaga`, `cgsm_temporada`, `cgsm_nivel_rio`, `figura_cgsm_optico` | Tablas 4 a 9; Figuras 5 y 7 a 12 |
+| 7. Robustez y límites | `doble_rebote_incidencia`, `autocorrelacion_temporal`, `auditoria_calculos.md` | Tabla 10; Figura 6; auditoría de cálculos |
+| 8. Clave de interpretación | `figura_clave`, `nisar_flotante`, `clave_vs_muestra2025` | Tablas 11 a 14; Figura 13; `clave_muestra2025_*.csv` |
+| 9. Cartografía y contraste óptico | `mapa_doble_rebote`, `mapa_doble_rebote_s1`, `mapa_doble_rebote_malaga`, `corroboracion_dw` | Tablas 15 y 16; Figuras 14 a 17; productos ráster y series de Dynamic World |
+| Informe y figuras metodológicas | `md_a_word`, `figura_diseno_h`, `figura_flujo`, `figura_cadena_sar` | Informe y Figuras 1, A1 y A2 |
+
+Nota. Los guiones están en la carpeta `RADAR` del repositorio y los numerados en `AVANCE TESIS/PUBLICACION_GEE`. La versión detallada del flujo se genera con `figura_flujo.py --detalle`.
