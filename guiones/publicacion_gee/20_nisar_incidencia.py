@@ -6,7 +6,7 @@ Los dos primeros recortes (2025-12-04 y 2025-12-16) se hicieron antes de que
 falta para estratificar el doble rebote (umbral de 35 grados). Se lee solo esa
 malla gruesa del producto remoto, que pesa poco, y se escribe dentro del recorte.
 
-Como los demas guiones de descarga, usa la sesion Earthdata de Lina; correr desde
+Como los demás scripts de descarga, usa la sesión Earthdata del usuario; correr desde
 su terminal.
 
 USO

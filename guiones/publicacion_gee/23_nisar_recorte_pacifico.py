@@ -14,8 +14,8 @@ lista con sus URL esta en nisar_pacifico_granulos.json (inventario CMR del
 AOI. Caja lon/lat -77.40, 3.80, -77.10, 4.10 mas 2 km de margen, transformada a la
 proyeccion que declara cada producto (se lee del archivo, no se supone).
 
-AUTENTICACION. earthaccess pregunta en la terminal; este guion no maneja
-contrasenas. Ejecutar desde la terminal de Lina.
+AUTENTICACION. earthaccess pregunta en la terminal; este script no maneja
+contraseñas. Ejecutar desde la terminal del usuario.
 
 USO
     python 23_nisar_recorte_pacifico.py        # todas las que falten

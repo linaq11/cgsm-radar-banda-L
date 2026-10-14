@@ -30,10 +30,10 @@ Las seis escenas salieron de una consulta a CMR (NASA) el 2026-09-09 sobre la
 envolvente del AOI. Cubren octubre de 2025 a enero de 2026, todas descendentes,
 traza D_083, cuadro 011, HH+HV; las tres de diciembre de 2025 caen dentro del cubo.
 
-AUTENTICACION. Earthdata exige usuario y contrasena. Este guion NO los pide ni los
+AUTENTICACION. Earthdata exige usuario y contraseña. Este script NO los pide ni los
 guarda: usa la libreria earthaccess, que lee las credenciales de ~/.netrc (o de
 las variables EARTHDATA_USERNAME / EARTHDATA_PASSWORD) o abre el flujo de login
-interactivo en la terminal de Lina. Ejecutar desde su terminal, no desde el agente.
+interactivo en la terminal del usuario. Ejecutar desde su terminal, no desde el agente.
 
 USO
     pip install earthaccess --break-system-packages   (si no esta)
@@ -54,10 +54,10 @@ con la misma estructura de grupos que el producto original, de modo que
 16_inventario_nisar.py y 12_nisar_parches.py lo leen sin cambios.
 
 ORDEN. Primero las tres escenas de diciembre de 2025, que caen dentro del cubo y
-son las que necesita la ablacion; despues las demas.
+son las que necesita la ablacion; despues las demás.
 
 AUTENTICACION. Como en 17_descargar_nisar.py: earthaccess lee ~/.netrc o pregunta
-en la terminal; este guion no maneja contrasenas. Ejecutar desde la terminal de Lina.
+en la terminal; este script no maneja contraseñas. Ejecutar desde la terminal del usuario.
 
 USO
     python 18_nisar_recorte_remoto.py        # todas las que falten
@@ -91,8 +91,8 @@ lista con sus URL esta en nisar_pacifico_granulos.json (inventario CMR del
 AOI. Caja lon/lat -77.40, 3.80, -77.10, 4.10 mas 2 km de margen, transformada a la
 proyeccion que declara cada producto (se lee del archivo, no se supone).
 
-AUTENTICACION. earthaccess pregunta en la terminal; este guion no maneja
-contrasenas. Ejecutar desde la terminal de Lina.
+AUTENTICACION. earthaccess pregunta en la terminal; este script no maneja
+contraseñas. Ejecutar desde la terminal del usuario.
 
 USO
     python 23_nisar_recorte_pacifico.py        # todas las que falten
@@ -115,7 +115,7 @@ Lista con URL en nisar_cgsm_granulos.json (inventario CMR del 12-sep-2026): 6 Be
 descendente D083 (18:29 local) y 5 de la ascendente A007 (nueva sobre la CGSM). Se
 saltan las fechas que ya esten en disco con cualquiera de los dos nombres.
 
-AUTENTICACION: earthaccess pregunta en la terminal. Ejecutar desde la terminal de Lina.
+AUTENTICACION: earthaccess pregunta en la terminal. Ejecutar desde la terminal del usuario.
 
 USO
     python 24_nisar_recorte_cgsm.py        # todas las que falten
@@ -157,7 +157,7 @@ Los dos primeros recortes (2025-12-04 y 2025-12-16) se hicieron antes de que
 falta para estratificar el doble rebote (umbral de 35 grados). Se lee solo esa
 malla gruesa del producto remoto, que pesa poco, y se escribe dentro del recorte.
 
-Como los demas guiones de descarga, usa la sesion Earthdata de Lina; correr desde
+Como los demás scripts de descarga, usa la sesión Earthdata del usuario; correr desde
 su terminal.
 
 USO

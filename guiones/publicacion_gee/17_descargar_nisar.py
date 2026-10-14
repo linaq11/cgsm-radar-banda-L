@@ -5,10 +5,10 @@ Las seis escenas salieron de una consulta a CMR (NASA) el 2026-09-09 sobre la
 envolvente del AOI. Cubren octubre de 2025 a enero de 2026, todas descendentes,
 traza D_083, cuadro 011, HH+HV; las tres de diciembre de 2025 caen dentro del cubo.
 
-AUTENTICACION. Earthdata exige usuario y contrasena. Este guion NO los pide ni los
+AUTENTICACION. Earthdata exige usuario y contraseña. Este script NO los pide ni los
 guarda: usa la libreria earthaccess, que lee las credenciales de ~/.netrc (o de
 las variables EARTHDATA_USERNAME / EARTHDATA_PASSWORD) o abre el flujo de login
-interactivo en la terminal de Lina. Ejecutar desde su terminal, no desde el agente.
+interactivo en la terminal del usuario. Ejecutar desde su terminal, no desde el agente.
 
 USO
     pip install earthaccess --break-system-packages   (si no esta)

@@ -9,7 +9,7 @@ Lista con URL en nisar_cgsm_granulos.json (inventario CMR del 12-sep-2026): 6 Be
 descendente D083 (18:29 local) y 5 de la ascendente A007 (nueva sobre la CGSM). Se
 saltan las fechas que ya esten en disco con cualquiera de los dos nombres.
 
-AUTENTICACION: earthaccess pregunta en la terminal. Ejecutar desde la terminal de Lina.
+AUTENTICACION: earthaccess pregunta en la terminal. Ejecutar desde la terminal del usuario.
 
 USO
     python 24_nisar_recorte_cgsm.py        # todas las que falten

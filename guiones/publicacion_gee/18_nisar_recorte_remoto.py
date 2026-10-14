@@ -8,10 +8,10 @@ con la misma estructura de grupos que el producto original, de modo que
 16_inventario_nisar.py y 12_nisar_parches.py lo leen sin cambios.
 
 ORDEN. Primero las tres escenas de diciembre de 2025, que caen dentro del cubo y
-son las que necesita la ablacion; despues las demas.
+son las que necesita la ablacion; despues las demás.
 
 AUTENTICACION. Como en 17_descargar_nisar.py: earthaccess lee ~/.netrc o pregunta
-en la terminal; este guion no maneja contrasenas. Ejecutar desde la terminal de Lina.
+en la terminal; este script no maneja contraseñas. Ejecutar desde la terminal del usuario.
 
 USO
     python 18_nisar_recorte_remoto.py        # todas las que falten
