@@ -531,7 +531,7 @@ Las imágenes de las Figuras 1 y A1 se exportan con `exportar_figuras_flujo.py`,
 
 ![Figura A1. Cadena de procesamiento SAR por sensor, desde la adquisición y la calibración radiométrica hasta la extracción de la retrodispersión. Los ejemplos corresponden a NISAR D083 HH (29 de octubre de 2025), ALOS-2 ScanSAR HH (2 de diciembre de 2025) y Sentinel-1 D142 VV (9 de enero de 2026) sobre la CGSM.](fig_cadena_sar_sensores.png)
 
-![Figura A2. Flujo de trabajo del estudio en nueve etapas, desde el acceso a los datos hasta la cartografía de la señal y el contraste óptico.](fig_flujo_trabajo.png)
+![Figura A2. Flujo de trabajo del estudio en nueve etapas, desde el acceso a los datos hasta la cartografía de la señal y el contraste óptico.](fig_flujo_trabajo_es.png)
 
 Tabla A1. Scripts y productos de cada etapa del flujo de trabajo.
 
