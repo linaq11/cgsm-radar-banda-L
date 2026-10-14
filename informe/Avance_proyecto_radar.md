@@ -37,7 +37,7 @@ La comparación se hizo por polarización, cobertura y condición hidrológica, 
 
 ### 2.2 Datos SAR
 
-Tabla 1. Escenas SAR sobre los dos sitios, verificadas en el archivo de la NASA y en Earth Engine el 11 de septiembre de 2026 y actualizadas el 7 de octubre.
+Tabla 1. Inventario de adquisiciones SAR utilizadas en la CGSM y Bahía de Málaga, por sensor y trayectoria.
 
 | Sitio | NISAR GCOV (HH, HV, 10 m) | ALOS-2 ScanSAR (HH, HV, 25 m) | Sentinel-1 GRD (VV, VH, 10 m), oct-2025 a sep-2026 |
 |---|---|---|---|
@@ -114,7 +114,7 @@ Las cinco primeras adquisiciones de la traza A004 mostraron una señal estable d
 
 El manglar identificado únicamente por Global Mangrove Watch fue sistemáticamente más oscuro que el manglar de consenso, con una diferencia mediana cercana a 1,2 dB en HH y 1,5 dB en HV. Su respuesta se aproximó a la del humedal herbáceo, lo que respalda la decisión de restringir la clase de manglar a las áreas coincidentes entre WorldCover y Global Mangrove Watch.
 
-Tabla 2. Mediana de σ⁰ (dB) por cobertura en las cinco primeras escenas NISAR de la traza ascendente A004 (8 y 20 de noviembre y 2, 14 y 26 de diciembre de 2025), 400 puntos por clase, ángulo de incidencia mediano de 42°.
+Tabla 2. Mediana de σ⁰ por cobertura en las cinco primeras adquisiciones NISAR de la trayectoria A004 (8 y 20 de noviembre y 2, 14 y 26 de diciembre de 2025), en dB.
 
 | Cobertura | HH | HV | HH−HV |
 |---|---|---|---|
@@ -128,7 +128,7 @@ Al considerar las 24 adquisiciones, el manglar mantuvo una variabilidad temporal
 
 En D087, el manglar presentó una mediana de HH 0,6 dB superior a la del bosque y una diferencia HH − HV 1,1 dB mayor. En A004, las medianas de HH de manglar y bosque fueron prácticamente iguales, mientras que HH − HV fue 0,7 dB mayor en el manglar. Estas diferencias establecen la línea de base para evaluar después su variación con la altura de marea.
 
-Tabla 3. Mediana de σ⁰ por cobertura y trayectoria en las 24 escenas NISAR y desviación estándar entre las 12 adquisiciones de cada trayectoria.
+Tabla 3. Mediana y desviación estándar de σ⁰ por cobertura y trayectoria en las 24 adquisiciones NISAR de Bahía de Málaga, en dB.
 
 | Cobertura | Traza (hora local, incidencia) | HH (sd) | HV (sd) | HH−HV (sd) |
 |---|---|---|---|---|
@@ -151,7 +151,7 @@ La Figura 4 muestra los compuestos de las dos trayectorias y la diferencia espac
 
 La relación entre la marea y la retrodispersión fue consistente en las dos trayectorias de NISAR (Tabla 4). En HH, la señal del manglar relativa al bosque aumentó con la altura de marea tanto en A004 (ρ 0,83, p 0,001) como en D087 (ρ 0,74, p 0,006). La diferencia entre los grupos de marea alta y baja fue de +0,57 dB en las dos trayectorias. HH − HV mostró el mismo sentido de respuesta, mientras que HV no presentó asociación con la marea.
 
-Tabla 4. Relación entre la altura de marea en la pasada y la retrodispersión de NISAR, por trayectoria (12 pasadas cada una): diferencia de medianas entre las pasadas por encima y por debajo de la mediana de marea, correlación de Spearman y su valor p.
+Tabla 4. Relación entre la altura de marea y la retrodispersión de NISAR por trayectoria.
 
 | Traza | Variable | Manglar: alta − baja (dB), ρ, p | Bosque: alta − baja (dB), ρ, p | Manglar − bosque: alta − baja (dB), ρ, p |
 |---|---|---|---|---|
@@ -178,7 +178,7 @@ Debido al escaso rango de incidencia dentro de cada trayectoria, este análisis 
 
 La misma prueba se aplicó a las 89 adquisiciones de Sentinel-1 con cobertura completa de Bahía de Málaga entre octubre de 2025 y septiembre de 2026, 26 de la órbita ascendente 48 y 63 de la órbita descendente 142, con los mismos puntos de muestreo y la altura de marea de cada adquisición. A diferencia de NISAR, la señal del manglar relativa al bosque no mostró relación con la marea en VV, VH ni VV − VH en ninguna de las dos órbitas (Tabla 5, Figura 7).
 
-Tabla 5. Sentinel-1: relación entre la altura de marea en la pasada y la retrodispersión del manglar relativa al bosque, por órbita (diferencia de medianas alta − baja, ρ de Spearman y valor p).
+Tabla 5. Relación entre la altura de marea y la retrodispersión del manglar relativa al bosque en Sentinel-1.
 
 | Órbita (hora local, n) | VV | VH | VV−VH |
 |---|---|---|---|
@@ -197,7 +197,7 @@ Para comprobar si la respuesta observada con NISAR se reproducía con otro senso
 
 ALOS-2 reprodujo el patrón observado con NISAR (Tabla 6, Figura 8). La señal HH del manglar relativa al bosque aumentó con la marea en las dos trayectorias, con ρ 0,65 (p 0,002) en el path 139 y ρ 0,72 (p 0,002) en el path 140. HH − HV presentó igualmente asociaciones positivas, mientras que HV no mostró el mismo comportamiento.
 
-Tabla 6. ALOS-2: relación entre la altura de marea en la pasada y la retrodispersión del manglar relativa al bosque, por trayectoria (diferencia de medianas alta − baja, ρ de Spearman y valor p).
+Tabla 6. Relación entre la altura de marea y la retrodispersión del manglar relativa al bosque en ALOS-2 PALSAR-2.
 
 | Path (hora local, n) | HH | HV | HH−HV |
 |---|---|---|---|
@@ -222,7 +222,7 @@ Los compuestos de Sentinel-2 (Drusch et al., 2012) de esas fechas, mediana de la
 
 La precipitación acumulada de 30 días produjo respuestas distintas en las dos bandas. En Sentinel-1, el bosque seco respondió a la lluvia con mayor intensidad que el manglar, sobre todo en VV (ρ 0,52 y 0,58 frente a 0,32 y 0,21), de modo que la diferencia manglar menos bosque resultó negativa (Tabla 7). En banda C, por lo tanto, el bosque no constituye un control estable frente a la humedad estacional.
 
-Tabla 7. Sentinel-1 en la CGSM: correlación de Spearman entre la lluvia de treinta días y la retrodispersión, por órbita.
+Tabla 7. Correlación entre la precipitación acumulada de 30 días y la retrodispersión de Sentinel-1 en la CGSM.
 
 | Órbita (hora local, n) | Clase | VV | VH | VV−VH |
 |---|---|---|---|---|
@@ -235,7 +235,7 @@ Tabla 7. Sentinel-1 en la CGSM: correlación de Spearman entre la lluvia de trei
 
 En NISAR D083, en cambio, el HH del bosque no presentó relación con la lluvia (ρ 0,02), mientras que el manglar mostró ρ 0,50 y la diferencia manglar menos bosque alcanzó ρ 0,58 (p 0,05). La polarización cruzada no mostró una asociación equivalente (Tabla 8, Figura 11). La partición por calendario entre época húmeda y seca produjo el signo contrario (−0,44 dB) porque, en el periodo estudiado, las pasadas de época seca de diciembre y enero tuvieron entre 90 y 193 mm de lluvia antecedente y las de época húmeda de junio a septiembre de 2026 entre 51 y 151 mm.
 
-Tabla 8. NISAR en la CGSM, traza descendente 083 (18:27 hora local, 12 pasadas, 8 de época húmeda): correlación de Spearman con la lluvia de treinta días y diferencia húmeda menos seca según el calendario.
+Tabla 8. Relación entre la precipitación acumulada de 30 días y la retrodispersión de NISAR D083 en la CGSM.
 
 | Clase | HH | HV | HH−HV | HH, húmeda − seca (dB) |
 |---|---|---|---|---|
@@ -251,7 +251,7 @@ La relación con la precipitación se interpreta únicamente como una dirección
 
 El nivel del Magdalena en Remolino produjo una asociación más marcada con NISAR D083 que la precipitación (Tabla 9, Figura 12). Entre los tercios de nivel bajo y alto, el HH del manglar aumentó +0,47 dB, mientras que el del bosque disminuyó −0,53 dB. Como resultado, la diferencia manglar menos bosque aumentó +0,83 dB, con ρ 0,83 (p < 0,001). La polarización cruzada relativa al bosque no mostró una relación equivalente.
 
-Tabla 9. Retrodispersión frente al nivel del río Magdalena en Remolino: diferencia entre el tercio de nivel alto y el de nivel bajo (dB) y correlación de Spearman, por sensor y traza. En Sentinel-1 entran 55 y 58 de las 58 y 61 pasadas: las tres restantes por órbita caen en un hueco de 18 días de la serie del IDEAM (12 a 30 de agosto de 2026).
+Tabla 9. Relación entre el nivel del río Magdalena en Remolino y la retrodispersión, por sensor y trayectoria. En Sentinel-1 entran 55 y 58 pasadas, porque tres por órbita caen en un hueco de 18 días de la serie del IDEAM en agosto de 2026.
 
 | Sensor y pasada | n | Clase | Copolar (HH o VV) | Cruzada (HV o VH) | Cociente (HH−HV) |
 |---|---|---|---|---|---|
@@ -272,7 +272,7 @@ Sin embargo, en D083 el nivel del río está confundido con el periodo de adquis
 
 La corrección por dependencia temporal produjo resultados distintos en los dos sitios (Tabla 10). En Bahía de Málaga, las asociaciones de NISAR con la marea se mantuvieron después de ajustar el tamaño efectivo de muestra, con p de 0,007 para A004 y de 0,008 para D087, porque un muestreo cada doce días cae en fases distintas del ciclo mareal y la marea de una pasada casi no se parece a la de la anterior (r1 de 0,15 y −0,03). ALOS-2, cuyas pasadas cada 28 días se acercan a un múltiplo del ciclo de mareas vivas y muertas, mostró mayor autocorrelación, pero las relaciones se conservaron con p corregidos de 0,031 y 0,019. Sentinel-1 permaneció sin asociación.
 
-Tabla 10. Correlación de la resta manglar menos bosque en copolarización con su forzante, y valor p corregido por dependencia temporal con todos los rezagos hasta n/5; el texto da entre paréntesis, cuando difiere, el valor corregido solo con el rezago 1.
+Tabla 10. Correlación entre la señal copolar manglar menos bosque y el forzante hidrológico, antes y después de corregir la dependencia temporal.
 
 | Serie | Traza | n | ρ | p | r1 del forzante | r1 del radar | n efectivo | p corregido |
 |---|---|---|---|---|---|---|---|---|
@@ -297,7 +297,7 @@ En consecuencia, la evidencia más robusta procede de Bahía de Málaga, donde l
 
 Las firmas multifecha de las coberturas principales muestran que las bandas C y L resuelven confusiones diferentes (Tabla 11, Figura 13). En banda C, el manglar y el humedal herbáceo presentan valores prácticamente coincidentes, mientras que en banda L sus medianas se separan en HH y en HH − HV. La vegetación flotante, en cambio, permanece más próxima al agua abierta en banda L que en banda C.
 
-Tabla 11. Firma de cada cobertura de la CGSM en las dos bandas: mediana entre pasadas del copolar, del cruzado y de su diferencia, en dB (la diferencia es la mediana de la resta por pasada, no la resta de las medianas). Banda C, Sentinel-1 traza descendente 142, 61 pasadas; banda L, NISAR traza descendente 083, 14 pasadas. La vegetación flotante no es una clase de los productos globales y se define por la firma óptica de diciembre de 2025, cuando el evento ya cubría el 55,7 % de la zona ZC-2025-v1, el polígono de vegetación flotante de 2025 delimitado sobre Sentinel-2 en el cubo de datos de la tesis.
+Tabla 11. Firmas multifecha de las coberturas de la CGSM en bandas C y L, en dB. La vegetación flotante se define por el polígono ZC-2025 delimitado sobre Sentinel-2 en el cubo de datos de la tesis.
 
 | Cobertura | VV | VH | VV − VH | HH | HV | HH − HV |
 |---|---|---|---|---|---|---|
@@ -315,7 +315,7 @@ La clave se evaluó después con los 720 puntos de referencia etiquetados sobre 
 
 La muestra modificó parte de la interpretación obtenida con los productos globales. La mayor mejora de la banda L se observó entre manglar intacto y manglar degradado, cuya separabilidad aumentó de 0,30 en banda C a 0,91 en banda L, todavía por debajo del umbral de 1. Sin embargo, humedal herbáceo y manglar degradado permanecieron prácticamente inseparables, con 0,17 en C, 0,22 en L y 0,38 al combinar las dos bandas, lo mismo que ocurre con el NDVI de Sentinel-2 en la muestra (0,44). La vegetación flotante tampoco presentó una firma radar separable del agua abierta (0,28 en L y 0,47 en C): de sus 129 puntos, 42 caen en la firma del agua.
 
-Tabla 12. Firma de cada clase de la muestra de referencia de 2025 en las dos bandas: mediana entre puntos de la mediana entre pasadas, en dB, con el rango intercuartil de la diferencia HH − HV. Banda C, Sentinel-1 traza 142, 61 pasadas; banda L, NISAR traza 083, 14 escenas.
+Tabla 12. Firmas multifecha de las clases de la muestra de referencia de 2025 en bandas C y L, en dB.
 
 | Clase | n | VV | VH | VV − VH | HH | HV | HH − HV | HH − HV, cuartiles |
 |---|---|---|---|---|---|---|---|---|
@@ -328,7 +328,7 @@ Tabla 12. Firma de cada clase de la muestra de referencia de 2025 en las dos ban
 
 La diferencia HH − HV ordenó las coberturas según la apertura del dosel: 6,6 dB en manglar intacto, 7,5 dB en la clase otro, 7,9 dB en humedal herbáceo y 8,9 dB en manglar degradado. Por lo tanto, esta variable no identifica por sí sola una cobertura específica, sino que distingue doseles cerrados de superficies con vegetación más abierta.
 
-Tabla 13. Separabilidad de Jeffries-Matusita por pares de clases de la muestra de 2025, con las variables de banda C (VV, VH, VV − VH), de banda L (HH, HV, HH − HV) y de las dos bandas.
+Tabla 13. Separabilidad de Jeffries-Matusita entre las clases de la muestra de referencia de 2025.
 
 | Par | Banda C | Banda L | C + L |
 |---|---|---|---|
@@ -359,9 +359,9 @@ Con base en la muestra de 2025, la clave se redujo a cuatro decisiones aplicadas
 
 La respuesta hidrológica se usa además para distinguir el manglar del bosque no inundable, puesto que la diferencia de nivel entre las dos clases, 1,5 dB en VV y 1,7 dB en HH (Tabla 11), es del orden de la que produce la geometría entre trazas (hasta 1,4 dB, Tabla 3). El criterio no es el nivel absoluto de retrodispersión sino el cambio del canal copolar con el forzante. En Bahía de Málaga, el HH del manglar relativo al bosque aumentó con la marea en las dos trayectorias y la cruzada no respondió. En la CGSM se observó la misma dirección con el nivel del río, aunque allí permanece confundida con la versión del producto.
 
-La regla tomó una decisión en 606 de los 720 puntos y acertó en 415, el 68 % de los puntos decididos y el 58 % de la muestra completa (Tabla 14). Como los umbrales se definieron y evaluaron sobre los mismos datos, estas cifras corresponden a resustitución y no a una validación independiente.
+La regla tomó una decisión en 606 de los 720 puntos y acertó en 415, el 68 % de los puntos decididos y el 58 % de la muestra completa (Tabla 14). Sin los 208 puntos marcados como borde, decidió 444 de 512 y acertó en el 71 %. Como los umbrales se definieron y evaluaron sobre los mismos datos, estas cifras corresponden a resustitución y no a una validación independiente.
 
-Tabla 14. Lo que la regla decide en los 720 puntos de la muestra de 2025 (filas, clase de referencia; columnas, pasos 1 a 4 de la regla). La regla decide en 606 puntos y acierta en 415, el 68 % de los decididos y el 58 % de los 720, con un 16 % sin decisión y con las tres clases de dosel abierto agrupadas; sin los 208 puntos marcados como borde decide en 444 de 512 y acierta en el 71 %.
+Tabla 14. Clasificación de los 720 puntos de referencia con la clave de interpretación SAR (filas, clase de referencia; columnas, decisiones 1 a 4 de la regla).
 
 | Clase de referencia | 1 Agua abierta | 2 Vegetación flotante | 3 Manglar intacto | 4 Dosel abierto o herbáceo | Sin decisión |
 |---|---|---|---|---|---|
@@ -378,7 +378,7 @@ La señal hidrológica se cartografió a 50 m con la diferencia entre las median
 
 El cambio de HH mostró una marcada estructura espacial (Tabla 15, Figura 14). Para el manglar completo la mediana fue de solo +0,07 dB, pero en el sector sur aumentó a +0,53 dB con el 77 % de los píxeles positivos. En el norte, sobre Isla de Salamanca, donde entra el caño Clarín, la mediana fue de −0,18 dB. El bosque seco de control disminuyó −0,36 dB.
 
-Tabla 15. Diferencia alto menos bajo del nivel del río por píxel de 50 m (mediana y, para el copolar, cuartiles; dB) y fracción de píxeles con diferencia positiva, por clase y por sector del manglar. Banda L: seis pasadas de nivel alto y ocho de nivel bajo de NISAR D083; banda C: 13 y 18 pasadas de Sentinel-1 órbita 142 en las mismas dos ventanas de fechas.
+Tabla 15. Cambio de retrodispersión entre los periodos de nivel alto y bajo del río, por cobertura y sector del manglar, en dB.
 
 | Clase o sector | Píxeles | ΔHH (L) | ΔHH > 0 | ΔHV (L) | Δ(HH − HV) | ΔVV (C) | ΔVV > 0 | ΔVH (C) |
 |---|---|---|---|---|---|---|---|---|
@@ -412,7 +412,7 @@ La comparación espacial con NISAR produjo una correlación débil y negativa so
 
 En Bahía de Málaga se repitió el análisis con las seis pasadas de mayor y de menor marea de cada trayectoria (Tabla 16, Figura 17). En A004, el HH del manglar aumentó +0,34 dB con el 75 % de los píxeles positivos y el bosque disminuyó −0,10 dB. En D087, el manglar cambió +0,05 dB y el bosque −0,39 dB. Esa caída del bosque coincide con la versión del producto: en esa traza cuatro de las seis pasadas de marea alta son Beta y cuatro de las seis de marea baja son Provisionales, y la versión desplaza el HH de todas las clases, de modo que la resta cancela ese desplazamiento y no describe una caída real del bosque. En las dos trayectorias, la diferencia manglar menos bosque fue de +0,44 dB, próxima a los +0,57 dB de la comparación por puntos.
 
-Tabla 16. Bahía de Málaga: diferencia marea alta menos marea baja por píxel de 50 m (mediana y cuartiles, dB) y fracción de píxeles positivos, por traza y clase. Seis pasadas por grupo en cada traza; el humedal herbáceo tiene solo 224 píxeles y se omite.
+Tabla 16. Cambio de retrodispersión entre marea alta y baja en Bahía de Málaga, por trayectoria y cobertura, en dB.
 
 | Traza | Clase | Píxeles | ΔHH | ΔHH > 0 | ΔHV | Δ(HH − HV) |
 |---|---|---|---|---|---|---|
