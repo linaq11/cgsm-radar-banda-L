@@ -56,7 +56,7 @@ La extracción se hace después del paso a decibelios, con un promedio espacial 
 
 La Figura 1 resume el diseño analítico en seis etapas, de los datos de entrada a los productos. El flujo de trabajo completo tiene nueve etapas: acceso a datos, preprocesamiento, coberturas de referencia y muestreo, forzante hidrológico, estadística por pasada, prueba hidrológica, robustez, clave de interpretación y mapa de la señal con contraste óptico (Figura A2). Las etapas posteriores al procesamiento se describen en las secciones 2.4 a 2.8. La cadena por sensor, con la convención de los flujos de trabajo SAR de De Luca et al. (2021) y Yordanov y Brovelli (2021), y los guiones de cada etapa están en el Anexo A.
 
-![Figure 1. Methodological workflow of the study: input data, SAR preprocessing, cover sampling, forcing assigned to each pass, analytical tests and products. Every image is data from this report: NISAR (track D083, 29 October 2025), ALOS-2 (2 December 2025) and Sentinel-1 (orbit 142, 9 January 2026) quicklooks over the CGSM box; 1.5 km Sentinel-2 SWIR chips of 2025 at real points of each cover; DIMAR tide for January 2026 and Magdalena River level at Remolino with the 30-day rain at each pass; ΔHH and σ⁰ HH maps at 50 m and the modal Dynamic World class. The nine-stage workflow and the chain per sensor are in Annex A (Figures A2 and A1).](fig_diseno_estudio_h.png)
+![Figure 1. Methodological workflow of the study.](fig_diseno_estudio_h.png)
 
 ### 2.4 Coberturas de referencia y muestreo
 
