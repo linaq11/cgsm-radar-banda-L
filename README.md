@@ -1,4 +1,4 @@
-# Aporte de la banda L para la inundación bajo dosel de manglar en la Ciénaga Grande de Santa Marta
+# Respuesta de la banda L a la inundación bajo dosel de manglar: comparación con banda C en la Ciénaga Grande de Santa Marta y Bahía de Málaga
 
 Código, resultados y figuras del informe de avance del curso *Radar and LiDAR Remote Sensing* (Maestría en Geomática, Universidad Nacional de Colombia, 2026-2). Autora: Lina María Quintero Fonseca.
 
@@ -57,7 +57,7 @@ Cada guion se corre desde la carpeta `guiones/` y documenta en su cabecera los a
 
 ## Cómo citar
 
-Quintero Fonseca, L. M. (2026). *Aporte de la banda L para la identificación de inundación bajo dosel de manglar en la Ciénaga Grande de Santa Marta* [Informe de avance, curso Radar and LiDAR Remote Sensing]. Universidad Nacional de Colombia. https://github.com/linaq11/cgsm-radar-banda-L
+Quintero Fonseca, L. M. (2026). *Respuesta de la banda L a la inundación bajo dosel de manglar: comparación con banda C en la Ciénaga Grande de Santa Marta y Bahía de Málaga* [Informe de avance, curso Radar and LiDAR Remote Sensing]. Universidad Nacional de Colombia. https://github.com/linaq11/cgsm-radar-banda-L
 
 ## Licencia
 
