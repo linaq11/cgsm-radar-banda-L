@@ -7,3 +7,16 @@ Imágenes reales para el diagrama de flujo del informe de radar. Generadas con e
 05_humedal_herbaceo_S2_2025_-74.5833_10.8964.png: Sentinel-2 SR armonizado, mediana 2025 sin nubes, color verdadero B4-B3-B2, 1,5 km de lado centrado en -74.58330, 10.89643 (punto 201 de la muestra 2025, 3 alta).
 06_manglar_S2_2025_-74.4683_10.7144.png: Sentinel-2 SR armonizado, mediana 2025 sin nubes, color verdadero B4-B3-B2, 1,5 km de lado centrado en -74.46832, 10.71443 (punto 3 de la muestra 2025, 3 alta).
 07_bosque_control_S2_2025_-74.1997_11.0740.png: Sentinel-2 SR armonizado, mediana 2025 sin nubes, color verdadero B4-B3-B2, 1,5 km de lado centrado en -74.19973, 11.07396 (malla de clases a 50 m, clase 2 (bosque de WorldCover fuera del área de estudio)).
+
+Versiones en falso color (exportar_falso_color.py):
+01_NISAR_falsocolor_D083_2025-10-29.png: NISAR GCOV D083 29-oct-2025, RGB = HH (-22 a -4 dB), HV (-30 a -10), HH−HV (3 a 14), 40 m.
+02_Sentinel1_falsocolor_D142_2026-01-09.png: Sentinel-1 GRD órbita 142, 9-ene-2026, RGB = VV, VH, VV−VH con los mismos rangos.
+03_ALOS2_falsocolor_ScanSAR_2025-12-02.png: ALOS-2 ScanSAR 2-dic-2025, RGB = HH, HV, HH−HV (σ⁰ = 10 log10(DN²) − 83), mismos rangos.
+04_agua_abierta_infrarrojo_S2_2025.png: Sentinel-2 mediana 2025, bandas B8-B4-B3, 1,5 km centrado en -74.5456, 10.7390.
+04_agua_abierta_swir_S2_2025.png: Sentinel-2 mediana 2025, bandas B11-B8-B4, 1,5 km centrado en -74.5456, 10.7390.
+05_humedal_herbaceo_infrarrojo_S2_2025.png: Sentinel-2 mediana 2025, bandas B8-B4-B3, 1,5 km centrado en -74.5833, 10.8964.
+05_humedal_herbaceo_swir_S2_2025.png: Sentinel-2 mediana 2025, bandas B11-B8-B4, 1,5 km centrado en -74.5833, 10.8964.
+06_manglar_infrarrojo_S2_2025.png: Sentinel-2 mediana 2025, bandas B8-B4-B3, 1,5 km centrado en -74.4683, 10.7144.
+06_manglar_swir_S2_2025.png: Sentinel-2 mediana 2025, bandas B11-B8-B4, 1,5 km centrado en -74.4683, 10.7144.
+07_bosque_control_infrarrojo_S2_2025.png: Sentinel-2 mediana 2025, bandas B8-B4-B3, 1,5 km centrado en -74.1997, 11.0740.
+07_bosque_control_swir_S2_2025.png: Sentinel-2 mediana 2025, bandas B11-B8-B4, 1,5 km centrado en -74.1997, 11.0740.
