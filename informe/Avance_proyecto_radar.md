@@ -56,7 +56,7 @@ La extracción se hace después del paso a decibelios, con un promedio espacial 
 
 La Figura 1 resume el diseño analítico en seis etapas, de los datos de entrada a los productos. El flujo de trabajo completo tiene nueve etapas: acceso a datos, preprocesamiento, coberturas de referencia y muestreo, forzante hidrológico, estadística por pasada, prueba hidrológica, robustez, clave de interpretación y mapa de la señal con contraste óptico (Figura A2). Las etapas posteriores al procesamiento se describen en las secciones 2.4 a 2.8. La cadena por sensor, con la convención de los flujos de trabajo SAR de De Luca et al. (2021) y Yordanov y Brovelli (2021), y los guiones de cada etapa están en el Anexo A.
 
-![Figure 1. Methodological workflow of the study.](fig_diseno_estudio_h.png)
+![Figure 1. Methodological workflow of the study. Integration of SAR and auxiliary data, preprocessing per sensor, cover sampling, assignment of the hydrological forcings, analytical tests and map products used to compare the response of the C and L bands to flooding under the canopy.](fig_diseno_estudio_h.png)
 
 ### 2.4 Coberturas de referencia y muestreo
 
