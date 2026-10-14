@@ -275,7 +275,12 @@ Tabla 9. Separabilidad de Jeffries-Matusita entre las clases de la muestra de re
 
 #### Regla de lectura
 
-La clave se redujo a cuatro decisiones sobre las medianas multifecha: agua abierta con VV por debajo de −17 dB y VH por debajo de −25 dB; superficie oscura con vegetación o borde con VV por debajo de −12 dB, compatible con vegetación flotante cuando VV − VH es de 6,5 dB o más; dosel cerrado con VV de −12 dB o más y HH − HV por debajo de 7,3 dB; y dosel abierto o herbáceo con HH − HV de 7,3 dB o más, grupo donde quedan juntos el manglar degradado, el humedal herbáceo y parte de la clase otro.
+La clave se redujo a cuatro decisiones sobre las medianas multifecha:
+
+1. Agua abierta: VV por debajo de −17 dB y VH por debajo de −25 dB.
+2. Superficie oscura con vegetación o borde: VV por debajo de −12 dB sin cumplir la condición anterior, compatible con vegetación flotante cuando VV − VH es de 6,5 dB o más.
+3. Dosel cerrado: VV de −12 dB o más y HH − HV por debajo de 7,3 dB.
+4. Dosel abierto o herbáceo: VV de −12 dB o más y HH − HV de 7,3 dB o más, grupo donde quedan juntos el manglar degradado, el humedal herbáceo y parte de la clase otro.
 
 La respuesta hidrológica complementa la firma estática para distinguir el manglar del bosque no inundable, puesto que la diferencia de nivel entre las dos clases (1,5 dB en VV y 1,7 dB en HH) es del orden de la que produce la geometría entre trayectorias. El criterio es el cambio del canal copolar con el forzante, observado en Bahía de Málaga y, con la confusión de versión declarada, en la CGSM.
 
