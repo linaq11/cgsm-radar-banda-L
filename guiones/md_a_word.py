@@ -52,22 +52,43 @@ def sombrear(celda, hex_color):
     pr.append(shd)
 
 
+def ancho_figura(ruta):
+    """Ancho en pulgadas: 6,3 como máximo, sin pasar de 5,5 de alto; las figuras casi cuadradas
+    o verticales (gráficas de dispersión, matrices) se limitan a 5,0 de ancho."""
+    from PIL import Image
+    w, h = Image.open(ruta).size
+    aspecto = h / w
+    ancho = 6.3 if aspecto < 0.8 else 5.0
+    return min(ancho, 5.5 / aspecto)
+
+
+def margenes_celda(t, cm=0.08):
+    pr = t._tbl.tblPr
+    m = OxmlElement("w:tblCellMar")
+    for lado in ("left", "right"):
+        e = OxmlElement("w:" + lado); e.set(qn("w:w"), str(int(cm * 567))); e.set(qn("w:type"), "dxa"); m.append(e)
+    pr.append(m)
+
+
 def tabla(d, filas):
     celdas = [[c.strip() for c in f.strip().strip("|").split("|")] for f in filas]
     celdas = [c for c in celdas if not all(re.fullmatch(r":?-+:?", x) for x in c)]
     enc, cuerpo = celdas[0], celdas[1:]
+    tam = 9 if len(enc) <= 5 else (8 if len(enc) <= 7 else 7.5)
     t = d.add_table(rows=1, cols=len(enc))
-    t.style = "Table Grid"; t.alignment = WD_TABLE_ALIGNMENT.CENTER
+    t.style = "Table Grid"; t.alignment = WD_TABLE_ALIGNMENT.CENTER; t.autofit = True
+    margenes_celda(t)
     for k, c in enumerate(enc):
         cel = t.rows[0].cells[k]; cel.text = ""
-        corridas(cel.paragraphs[0], c, 9.5, negrita=True, color=BLANCO)
+        corridas(cel.paragraphs[0], c, tam, negrita=True, color=BLANCO)
         cel.paragraphs[0].paragraph_format.space_after = Pt(0); sombrear(cel, ACENTO)
     tr = t.rows[0]._tr.get_or_add_trPr(); h = OxmlElement("w:tblHeader"); h.set(qn("w:val"), "true"); tr.append(h)
     for fila in cuerpo:
         nueva = t.add_row().cells
         for k, c in enumerate(fila[:len(enc)]):
-            nueva[k].text = ""; corridas(nueva[k].paragraphs[0], c, 9.5)
+            nueva[k].text = ""; corridas(nueva[k].paragraphs[0], c, tam)
             nueva[k].paragraphs[0].paragraph_format.space_after = Pt(0)
+            nueva[k].paragraphs[0].paragraph_format.line_spacing = 1.0
     d.add_paragraph().paragraph_format.space_after = Pt(2)
 
 
@@ -105,7 +126,7 @@ def main(md):
             m = re.match(r"!\[(.*)\]\((.*)\)", t)
             pie, ruta = m.group(1), os.path.join(os.path.dirname(os.path.abspath(md)), m.group(2))
             p = d.add_paragraph(); p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-            p.add_run().add_picture(ruta, width=Inches(6.3))
+            p.add_run().add_picture(ruta, width=Inches(ancho_figura(ruta)))
             p.paragraph_format.keep_with_next = True; p.paragraph_format.space_after = Pt(2)
             parrafo(d, pie, tam=9.5, cursiva=True, despues=10)
         elif t.startswith("Tabla "):
