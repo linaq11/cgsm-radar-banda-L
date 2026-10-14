@@ -7,7 +7,7 @@ Documento auditado: `C:\LINA\UNAL 2626-1\RADAR\Avance_proyecto_radar.md` (versi�
 
 Se rederivó cada número de las Tablas 1 a 9 y de los párrafos que las acompañan a partir de
 los CSV crudos de la carpeta, con código propio en pandas, numpy y scipy, sin leer ni ejecutar
-ninguno de los guiones `*.py` que produjeron las tablas. Los CSV de resumen
+ninguno de los scripts `*.py` que produjeron las tablas. Los CSV de resumen
 (`marea_vs_radar.csv`, `s1_marea_resumen.csv`, `alos2_marea_resumen.csv`,
 `cgsm_temporada_resumen.csv`, `cgsm_nivel_rio_resumen.csv`, `doble_rebote_incidencia.csv`)
 se usaron solo como término de comparación posterior, nunca como insumo.
@@ -427,7 +427,7 @@ Verificación manual de tres pasadas de NISAR D083, con la hora local ya convert
 Los tres valores coinciden con `cgsm_nivel_rio_resumen.csv` (nivel mínimo 0,91 y máximo 2,67)
 y con los extremos citados en el párrafo. Si el nivel se interpretara en UTC en lugar de en
 hora local, la interpolación se desplazaría 5 horas y cambiaría la ordenación de las pasadas;
-la reproducción exacta de la Tabla 9 con el convenio local confirma que el guion original usó
+la reproducción exacta de la Tabla 9 con el convenio local confirma que el script original usó
 hora local para el IDEAM y UTC para las pasadas.
 
 ### Formación de los tercios

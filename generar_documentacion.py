@@ -39,7 +39,7 @@ vistos = set()
 for etapa, lista in ORDEN:
     salida += ["## " + etapa, ""]
     for f in lista:
-        ruta = os.path.join(AQUI, "guiones", f)
+        ruta = os.path.join(AQUI, "scripts", f)
         if not os.path.exists(ruta):
             continue
         vistos.add(f)
@@ -47,11 +47,11 @@ for etapa, lista in ORDEN:
         salida += ["### `%s`" % f, "", doc.strip(), ""]
         if coms:
             salida += ["Comentarios en el código:", ""] + ["- línea %d: %s" % (n, c) for n, c in coms] + [""]
-faltan = [f for f in sorted(os.listdir(os.path.join(AQUI, "guiones"))) if f.endswith(".py") and f not in vistos]
+faltan = [f for f in sorted(os.listdir(os.path.join(AQUI, "scripts"))) if f.endswith(".py") and f not in vistos]
 if faltan:
     salida += ["## Otros", ""]
     for f in faltan:
-        doc, coms = cabecera_y_comentarios(os.path.join(AQUI, "guiones", f))
+        doc, coms = cabecera_y_comentarios(os.path.join(AQUI, "scripts", f))
         salida += ["### `%s`" % f, "", doc.strip(), ""] + (["Comentarios en el código:", ""] + ["- línea %d: %s" % (n, c) for n, c in coms] + [""] if coms else [])
 open(os.path.join(AQUI, "DOCUMENTACION_scripts.md"), "w", encoding="utf-8", newline="\n").write("\n".join(salida))
 print("DOCUMENTACION_scripts.md:", len(vistos) + len(faltan), "scripts,", sum(len(x.split()) for x in salida), "palabras")

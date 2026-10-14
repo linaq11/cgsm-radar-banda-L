@@ -855,6 +855,10 @@ El bloque de cabecera (lineas antes del primer '## ') va centrado, la ultima en 
 USO
     python md_a_word.py Avance_proyecto_radar.md
 
+Comentarios en el código:
+
+- línea 153: sin párrafo vacío al final: evita una última página en blanco tras la última tabla
+
 ### `propuesta_a_word.py`
 
 Convierte Propuesta_trabajo_radar.md en .docx: carta, margenes 2,5 cm, Calibri 11,
