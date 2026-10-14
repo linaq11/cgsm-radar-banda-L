@@ -12,8 +12,8 @@ El informe completo está en `informe/Avance_proyecto_radar.md` y la auditoría 
 
 | Carpeta | Contenido |
 |---|---|
-| `guiones/` | 36 scripts de Python usados en el informe. Cada uno documenta en su cabecera su propósito, los archivos de entrada, los productos que genera y la forma de ejecutarlo. |
-| `guiones/publicacion_gee/` | Seis scripts numerados para el acceso y el procesamiento inicial de NISAR: consulta del catálogo CMR, descarga, recorte remoto y extracción de la malla de incidencia. |
+| `scripts/` | 36 scripts de Python usados en el informe. Cada uno documenta en su cabecera su propósito, los archivos de entrada, los productos que genera y la forma de ejecutarlo. |
+| `scripts/publicacion_gee/` | Seis scripts numerados para el acceso y el procesamiento inicial de NISAR: consulta del catálogo CMR, descarga, recorte remoto y extracción de la malla de incidencia. |
 | `resultados/` | Tablas CSV y archivos de texto generados por los scripts, con los que se construyen las tablas y los análisis del informe. |
 | `figuras/` | Figuras del informe en PNG. La subcarpeta `figuras para flujo/` contiene los recortes reales de los tres radares, los recortes Sentinel-2 por cobertura, las series del forzante y los mapas de producto que componen la Figura 1, con sus scripts de exportación y un archivo `FUENTES.txt` con la procedencia de cada imagen. |
 | `informe/` | Informe en Markdown y auditoría de cálculos. |
@@ -43,7 +43,7 @@ El script `mapbiomas_cruce.py` corresponde a un análisis exploratorio con MapBi
 
 ### NISAR L2 GCOV
 
-Se usan productos NISAR L2 GCOV de las colecciones Beta y Provisional, obtenidos del archivo de NASA ASF DAAC a través del catálogo CMR y `earthaccess`. Se requiere una cuenta de NASA Earthdata. Los scripts de `guiones/publicacion_gee/` localizan los gránulos y recortan de forma remota la ventana de cada sitio.
+Se usan productos NISAR L2 GCOV de las colecciones Beta y Provisional, obtenidos del archivo de NASA ASF DAAC a través del catálogo CMR y `earthaccess`. Se requiere una cuenta de NASA Earthdata. Los scripts de `scripts/publicacion_gee/` localizan los gránulos y recortan de forma remota la ventana de cada sitio.
 
 ### Google Earth Engine
 
@@ -77,7 +77,7 @@ Se recomienda Python 3.12 o superior. Las dependencias se instalan con:
 pip install -r requirements.txt
 ```
 
-Los scripts se ejecutan desde la carpeta `guiones/`. Cada archivo documenta en su cabecera los datos de entrada, los argumentos y los productos. El orden general corresponde a las nueve etapas. Las etapas 5 a 9 trabajan sobre los CSV y productos intermedios de las etapas previas, de modo que gran parte del análisis se reproduce desde la carpeta `resultados/` sin volver a descargar las escenas SAR.
+Los scripts se ejecutan desde la carpeta `scripts/`. Cada archivo documenta en su cabecera los datos de entrada, los argumentos y los productos. El orden general corresponde a las nueve etapas. Las etapas 5 a 9 trabajan sobre los CSV y productos intermedios de las etapas previas, de modo que gran parte del análisis se reproduce desde la carpeta `resultados/` sin volver a descargar las escenas SAR.
 
 ### Consideraciones locales
 
