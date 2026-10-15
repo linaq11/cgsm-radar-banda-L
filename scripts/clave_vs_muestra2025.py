@@ -157,6 +157,20 @@ def jm(a, b):
     return float(2 * (1 - np.exp(-B)))
 
 
+# Umbrales absolutos de la clave (dB). En gamma cero se desplazan por la mediana de gamma - sigma medida en los
+# mismos 720 puntos (banda C: VV y VH), de modo que los umbrales equivalgan a los literales del informe en sigma cero.
+U_VV_AGUA, U_VH_AGUA, U_VV_OSCURO = -17.0, -25.0, -12.0
+if GAMMA0:
+    _s = os.path.join(AQUI, "clave_muestra2025_puntos.csv")
+    if os.path.exists(_s):
+        _ps = pd.read_csv(_s); _pg = pd.read_csv(PUNTOS) if os.path.exists(PUNTOS) else None
+        if _pg is not None and "VV" in _pg and "VV" in _ps:
+            _m = _ps.merge(_pg, on="id", suffixes=("_s", "_g"))
+            _dvv, _dvh = float((_m.VV_g - _m.VV_s).median()), float((_m.VH_g - _m.VH_s).median())
+            U_VV_AGUA, U_VH_AGUA, U_VV_OSCURO = -17.0 + _dvv, -25.0 + _dvh, -12.0 + _dvv
+            print("gamma cero: umbrales desplazados VV %+.2f dB, VH %+.2f dB -> agua VV < %.2f y VH < %.2f; oscuro VV < %.2f" % (_dvv, _dvh, U_VV_AGUA, U_VH_AGUA, U_VV_OSCURO))
+
+
 def regla(r):
     """Las cuatro decisiones estáticas de la clave del informe, con sus umbrales literales.
     1. agua abierta: VV < -17 dB y VH < -25 dB;
@@ -167,9 +181,9 @@ def regla(r):
        herbáceo y parte de la clase otro, que no se separan con estas bandas)."""
     if np.isnan(r.VV):
         return "sin decision"
-    if r.VV < -17 and r.VH < -25:
+    if r.VV < U_VV_AGUA and r.VH < U_VH_AGUA:
         return "1 agua abierta"
-    if r.VV < -12:
+    if r.VV < U_VV_OSCURO:
         return "2 vegetacion flotante" if r.VVmVH >= 6.5 else "sin decision"
     if np.isnan(r.HHmHV):
         return "sin decision"

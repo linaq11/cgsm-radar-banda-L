@@ -83,11 +83,11 @@ Recálculo del 15 de octubre de 2026 con `RADAR_MAGNITUD=gamma0`. NISAR usa el �
 | manglar_degradado | otro | 0.27 | 0.27 | 0.47 | 0.47 | 0.69 | 0.69 |
 | manglar_intacto | otro | 0.56 | 0.56 | 0.54 | 0.54 | 0.89 | 0.89 |
 
-## Clave de interpretación con los umbrales literales del informe
+## Clave de interpretación: umbrales literales en σ⁰ y umbrales desplazados en γ⁰
 
 | Magnitud | Decididos de 720 | Coinciden con la referencia | Acierto entre decididos |
 |---|---|---|---|
 | σ⁰ | 606 | 415 | 68.5 % |
-| γ⁰ (mismos umbrales) | 627 | 429 | 68.4 % |
+| γ⁰ (umbrales desplazados por la mediana de γ⁰ − σ⁰: VV y VH +0,83 dB) | 606 | 415 | 68.5 % |
 
-En γ⁰ todos los niveles suben entre 0,8 y 1,4 dB (el término −10·log10 cos θ), así que los umbrales absolutos de la clave (−17, −25 y −12 dB) deben desplazarse en esa cantidad para equivaler a los de σ⁰; los umbrales sobre VV − VH y HH − HV no cambian.
+En γ⁰ los niveles de Sentinel-1 suben 0,83 dB y los de NISAR 1,30 dB (el término −10·log10 cos θ). Los umbrales absolutos de la clave actúan sobre VV y VH, así que en γ⁰ pasan de −17, −25 y −12 dB a −16,17, −24,17 y −11,17 dB; los umbrales sobre VV − VH (6,5) y HH − HV (7,3) no cambian. Con ese desplazamiento la clave en γ⁰ reproduce la de σ⁰ salvo tres puntos.

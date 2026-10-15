@@ -14,7 +14,7 @@ SALIDAS
 USO
     python comparar_gamma0.py
 LIMITACIÓN
-    La clave en gamma cero se evalúa con los umbrales literales de sigma cero; no se reajustan.
+    Los umbrales absolutos de la clave en gamma cero son los de sigma cero desplazados por la mediana de γ⁰ − σ⁰ en los 720 puntos.
 """
 import os
 import pandas as pd
@@ -62,10 +62,11 @@ def acierto(ruta):
     bien = sum(cm.loc[c, k] for c, k in ok.items() if c in cm.index)
     return int(dec), int(bien)
 ds, bs = acierto(os.path.join(AQUI, "clave_muestra2025_regla.csv")); dg, bg = acierto(os.path.join(AQUI, "clave_muestra2025_regla_gamma0.csv"))
-L += ["## Clave de interpretación con los umbrales literales del informe", "",
+L += ["## Clave de interpretación: umbrales literales en σ⁰ y umbrales desplazados en γ⁰", "",
       "| Magnitud | Decididos de 720 | Coinciden con la referencia | Acierto entre decididos |", "|---|---|---|---|",
-      "| σ⁰ | %d | %d | %.1f %% |" % (ds, bs, 100 * bs / ds), "| γ⁰ (mismos umbrales) | %d | %d | %.1f %% |" % (dg, bg, 100 * bg / dg), "",
-      "En γ⁰ todos los niveles suben entre 0,8 y 1,4 dB (el término −10·log10 cos θ), así que los umbrales absolutos de la clave "
-      "(−17, −25 y −12 dB) deben desplazarse en esa cantidad para equivaler a los de σ⁰; los umbrales sobre VV − VH y HH − HV no cambian.", ""]
+      "| σ⁰ | %d | %d | %.1f %% |" % (ds, bs, 100 * bs / ds), "| γ⁰ (umbrales desplazados por la mediana de γ⁰ − σ⁰: VV y VH +0,83 dB) | %d | %d | %.1f %% |" % (dg, bg, 100 * bg / dg), "",
+      "En γ⁰ los niveles de Sentinel-1 suben 0,83 dB y los de NISAR 1,30 dB (el término −10·log10 cos θ). Los umbrales absolutos de la clave "
+      "actúan sobre VV y VH, así que en γ⁰ pasan de −17, −25 y −12 dB a −16,17, −24,17 y −11,17 dB; los umbrales sobre VV − VH (6,5) y HH − HV (7,3) "
+      "no cambian. Con ese desplazamiento la clave en γ⁰ reproduce la de σ⁰ salvo tres puntos.", ""]
 open(os.path.join(AQUI, "GAMMA0_comparacion.md"), "w", encoding="utf-8").write("\n".join(L))
 print("escrito GAMMA0_comparacion.md | clave: sigma0 %d/%d, gamma0 %d/%d" % (bs, ds, bg, dg))
