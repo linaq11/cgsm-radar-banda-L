@@ -31,6 +31,8 @@ clave_muestra2025_firmas.csv, clave_muestra2025_jm.csv y clave_muestra2025_regla
 """
 import glob
 import os
+GAMMA0 = os.environ.get("RADAR_MAGNITUD", "sigma0").lower() == "gamma0"   # gamma cero: NISAR sin factor, S1 y ALOS-2 corregidos por incidencia
+SUF = "_gamma0" if GAMMA0 else ""
 import sys
 from datetime import datetime
 from itertools import combinations
@@ -45,7 +47,7 @@ GRUPO = "science/LSAR/GCOV/grids/frequencyA"
 T0, T1 = "2025-10-01", "2026-09-12"          # mismo periodo que el informe
 ORBITA_S1 = 142                               # descendente, la de la Tabla 10
 TRAZA_NISAR = "D"                             # descendente 083
-PUNTOS = os.path.join(AQUI, "clave_muestra2025_puntos.csv")
+PUNTOS = os.path.join(AQUI, "clave_muestra2025_puntos%s.csv" % SUF)
 QUE = [a for a in sys.argv[1:] if a in ("s1", "nisar", "clave")] or ["s1", "nisar", "clave"]
 CLASES = ["agua", "vegetacion_flotante", "humedal_herbaceo", "manglar_degradado", "manglar_intacto", "otro"]
 
@@ -66,6 +68,12 @@ def cargar_puntos():
     return d
 
 
+def s1_db(im):
+    """Sentinel-1 en dB; con GAMMA0, gamma cero elipsoidal: sigma0 - 10 log10(cos(angulo))."""
+    v = im.select(["VV", "VH"])
+    return v.subtract(im.select("angle").multiply(np.pi / 180).cos().log10().multiply(10)) if GAMMA0 else v
+
+
 def muestrear_s1(d):
     import ee
     ee.Initialize(project="basic-buttress-338101")
@@ -84,7 +92,7 @@ def muestrear_s1(d):
     print("S1 orbita %d: %d escenas, %d pasadas" % (ORBITA_S1, len(meta), len(pasadas)), flush=True)
     vv, vh = {}, {}
     for ps in pasadas:
-        img = ee.ImageCollection([ee.Image("COPERNICUS/S1_GRD/" + i).select(["VV", "VH"]) for i in ps["ids"]]).mosaic()
+        img = ee.ImageCollection([s1_db(ee.Image("COPERNICUS/S1_GRD/" + i)) for i in ps["ids"]]).mosaic()
         cob = img.select("VV").mask().reduceRegion(ee.Reducer.mean(), aoi, 300, maxPixels=1e9).getInfo().get("VV") or 0
         if cob < 0.9:
             continue
@@ -116,7 +124,7 @@ def muestrear_nisar(d):
                 continue
             gr = h[GRUPO]
             xc, yc = gr["xCoordinates"][:], gr["yCoordinates"][:]
-            fac = gr["rtcGammaToSigmaFactor"][:]
+            fac = 1.0 if GAMMA0 else gr["rtcGammaToSigmaFactor"][:]
             hh = db(uniform_filter(np.nan_to_num(gr["HHHH"][:] * fac), 3))
             hv = db(uniform_filter(np.nan_to_num(gr["HVHV"][:] * fac), 3))
             t0 = h["science/LSAR/identification/zeroDopplerStartTime"][()]; t0 = t0.decode() if isinstance(t0, bytes) else str(t0)
@@ -177,7 +185,7 @@ def analizar(d):
         filas.append(dict(clase=c, n=len(g), VV=g.VV.median(), VH=g.VH.median(), VVmVH=g.VVmVH.median(),
                           HH=g.HH.median(), HV=g.HV.median(), HHmHV=g.HHmHV.median(), n_nisar=int(g.HH.notna().sum())))
     firmas = pd.DataFrame(filas).round(1)
-    firmas.to_csv(os.path.join(AQUI, "clave_muestra2025_firmas.csv"), index=False)
+    firmas.to_csv(os.path.join(AQUI, "clave_muestra2025_firmas%s.csv" % SUF), index=False)
     print("\nFirmas por clase (mediana entre pasadas y entre puntos, dB):\n" + firmas.to_string(index=False))
     # 2) separabilidad por pares
     conj = {"C (VV, VH, VV-VH)": ["VV", "VH", "VVmVH"], "L (HH, HV, HH-HV)": ["HH", "HV", "HHmHV"],
@@ -191,12 +199,12 @@ def analizar(d):
             f["n " + nombre] = "%d+%d" % (len(a), len(b))
         filas.append(f)
     jmt = pd.DataFrame(filas)
-    jmt.to_csv(os.path.join(AQUI, "clave_muestra2025_jm.csv"), index=False)
+    jmt.to_csv(os.path.join(AQUI, "clave_muestra2025_jm%s.csv" % SUF), index=False)
     print("\nSeparabilidad JM por pares:\n" + jmt[["par", "jm C (VV, VH, VV-VH)", "jm L (HH, HV, HH-HV)", "jm C + L"]].to_string(index=False))
     # 3) regla de lectura
     t["regla"] = t.apply(regla, axis=1)
     cm = pd.crosstab(t.clase_final, t.regla)
-    cm.to_csv(os.path.join(AQUI, "clave_muestra2025_regla.csv"))
+    cm.to_csv(os.path.join(AQUI, "clave_muestra2025_regla%s.csv" % SUF))
     print("\nRegla de lectura (filas: clase_final; columnas: lo que dice la regla):\n" + cm.to_string())
     ok = {"agua": "1 agua abierta", "vegetacion_flotante": "2 vegetacion flotante", "manglar_intacto": "3 dosel cerrado",
           "manglar_degradado": "4 dosel abierto", "humedal_herbaceo": "4 dosel abierto", "otro": "4 dosel abierto"}

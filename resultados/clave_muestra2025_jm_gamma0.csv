@@ -1,0 +1,16 @@
+par,"jm C (VV, VH, VV-VH)","n C (VV, VH, VV-VH)","jm L (HH, HV, HH-HV)","n L (HH, HV, HH-HV)",jm C + L,n C + L
+agua | vegetacion_flotante,0.47,212+129,0.27,212+129,0.68,212+129
+agua | humedal_herbaceo,1.5,212+73,1.22,212+73,1.66,212+73
+agua | manglar_degradado,1.65,212+111,1.55,212+111,1.82,212+111
+agua | manglar_intacto,1.85,212+151,1.88,212+151,1.96,212+151
+agua | otro,1.51,212+44,1.28,212+44,1.69,212+44
+vegetacion_flotante | humedal_herbaceo,0.74,129+73,0.64,129+73,1.02,129+73
+vegetacion_flotante | manglar_degradado,0.94,129+111,0.96,129+111,1.32,129+111
+vegetacion_flotante | manglar_intacto,1.34,129+151,1.6,129+151,1.79,129+151
+vegetacion_flotante | otro,0.64,129+44,0.78,129+44,1.1,129+44
+humedal_herbaceo | manglar_degradado,0.17,73+111,0.22,73+111,0.38,73+111
+humedal_herbaceo | manglar_intacto,0.45,73+151,0.78,73+151,0.97,73+151
+humedal_herbaceo | otro,0.12,73+44,0.17,73+44,0.43,73+44
+manglar_degradado | manglar_intacto,0.3,111+151,0.92,111+151,1.04,111+151
+manglar_degradado | otro,0.27,111+44,0.47,111+44,0.69,111+44
+manglar_intacto | otro,0.56,151+44,0.54,151+44,0.89,151+44

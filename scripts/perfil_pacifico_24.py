@@ -22,6 +22,8 @@ USO
 """
 import glob
 import os
+GAMMA0 = os.environ.get("RADAR_MAGNITUD", "sigma0").lower() == "gamma0"   # gamma cero: NISAR sin factor, S1 y ALOS-2 corregidos por incidencia
+SUF = "_gamma0" if GAMMA0 else ""
 import sys
 from datetime import datetime, timedelta
 
@@ -97,7 +99,7 @@ for r in rutas:
         epsg = int(h.attrs["epsg"])
         gr = h[GRUPO]
         xc, yc = gr["xCoordinates"][:], gr["yCoordinates"][:]
-        fac = gr["rtcGammaToSigmaFactor"][:]
+        fac = 1.0 if GAMMA0 else gr["rtcGammaToSigmaFactor"][:]
         hh, hv = db(gr["HHHH"][:] * fac), db(gr["HVHV"][:] * fac)
         t0 = h["science/LSAR/identification/zeroDopplerStartTime"][()]
         t0 = t0.decode() if isinstance(t0, bytes) else str(t0)
@@ -132,7 +134,7 @@ for r in rutas:
     print("%s | %s | %s local | %d/%d puntos" % (nombre[13:26], t_utc.strftime("%Y-%m-%d %H:%M UTC"), t_loc.strftime("%H:%M"), val.sum(), len(df)), flush=True)
 
 out = pd.DataFrame(filas).sort_values(["clase", "fecha_utc"])
-out.to_csv(os.path.join(AQUI, "perfil_pacifico_24.csv"), index=False)
+out.to_csv(os.path.join(AQUI, "perfil_pacifico_24%s.csv" % SUF), index=False)
 
 # ----------------------------------------------------------------- resumen
 print("\n== mediana por clase y traza (dB), y variacion dentro de cada traza (sd entre fechas) ==")
@@ -174,5 +176,5 @@ axes[0].legend(fontsize=7.5, ncol=2, loc="lower left")
 axes[0].set_title("NISAR GCOV σ⁰ over Bahía de Málaga mangroves by track (median and IQR of 400 points per class)", fontsize=10.5)
 axes[-1].set_xlabel("Acquisition date")
 fig.tight_layout()
-fig.savefig(os.path.join(AQUI, "fig_perfil_pacifico_24.png"), dpi=170)
+fig.savefig(os.path.join(AQUI, "fig_perfil_pacifico_24%s.png" % SUF), dpi=170)
 print("\nfigura: fig_perfil_pacifico_24.png | tabla: perfil_pacifico_24.csv")

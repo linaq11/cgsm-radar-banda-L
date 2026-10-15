@@ -21,6 +21,8 @@ USO
     python marea_vs_radar.py
 """
 import os
+GAMMA0 = os.environ.get("RADAR_MAGNITUD", "sigma0").lower() == "gamma0"   # gamma cero: NISAR sin factor, S1 y ALOS-2 corregidos por incidencia
+SUF = "_gamma0" if GAMMA0 else ""
 
 import numpy as np
 import pandas as pd
@@ -30,7 +32,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
-df = pd.read_csv(os.path.join(AQUI, "perfil_pacifico_24.csv"), parse_dates=["fecha_utc"])
+df = pd.read_csv(os.path.join(AQUI, "perfil_pacifico_24%s.csv" % SUF), parse_dates=["fecha_utc"])
 if df.marea_m.isna().all():
     raise SystemExit("perfil sin marea: corre primero mareas_buenaventura.py y perfil_pacifico_24.py")
 pas = df.drop_duplicates("escena")[["escena", "traza", "hora_local", "marea_m"]].sort_values("escena")
@@ -54,7 +56,7 @@ for traza, g in df.groupby("traza"):
         filas.append(dict(traza=traza, variable=var, clase="manglar_menos_bosque", n=len(y), marea_alta=y[alta].median(), marea_baja=y[~alta].median(),
                           dif_alta_menos_baja=y[alta].median() - y[~alta].median(), rho_spearman=rho, p=p))
 res = pd.DataFrame(filas)
-res.to_csv(os.path.join(AQUI, "marea_vs_radar.csv"), index=False)
+res.to_csv(os.path.join(AQUI, "marea_vs_radar%s.csv" % SUF), index=False)
 print("\n== diferencia marea alta menos baja (dB) y correlacion de Spearman marea-senal, por traza ==")
 for traza, g in res.groupby("traza"):
     print("\ntraza", traza, "| marea de las pasadas: %.2f a %.2f m" % (pas[pas.traza == traza].marea_m.min(), pas[pas.traza == traza].marea_m.max()))
@@ -74,5 +76,5 @@ for r, traza in enumerate(sorted(df.traza.unique())):
 axes[0, 0].legend(fontsize=8)
 fig.suptitle("NISAR backscatter of Bahía de Málaga mangrove vs predicted tide height at acquisition, by track", fontsize=11)
 fig.tight_layout()
-fig.savefig(os.path.join(AQUI, "fig_marea_vs_radar.png"), dpi=160)
+fig.savefig(os.path.join(AQUI, "fig_marea_vs_radar%s.png" % SUF), dpi=160)
 print("\nfigura: fig_marea_vs_radar.png | tabla: marea_vs_radar.csv")

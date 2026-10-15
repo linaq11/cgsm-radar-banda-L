@@ -27,6 +27,8 @@ USO
 """
 import glob
 import os
+GAMMA0 = os.environ.get("RADAR_MAGNITUD", "sigma0").lower() == "gamma0"   # gamma cero: NISAR sin factor, S1 y ALOS-2 corregidos por incidencia
+SUF = "_gamma0" if GAMMA0 else ""
 import sys
 from datetime import datetime
 
@@ -105,7 +107,7 @@ if "nisar" in SENSORES:
         with h5py.File(r, "r") as h:
             gr = h[GRUPO]
             xc, yc = gr["xCoordinates"][:], gr["yCoordinates"][:]
-            fac = gr["rtcGammaToSigmaFactor"][:]
+            fac = 1.0 if GAMMA0 else gr["rtcGammaToSigmaFactor"][:]
             hh, hv = db(gr["HHHH"][:] * fac), db(gr["HVHV"][:] * fac)
             t0 = h["science/LSAR/identification/zeroDopplerStartTime"][()]; t0 = t0.decode() if isinstance(t0, bytes) else str(t0)
             d0 = h["science/LSAR/identification/orbitPassDirection"][()]; d0 = (d0.decode() if isinstance(d0, bytes) else str(d0))[0].upper()
@@ -150,15 +152,15 @@ def muestrear_gee(sensor, col, bandas, a_db, escala, clave_orbita, dir_prop, pre
 if "s1" in SENSORES:
     col = (ee.ImageCollection("COPERNICUS/S1_GRD").filterBounds(aoi).filterDate(T0, T1).filter(ee.Filter.eq("instrumentMode", "IW"))
            .filter(ee.Filter.listContains("transmitterReceiverPolarisation", "VV")).filter(ee.Filter.listContains("transmitterReceiverPolarisation", "VH")))
-    muestrear_gee("S1", col, ["VV", "VH"], lambda im: im.select(["VV", "VH"]), 10, "relativeOrbitNumber_start", "orbitProperties_pass", "COPERNICUS/S1_GRD/")
+    muestrear_gee("S1", col, ["VV", "VH"], lambda im: (im.select(["VV", "VH"]).subtract(im.select("angle").multiply(np.pi / 180).cos().log10().multiply(10)) if GAMMA0 else im.select(["VV", "VH"])), 10, "relativeOrbitNumber_start", "orbitProperties_pass", "COPERNICUS/S1_GRD/")
 if "alos2" in SENSORES:
     col = ee.ImageCollection("JAXA/ALOS/PALSAR-2/Level2_2/ScanSAR").filterBounds(aoi).filterDate(T0, T1).filter(ee.Filter.listContains("Polarizations", "HV"))
-    muestrear_gee("ALOS2", col, ["HH", "HV"], lambda im: im.select(["HH", "HV"]).toFloat().pow(2).log10().multiply(10).add(-83).updateMask(im.select("HH").gt(0)), 25,
+    muestrear_gee("ALOS2", col, ["HH", "HV"], lambda im: im.select(["HH", "HV"]).toFloat().pow(2).log10().multiply(10).add(-83).subtract(im.select("LIN").multiply(0.01 * np.pi / 180).cos().log10().multiply(10) if GAMMA0 else 0).updateMask(im.select("HH").gt(0)), 25,
                   "RSP_Path_Number", "PassDirection", "JAXA/ALOS/PALSAR-2/Level2_2/ScanSAR/")
 
 df = pd.DataFrame(filas)
 for s, g in df.groupby("sensor"):
-    g.to_csv(os.path.join(AQUI, "cgsm_temporada_%s.csv" % s.lower()), index=False)
+    g.to_csv(os.path.join(AQUI, "cgsm_temporada_%s%s.csv" % (s.lower(), SUF)), index=False)
 
 # ------------------------------------------------------------------ prueba
 res = []
@@ -176,7 +178,7 @@ for (sensor, traza), g in df.groupby(["sensor", "traza"]):
             res.append(dict(sensor=sensor, traza=traza, hora_local=meta.hora_local.iloc[0], n=len(y), n_humeda=int(humeda.sum()), variable=var, clase=clase,
                             humeda_menos_seca=(y[humeda].median() - y[~humeda].median()) if humeda.sum() and (~humeda).sum() else np.nan, rho_lluvia=rho, p=p))
 res = pd.DataFrame(res)
-res.to_csv(os.path.join(AQUI, "cgsm_temporada_resumen.csv"), index=False)
+res.to_csv(os.path.join(AQUI, "cgsm_temporada_resumen%s.csv" % SUF), index=False)
 print("\n== CGSM: manglar menos bosque, humeda menos seca (dB) y Spearman con la lluvia de 30 dias ==")
 print("(CO = copolar: HH en banda L, VV en banda C; X = cruzada)")
 for (sensor, traza), g in res.groupby(["sensor", "traza"]):
@@ -198,5 +200,5 @@ for r_, (sensor, traza) in enumerate(grupos):
 axes[0, 0].legend(fontsize=8)
 fig.suptitle("CGSM: mangrove and forest backscatter against antecedent rainfall, by sensor and track", fontsize=11)
 fig.tight_layout(rect=[0, 0, 1, 0.985])     # deja sitio al título general
-fig.savefig(os.path.join(AQUI, "fig_cgsm_temporada.png"), dpi=160)
+fig.savefig(os.path.join(AQUI, "fig_cgsm_temporada%s.png" % SUF), dpi=160)
 print("\nfigura: fig_cgsm_temporada.png")

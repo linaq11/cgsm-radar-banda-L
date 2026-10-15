@@ -24,6 +24,8 @@ USO
     python alos2_marea_malaga.py
 """
 import os
+GAMMA0 = os.environ.get("RADAR_MAGNITUD", "sigma0").lower() == "gamma0"   # gamma cero: NISAR sin factor, S1 y ALOS-2 corregidos por incidencia
+SUF = "_gamma0" if GAMMA0 else ""
 
 import ee
 import numpy as np
@@ -62,7 +64,10 @@ def marea_en(t):
 
 def a_db(img):
     dn = img.select(["HH", "HV"]).toFloat()
-    return dn.pow(2).log10().multiply(10.0).add(CF).updateMask(dn.gt(0))
+    s = dn.pow(2).log10().multiply(10.0).add(CF)
+    if GAMMA0:   # gamma cero con el angulo local de incidencia LIN (centesimas de grado)
+        s = s.subtract(img.select("LIN").multiply(0.01 * np.pi / 180).cos().log10().multiply(10))
+    return s.updateMask(dn.gt(0))
 
 
 col = ee.ImageCollection("JAXA/ALOS/PALSAR-2/Level2_2/ScanSAR").filterBounds(caja).filterDate("2025-01-01", "2026-09-11")
@@ -92,7 +97,7 @@ for ps in pasadas:
                           path=ps["path"], marea_m=marea_en(t_utc), clase=c, n=len(g), HH=g.HH.median(), HV=g.HV.median(), HHmHV=(g.HH - g.HV).median()))
     print("   %s %s path %3d %s local | marea %+.2f m | %d puntos" % (t_utc.strftime("%Y-%m-%d %H:%M"), ps["direccion"][0], ps["path"], (t_utc - pd.Timedelta(hours=5)).strftime("%H:%M"), marea_en(t_utc), len(t)), flush=True)
 df = pd.DataFrame(filas)
-df.to_csv(os.path.join(AQUI, "alos2_marea_malaga.csv"), index=False)
+df.to_csv(os.path.join(AQUI, "alos2_marea_malaga%s.csv" % SUF), index=False)
 
 res = []
 for path, g in df.groupby("path"):
@@ -112,7 +117,7 @@ for path, g in df.groupby("path"):
         res.append(dict(path=path, direccion=g.direccion.iloc[0], hora_local=g.hora_local.iloc[0], n=len(y), variable=var, clase="manglar_menos_bosque",
                         dif_alta_menos_baja=y[alta].median() - y[~alta].median(), rho=rho, p=p))
 res = pd.DataFrame(res)
-res.to_csv(os.path.join(AQUI, "alos2_marea_resumen.csv"), index=False)
+res.to_csv(os.path.join(AQUI, "alos2_marea_resumen%s.csv" % SUF), index=False)
 print("\n== ALOS-2: diferencia marea alta menos baja (dB) y Spearman, por path ==")
 for path, g in res.groupby("path"):
     print("\npath %d (%s, %s local), n = %d pasadas | marea %.2f a %.2f m" % (path, g.direccion.iloc[0], g.hora_local.iloc[0], g.n.iloc[0],
@@ -135,5 +140,5 @@ for r_, path in enumerate(paths):
 axes[0, 0].legend(fontsize=8)
 fig.suptitle("ALOS-2 PALSAR-2 ScanSAR L-band backscatter of Bahía de Málaga mangrove vs tide height at pass, by path (Jan 2025 – Sep 2026)", fontsize=11)
 fig.tight_layout()
-fig.savefig(os.path.join(AQUI, "fig_alos2_marea.png"), dpi=160)
+fig.savefig(os.path.join(AQUI, "fig_alos2_marea%s.png" % SUF), dpi=160)
 print("\nfigura: fig_alos2_marea.png")

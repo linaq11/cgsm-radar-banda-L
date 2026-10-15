@@ -13,6 +13,8 @@ USO
 Salida: cgsm_nivel_rio_resumen.csv, fig_cgsm_nivel_rio.png
 """
 import os
+GAMMA0 = os.environ.get("RADAR_MAGNITUD", "sigma0").lower() == "gamma0"   # gamma cero: NISAR sin factor, S1 y ALOS-2 corregidos por incidencia
+SUF = "_gamma0" if GAMMA0 else ""
 import sys
 from glob import glob
 
@@ -63,7 +65,7 @@ def nivel_en(fecha_utc):
 # 2. Pasadas de radar por sensor y traza.
 filas = []
 for f in glob(os.path.join(AQUI, "cgsm_temporada_*.csv")):
-    if "resumen" in f or "_CAJA" in f:        # las copias _CAJA son la región anterior, no se mezclan
+    if "resumen" in f or "_CAJA" in f or (("_gamma0" in f) != GAMMA0):        # las copias _CAJA son la región anterior, no se mezclan
         continue
     d = pd.read_csv(f)
     d["nivel"] = d.fecha_utc.apply(nivel_en)
@@ -96,7 +98,7 @@ for (sensor, traza), g in piv.groupby(["sensor", "traza"]):
     paneles.append((sensor, traza, hora, g))
 
 resumen = pd.DataFrame(res)
-resumen.to_csv(os.path.join(AQUI, "cgsm_nivel_rio_resumen.csv"), index=False)
+resumen.to_csv(os.path.join(AQUI, "cgsm_nivel_rio_resumen%s.csv" % SUF), index=False)
 print(f"\n== CGSM: manglar menos bosque frente al nivel del río ({estacion_nombre}), alto − bajo (dB) y Spearman ==")
 for (sensor, traza, hora, n), g in resumen.groupby(["sensor", "traza", "hora_local", "n"]):
     print(f"\n{sensor} {traza} ({hora} local), n = {n}, nivel {g.nivel_min.iloc[0]} a {g.nivel_max.iloc[0]} {unidad}")
@@ -117,5 +119,5 @@ if paneles:
                 ax.legend(fontsize=8)
     fig.suptitle("CGSM: mangrove and forest backscatter against Magdalena River level, by sensor and track", fontsize=11)
     fig.tight_layout(rect=[0, 0, 1, 0.985])
-    fig.savefig(os.path.join(AQUI, "fig_cgsm_nivel_rio.png"), dpi=160)
+    fig.savefig(os.path.join(AQUI, "fig_cgsm_nivel_rio%s.png" % SUF), dpi=160)
     print("\nfigura: fig_cgsm_nivel_rio.png")

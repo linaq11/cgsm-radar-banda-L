@@ -15,6 +15,8 @@ directa "mismas fechas".
 Salidas: s1_marea_malaga.csv (por escena y clase), s1_marea_resumen.csv, fig_s1_marea.png
 """
 import os
+GAMMA0 = os.environ.get("RADAR_MAGNITUD", "sigma0").lower() == "gamma0"   # gamma cero: NISAR sin factor, S1 y ALOS-2 corregidos por incidencia
+SUF = "_gamma0" if GAMMA0 else ""
 
 import ee
 import numpy as np
@@ -28,6 +30,12 @@ AQUI = os.path.dirname(os.path.abspath(__file__))
 CAJA = [-77.40, 3.80, -77.10, 4.10]
 ee.Initialize(project="basic-buttress-338101")
 caja = ee.Geometry.Rectangle(CAJA)
+
+
+def s1_db(im):
+    """Sentinel-1 en dB; con GAMMA0, gamma cero elipsoidal: sigma0 - 10 log10(cos(angulo))."""
+    v = im.select(["VV", "VH"])
+    return v.subtract(im.select("angle").multiply(np.pi / 180).cos().log10().multiply(10)) if GAMMA0 else v
 
 # --- puntos, identicos a perfil_pacifico_24.py
 wc = ee.Image("ESA/WorldCover/v200/2021").select("Map")
@@ -70,7 +78,7 @@ print("pasadas (cuadros mosaicados):", len(pasadas), flush=True)
 filas = []
 for ps in pasadas:
     idx, t0, direccion, orb = ps["ids"][0], ps["t0"], ps["direccion"], ps["orb"]
-    img = ee.ImageCollection([ee.Image("COPERNICUS/S1_GRD/" + i) for i in ps["ids"]]).select(["VV", "VH"]).mosaic()
+    img = ee.ImageCollection([s1_db(ee.Image("COPERNICUS/S1_GRD/" + i)) for i in ps["ids"]]).mosaic()
     cob = img.select("VV").mask().reduceRegion(ee.Reducer.mean(), caja, 200, maxPixels=1e9).getInfo().get("VV") or 0
     if cob < 0.9:
         print("   %s cobertura %.0f %%: se salta" % (idx[17:32], 100 * cob), flush=True)
@@ -83,10 +91,10 @@ for ps in pasadas:
                           orbita=int(orb), marea_m=marea_en(t_utc), clase=c, n=len(g), VV=g.VV.median(), VH=g.VH.median(), VVmVH=(g.VV - g.VH).median()))
     print("   %s %s orb %3d %s local | marea %+.2f m | %d puntos" % (t_utc.strftime("%Y-%m-%d %H:%M"), direccion[0], int(orb), (t_utc - pd.Timedelta(hours=5)).strftime("%H:%M"), marea_en(t_utc), len(t)), flush=True)
 df = pd.DataFrame(filas)
-df.to_csv(os.path.join(AQUI, "s1_marea_malaga.csv"), index=False)
+df.to_csv(os.path.join(AQUI, "s1_marea_malaga%s.csv" % SUF), index=False)
 
 # --- mismas fechas que NISAR (+-3 dias)
-nisar = pd.read_csv(os.path.join(AQUI, "perfil_pacifico_24.csv"), parse_dates=["fecha_utc"]).drop_duplicates("escena")
+nisar = pd.read_csv(os.path.join(AQUI, "perfil_pacifico_24%s.csv" % SUF), parse_dates=["fecha_utc"]).drop_duplicates("escena")
 cerca = df.drop_duplicates("escena").copy()
 cerca["dias_a_nisar"] = cerca.fecha_utc.apply(lambda t: (nisar.fecha_utc - t).abs().min().total_seconds() / 86400)
 print("\nescenas S1 usadas: %d | a menos de 3 dias de una pasada NISAR: %d" % (len(cerca), (cerca.dias_a_nisar <= 3).sum()), flush=True)
@@ -110,7 +118,7 @@ for orb, g in df.groupby("orbita"):
         res.append(dict(orbita=orb, direccion=g.direccion.iloc[0], hora_local=g.hora_local.iloc[0], n=len(y), variable=var, clase="manglar_menos_bosque",
                         dif_alta_menos_baja=y[alta].median() - y[~alta].median(), rho=rho, p=p))
 res = pd.DataFrame(res)
-res.to_csv(os.path.join(AQUI, "s1_marea_resumen.csv"), index=False)
+res.to_csv(os.path.join(AQUI, "s1_marea_resumen%s.csv" % SUF), index=False)
 print("\n== Sentinel-1: diferencia marea alta menos baja (dB) y Spearman, por orbita ==")
 for orb, g in res.groupby("orbita"):
     print("\norbita %d (%s, %s local), n = %d escenas" % (orb, g.direccion.iloc[0], g.hora_local.iloc[0], g.n.iloc[0]))
@@ -133,5 +141,5 @@ for r, orb in enumerate(orbs):
 axes[0, 0].legend(fontsize=8)
 fig.suptitle("Sentinel-1 C-band backscatter of Bahía de Málaga mangrove vs predicted tide height, by relative orbit (Oct 2025 – Sep 2026)", fontsize=11)
 fig.tight_layout()
-fig.savefig(os.path.join(AQUI, "fig_s1_marea.png"), dpi=160)
+fig.savefig(os.path.join(AQUI, "fig_s1_marea%s.png" % SUF), dpi=160)
 print("\nfigura: fig_s1_marea.png")
