@@ -1,0 +1,67 @@
+sitio,grupo,distancia,banda,n_pix_50m,mediana,q25,q75,frac_positiva
+"CGSM, NISAR D083, nivel del río",todo,al borde del manglar,0 a 50 m (borde),45271,-0.07,-0.65,0.56,0.469
+"CGSM, NISAR D083, nivel del río",todo,al borde del manglar,50 a 100 m,30004,0.03,-0.47,0.58,0.518
+"CGSM, NISAR D083, nivel del río",todo,al borde del manglar,100 a 200 m,36148,0.08,-0.42,0.6,0.543
+"CGSM, NISAR D083, nivel del río",todo,al borde del manglar,200 a 300 m,16057,0.12,-0.39,0.62,0.566
+"CGSM, NISAR D083, nivel del río",todo,al borde del manglar,más de 300 m,17918,0.34,-0.2,0.83,0.667
+"CGSM, NISAR D083, nivel del río",todo,al agua abierta,0 a 50 m (borde),14828,-0.39,-0.95,0.18,0.32
+"CGSM, NISAR D083, nivel del río",todo,al agua abierta,50 a 100 m,18476,-0.12,-0.62,0.4,0.435
+"CGSM, NISAR D083, nivel del río",todo,al agua abierta,100 a 200 m,35963,-0.01,-0.5,0.52,0.495
+"CGSM, NISAR D083, nivel del río",todo,al agua abierta,200 a 300 m,25660,0.09,-0.42,0.62,0.548
+"CGSM, NISAR D083, nivel del río",todo,al agua abierta,más de 300 m,50471,0.31,-0.23,0.83,0.65
+"CGSM, NISAR D083, nivel del río",todo,al borde del manglar,Spearman distancia vs ΔHH,145398,0.123,,,0.0
+"CGSM, NISAR D083, nivel del río","norte (Salamanca, N > 1205 km)",al borde del manglar,0 a 50 m (borde),21436,-0.26,-0.77,0.32,0.377
+"CGSM, NISAR D083, nivel del río","norte (Salamanca, N > 1205 km)",al borde del manglar,50 a 100 m,14610,-0.16,-0.61,0.31,0.405
+"CGSM, NISAR D083, nivel del río","norte (Salamanca, N > 1205 km)",al borde del manglar,100 a 200 m,18518,-0.13,-0.56,0.31,0.421
+"CGSM, NISAR D083, nivel del río","norte (Salamanca, N > 1205 km)",al borde del manglar,200 a 300 m,8383,-0.16,-0.59,0.26,0.397
+"CGSM, NISAR D083, nivel del río","norte (Salamanca, N > 1205 km)",al borde del manglar,más de 300 m,6116,-0.2,-0.6,0.22,0.374
+"CGSM, NISAR D083, nivel del río","norte (Salamanca, N > 1205 km)",al agua abierta,0 a 50 m (borde),7198,-0.5,-0.99,0.02,0.257
+"CGSM, NISAR D083, nivel del río","norte (Salamanca, N > 1205 km)",al agua abierta,50 a 100 m,8691,-0.25,-0.7,0.23,0.362
+"CGSM, NISAR D083, nivel del río","norte (Salamanca, N > 1205 km)",al agua abierta,100 a 200 m,17310,-0.17,-0.61,0.29,0.398
+"CGSM, NISAR D083, nivel del río","norte (Salamanca, N > 1205 km)",al agua abierta,200 a 300 m,13105,-0.15,-0.6,0.31,0.41
+"CGSM, NISAR D083, nivel del río","norte (Salamanca, N > 1205 km)",al agua abierta,más de 300 m,22759,-0.09,-0.54,0.4,0.447
+"CGSM, NISAR D083, nivel del río","norte (Salamanca, N > 1205 km)",al borde del manglar,Spearman distancia vs ΔHH,69063,0.031,,,2.8e-16
+"CGSM, NISAR D083, nivel del río",centro y occidente (1190 a 1205 km),al borde del manglar,0 a 50 m (borde),11208,-0.11,-0.72,0.51,0.447
+"CGSM, NISAR D083, nivel del río",centro y occidente (1190 a 1205 km),al borde del manglar,50 a 100 m,7613,0.01,-0.51,0.56,0.506
+"CGSM, NISAR D083, nivel del río",centro y occidente (1190 a 1205 km),al borde del manglar,100 a 200 m,8690,0.1,-0.42,0.64,0.546
+"CGSM, NISAR D083, nivel del río",centro y occidente (1190 a 1205 km),al borde del manglar,200 a 300 m,3048,0.22,-0.3,0.72,0.624
+"CGSM, NISAR D083, nivel del río",centro y occidente (1190 a 1205 km),al borde del manglar,más de 300 m,2853,0.04,-0.36,0.44,0.533
+"CGSM, NISAR D083, nivel del río",centro y occidente (1190 a 1205 km),al agua abierta,0 a 50 m (borde),4632,-0.44,-1.03,0.13,0.297
+"CGSM, NISAR D083, nivel del río",centro y occidente (1190 a 1205 km),al agua abierta,50 a 100 m,5896,-0.17,-0.65,0.34,0.407
+"CGSM, NISAR D083, nivel del río",centro y occidente (1190 a 1205 km),al agua abierta,100 a 200 m,10501,-0.01,-0.51,0.52,0.493
+"CGSM, NISAR D083, nivel del río",centro y occidente (1190 a 1205 km),al agua abierta,200 a 300 m,5744,0.2,-0.3,0.73,0.61
+"CGSM, NISAR D083, nivel del río",centro y occidente (1190 a 1205 km),al agua abierta,más de 300 m,6639,0.36,-0.13,0.85,0.69
+"CGSM, NISAR D083, nivel del río",centro y occidente (1190 a 1205 km),al borde del manglar,Spearman distancia vs ΔHH,33412,0.104,,,2e-81
+"CGSM, NISAR D083, nivel del río","sur (río Fundación, N < 1190 km)",al borde del manglar,0 a 50 m (borde),12627,0.31,-0.26,0.88,0.645
+"CGSM, NISAR D083, nivel del río","sur (río Fundación, N < 1190 km)",al borde del manglar,50 a 100 m,7781,0.46,-0.02,0.93,0.742
+"CGSM, NISAR D083, nivel del río","sur (río Fundación, N < 1190 km)",al borde del manglar,100 a 200 m,8940,0.54,0.1,0.98,0.793
+"CGSM, NISAR D083, nivel del río","sur (río Fundación, N < 1190 km)",al borde del manglar,200 a 300 m,4626,0.58,0.18,0.98,0.834
+"CGSM, NISAR D083, nivel del río","sur (río Fundación, N < 1190 km)",al borde del manglar,más de 300 m,8949,0.74,0.38,1.11,0.91
+"CGSM, NISAR D083, nivel del río","sur (río Fundación, N < 1190 km)",al agua abierta,0 a 50 m (borde),2998,0.02,-0.62,0.62,0.51
+"CGSM, NISAR D083, nivel del río","sur (río Fundación, N < 1190 km)",al agua abierta,50 a 100 m,3889,0.27,-0.23,0.79,0.641
+"CGSM, NISAR D083, nivel del río","sur (río Fundación, N < 1190 km)",al agua abierta,100 a 200 m,8152,0.4,-0.11,0.9,0.705
+"CGSM, NISAR D083, nivel del río","sur (río Fundación, N < 1190 km)",al agua abierta,200 a 300 m,6811,0.49,0.03,0.95,0.76
+"CGSM, NISAR D083, nivel del río","sur (río Fundación, N < 1190 km)",al agua abierta,más de 300 m,21073,0.66,0.25,1.07,0.857
+"CGSM, NISAR D083, nivel del río","sur (río Fundación, N < 1190 km)",al borde del manglar,Spearman distancia vs ΔHH,42923,0.214,,,0.0
+"Málaga, NISAR A004, marea",todo,al borde del manglar,0 a 50 m (borde),13904,0.28,-0.07,0.63,0.706
+"Málaga, NISAR A004, marea",todo,al borde del manglar,50 a 100 m,7565,0.39,0.03,0.74,0.771
+"Málaga, NISAR A004, marea",todo,al borde del manglar,100 a 200 m,7514,0.4,0.06,0.75,0.792
+"Málaga, NISAR A004, marea",todo,al borde del manglar,200 a 300 m,3086,0.39,0.06,0.73,0.786
+"Málaga, NISAR A004, marea",todo,al borde del manglar,más de 300 m,2275,0.27,-0.05,0.62,0.712
+"Málaga, NISAR A004, marea",todo,al agua abierta,0 a 50 m (borde),4877,0.24,-0.15,0.61,0.662
+"Málaga, NISAR A004, marea",todo,al agua abierta,50 a 100 m,4199,0.34,-0.02,0.7,0.739
+"Málaga, NISAR A004, marea",todo,al agua abierta,100 a 200 m,6696,0.39,0.04,0.74,0.771
+"Málaga, NISAR A004, marea",todo,al agua abierta,200 a 300 m,4936,0.39,0.04,0.74,0.776
+"Málaga, NISAR A004, marea",todo,al agua abierta,más de 300 m,13636,0.33,0.01,0.68,0.757
+"Málaga, NISAR A004, marea",todo,al borde del manglar,Spearman distancia vs ΔHH,34344,0.074,,,7e-43
+"Málaga, NISAR D087, marea",todo,al borde del manglar,0 a 50 m (borde),13904,0.02,-0.41,0.4,0.512
+"Málaga, NISAR D087, marea",todo,al borde del manglar,50 a 100 m,7565,0.07,-0.33,0.45,0.548
+"Málaga, NISAR D087, marea",todo,al borde del manglar,100 a 200 m,7514,0.06,-0.33,0.42,0.547
+"Málaga, NISAR D087, marea",todo,al borde del manglar,200 a 300 m,3086,0.07,-0.31,0.41,0.553
+"Málaga, NISAR D087, marea",todo,al borde del manglar,más de 300 m,2275,0.13,-0.18,0.45,0.611
+"Málaga, NISAR D087, marea",todo,al agua abierta,0 a 50 m (borde),4877,0.02,-0.43,0.42,0.509
+"Málaga, NISAR D087, marea",todo,al agua abierta,50 a 100 m,4199,0.12,-0.29,0.5,0.583
+"Málaga, NISAR D087, marea",todo,al agua abierta,100 a 200 m,6696,0.1,-0.29,0.48,0.571
+"Málaga, NISAR D087, marea",todo,al agua abierta,200 a 300 m,4936,0.09,-0.31,0.44,0.564
+"Málaga, NISAR D087, marea",todo,al agua abierta,más de 300 m,13636,0.01,-0.38,0.36,0.508
+"Málaga, NISAR D087, marea",todo,al borde del manglar,Spearman distancia vs ΔHH,34344,0.052,,,7.4e-22

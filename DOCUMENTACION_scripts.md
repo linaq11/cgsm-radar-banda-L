@@ -202,7 +202,9 @@ USO
 
 Comentarios en el código:
 
-- línea 69: algunas escenas son solo HH
+- línea 27: gamma cero: NISAR sin factor, S1 y ALOS-2 corregidos por incidencia
+- línea 68: gamma cero con el angulo local de incidencia LIN (centesimas de grado)
+- línea 74: algunas escenas son solo HH
 
 ### `s1_marea_malaga.py`
 
@@ -223,14 +225,15 @@ Salidas: s1_marea_malaga.csv (por escena y clase), s1_marea_resumen.csv, fig_s1_
 
 Comentarios en el código:
 
-- línea 32: --- puntos, identicos a perfil_pacifico_24.py
-- línea 43: --- marea
-- línea 54: --- escenas S1
-- línea 60: una pasada = todos los cuadros de la misma órbita con menos de 5 minutos entre si;
-- línea 61: se mosaican, porque los cuadros parten la caja (80 % + 20 %)
-- línea 88: --- mismas fechas que NISAR (+-3 dias)
-- línea 94: --- prueba por órbita
-- línea 121: --- figura
+- línea 18: gamma cero: NISAR sin factor, S1 y ALOS-2 corregidos por incidencia
+- línea 40: --- puntos, identicos a perfil_pacifico_24.py
+- línea 51: --- marea
+- línea 62: --- escenas S1
+- línea 68: una pasada = todos los cuadros de la misma órbita con menos de 5 minutos entre si;
+- línea 69: se mosaican, porque los cuadros parten la caja (80 % + 20 %)
+- línea 96: --- mismas fechas que NISAR (+-3 dias)
+- línea 102: --- prueba por órbita
+- línea 129: --- figura
 
 ## 3. Coberturas de referencia y muestreo
 
@@ -277,14 +280,15 @@ USO
 
 Comentarios en el código:
 
-- línea 48: ----------------------------------------------------------------- puntos por clase
-- línea 63: ----------------------------------------------------------------- marea (opcional)
-- línea 79: segundos desde la epoca sin depender de la resolucion interna del datetime (pandas 3 usa microsegundos)
-- línea 92: ----------------------------------------------------------------- lectura de escenas
-- línea 137: ----------------------------------------------------------------- resumen
-- línea 154: ----------------------------------------------------------------- figura
-- línea 164: la linea se corta donde hay más de 40 dias sin escenas (hueco feb-jun), para no
-- línea 165: dibujar una tendencia que no se observo
+- línea 25: gamma cero: NISAR sin factor, S1 y ALOS-2 corregidos por incidencia
+- línea 50: ----------------------------------------------------------------- puntos por clase
+- línea 65: ----------------------------------------------------------------- marea (opcional)
+- línea 81: segundos desde la epoca sin depender de la resolucion interna del datetime (pandas 3 usa microsegundos)
+- línea 94: ----------------------------------------------------------------- lectura de escenas
+- línea 139: ----------------------------------------------------------------- resumen
+- línea 156: ----------------------------------------------------------------- figura
+- línea 166: la linea se corta donde hay más de 40 dias sin escenas (hueco feb-jun), para no
+- línea 167: dibujar una tendencia que no se observo
 
 ### `doble_rebote_incidencia.py`
 
@@ -470,7 +474,8 @@ USO
 
 Comentarios en el código:
 
-- línea 51: manglar menos bosque, fecha a fecha: descuenta lo estacional
+- línea 24: gamma cero: NISAR sin factor, S1 y ALOS-2 corregidos por incidencia
+- línea 53: manglar menos bosque, fecha a fecha: descuenta lo estacional
 
 ### `cgsm_nivel_rio.py`
 
@@ -489,13 +494,14 @@ Salida: cgsm_nivel_rio_resumen.csv, fig_cgsm_nivel_rio.png
 
 Comentarios en el código:
 
-- línea 30: 1. Serie de nivel: se prefiere el instantáneo; si no hay, el máximo diario.
-- línea 49: Las fechas del IDEAM son hora local (UTC−5); las pasadas de radar vienen en UTC.
-- línea 52: segundos, sin depender de la resolución interna
-- línea 63: 2. Pasadas de radar por sensor y traza.
-- línea 66: las copias _CAJA son la región anterior, no se mezclan
-- línea 78: las pasadas de una traza varían un minuto
-- línea 105: 3. Figura.
+- línea 16: gamma cero: NISAR sin factor, S1 y ALOS-2 corregidos por incidencia
+- línea 32: 1. Serie de nivel: se prefiere el instantáneo; si no hay, el máximo diario.
+- línea 51: Las fechas del IDEAM son hora local (UTC−5); las pasadas de radar vienen en UTC.
+- línea 54: segundos, sin depender de la resolución interna
+- línea 65: 2. Pasadas de radar por sensor y traza.
+- línea 68: las copias _CAJA son la región anterior, no se mezclan
+- línea 80: las pasadas de una traza varían un minuto
+- línea 107: 3. Figura.
 
 ## 5 y 6. Estadística por pasada y prueba hidrológica
 
@@ -529,20 +535,21 @@ USO
 
 Comentarios en el código:
 
-- línea 50: Dos regiones, declaradas (antes las cuatro clases se muestreaban sobre la caja del cubo,
-- línea 51: 4.304 km2, sin decirlo: el 39 % de los puntos de agua caia en mar abierto y el 40 % de
-- línea 52: los de humedal fuera del area de estudio).
-- línea 53: AOI     : el poligono de la tesis, 2.042 km2. Manglar, humedal y agua salen de aqui.
-- línea 54: CONTROL : la caja del cubo, 4.304 km2. El bosque seco de los piedemontes, que es el
-- línea 55: control que no se inunda, esta fuera del AOI a proposito.
-- línea 58: lluvia ERA5-Land y control de cobertura de cada pasada
-- línea 71: lluvia diaria ERA5-Land sobre el AOI (mm), para acumular 30 dias antes de cada pasada
-- línea 99: ------------------------------------------------------------------ NISAR local
-- línea 136: cobertura sobre el AOI, no sobre la caja: una pasada que cubre el area de
-- línea 137: estudio entera no debe descartarse por no cubrir el mar ni los piedemontes
-- línea 163: ------------------------------------------------------------------ prueba
-- línea 186: ------------------------------------------------------------------ figura
-- línea 200: deja sitio al título general
+- línea 30: gamma cero: NISAR sin factor, S1 y ALOS-2 corregidos por incidencia
+- línea 52: Dos regiones, declaradas (antes las cuatro clases se muestreaban sobre la caja del cubo,
+- línea 53: 4.304 km2, sin decirlo: el 39 % de los puntos de agua caia en mar abierto y el 40 % de
+- línea 54: los de humedal fuera del area de estudio).
+- línea 55: AOI     : el poligono de la tesis, 2.042 km2. Manglar, humedal y agua salen de aqui.
+- línea 56: CONTROL : la caja del cubo, 4.304 km2. El bosque seco de los piedemontes, que es el
+- línea 57: control que no se inunda, esta fuera del AOI a proposito.
+- línea 60: lluvia ERA5-Land y control de cobertura de cada pasada
+- línea 73: lluvia diaria ERA5-Land sobre el AOI (mm), para acumular 30 dias antes de cada pasada
+- línea 101: ------------------------------------------------------------------ NISAR local
+- línea 138: cobertura sobre el AOI, no sobre la caja: una pasada que cubre el area de
+- línea 139: estudio entera no debe descartarse por no cubrir el mar ni los piedemontes
+- línea 165: ------------------------------------------------------------------ prueba
+- línea 188: ------------------------------------------------------------------ figura
+- línea 202: deja sitio al título general
 
 ### `figura_cgsm_optico.py`
 
@@ -605,6 +612,47 @@ USO
 Comentarios en el código:
 
 - línea 31: archivo, columna de traza, forzante, copolarizacion, etiqueta
+
+### `pendientes_auditoria.py`
+
+Cuatro análisis pendientes de la auditoría del informe 1 (revisión externa del 2026-10-14).
+
+PROPÓSITO
+    A. Estadístico primario por sitio (resta copolar manglar − bosque frente al forzante), corrección de
+       Holm sobre la familia de pruebas de banda L y pendientes en dB por metro con intervalo bootstrap.
+    B. Borde frente a interior del manglar: cambio copolar entre periodos de nivel alto y bajo según la
+       distancia del píxel de 50 m al borde del manglar (CGSM, NISAR D083) y a la marea (Málaga, A004 y D087).
+    C. Separabilidad de Jeffries-Matusita con dos variables por banda (copolar y cruzada), sin la diferencia
+       copolar − cruzada, que es combinación lineal de las otras dos y deja la covarianza singular.
+    D. Clave de lectura con banda C sola frente a C + L: la decisión dosel cerrado / abierto con VV − VH en
+       vez de HH − HV, con el umbral elegido por resustitución igual que el 7,3 dB de la clave.
+ENTRADAS
+    perfil_pacifico_24.csv, alos2_marea_malaga.csv, s1_marea_malaga.csv, cgsm_temporada_nisar.csv,
+    cgsm_temporada_s1.csv, nivel_ideam_instantaneo.csv, autocorrelacion_temporal.csv,
+    mapa_doble_rebote_50m.tif, mapa_malaga_A004_50m.tif, mapa_malaga_D087_50m.tif, clave_muestra2025_puntos.csv.
+SALIDAS
+    pendientes_auditoria_pendientes.csv, pendientes_auditoria_borde.csv, pendientes_auditoria_jm2.csv,
+    pendientes_auditoria_clave_c.csv, fig_borde_interior.png y resumen en pantalla.
+USO
+    python pendientes_auditoria.py
+
+Comentarios en el código:
+
+- línea 40: réplicas bootstrap
+- línea 46: ============================================================ A. estadístico primario, Holm y pendientes
+- línea 113: p corregido por dependencia temporal (Tabla 7), tomado de autocorrelacion_temporal.csv
+- línea 131: Familia primaria: las pruebas de banda L (4 de Málaga + CGSM D083); Holm sobre el p corregido por dependencia temporal
+- línea 145: ============================================================ B. borde frente a interior
+- línea 155: distancia de cada píxel de manglar al píxel no manglar más cercano
+- línea 156: distancia al agua abierta
+- línea 164: manglar a esa distancia del agua
+- línea 171: correlación continua distancia al borde frente a cambio, manglar del grupo
+- línea 188: figura: mediana e IQR por banda de distancia al borde, tres paneles
+- línea 204: ============================================================ C. JM con dos variables
+- línea 234: ============================================================ D. clave con C sola frente a C + L
+- línea 257: umbral de VV − VH por resustitución: el que maximiza el acierto balanceado intacto frente a las tres clases de dosel abierto
+- línea 262: 1: cerrado si VV−VH < u (como la L); −1: cerrado si VV−VH >= u
+- línea 267: la misma búsqueda para HH − HV, para comparar con el 7,3 fijado en el informe
 
 ### `figura_incidencia.py`
 
@@ -694,12 +742,15 @@ clave_muestra2025_firmas.csv, clave_muestra2025_jm.csv y clave_muestra2025_regla
 
 Comentarios en el código:
 
-- línea 45: mismo periodo que el informe
-- línea 46: descendente, la de la Tabla 10
-- línea 47: descendente 083
-- línea 173: 1) firmas por clase
-- línea 182: 2) separabilidad por pares
-- línea 196: 3) regla de lectura
+- línea 34: gamma cero: NISAR sin factor, S1 y ALOS-2 corregidos por incidencia
+- línea 47: mismo periodo que el informe
+- línea 48: descendente, la de la Tabla 10
+- línea 49: descendente 083
+- línea 160: Umbrales absolutos de la clave (dB). En gamma cero se desplazan por la mediana de gamma - sigma medida en los
+- línea 161: mismos 720 puntos (banda C: VV y VH), de modo que los umbrales equivalgan a los literales del informe en sigma cero.
+- línea 195: 1) firmas por clase
+- línea 204: 2) separabilidad por pares
+- línea 218: 3) regla de lectura
 
 ## 9. Mapa y corroboración óptica
 
@@ -956,6 +1007,25 @@ USO: python figura_consistencia.py   -> fig_consistencia_2025.png
 
 ## Otros
 
+### `comparar_gamma0.py`
+
+Compara los resultados del informe en sigma cero con el recálculo en gamma cero.
+
+PROPÓSITO
+    Documentar cuánto cambian las pruebas hidrológicas, las firmas, la separabilidad y la clave al pasar
+    de sigma cero a gamma cero (NISAR sin el factor gamma->sigma; Sentinel-1 y ALOS-2 corregidos por el
+    coseno del ángulo de incidencia).
+DATOS
+    Los CSV del informe y sus pares *_gamma0.csv, generados con RADAR_MAGNITUD=gamma0.
+MÉTODO
+    Une cada tabla por sus claves y escribe las columnas lado a lado.
+SALIDAS
+    GAMMA0_comparacion.md
+USO
+    python comparar_gamma0.py
+LIMITACIÓN
+    Los umbrales absolutos de la clave en gamma cero son los de sigma cero desplazados por la mediana de γ⁰ − σ⁰ en los 720 puntos.
+
 ### `figura_diseno.py`
 
 Genera la Figura 1 alternativa del informe: síntesis del diseño analítico en seis filas.
@@ -994,3 +1064,22 @@ Comentarios en el código:
 - línea 86: 4. forzante
 - línea 90: 5. pruebas
 - línea 99: 6. productos
+
+### `figura_mapa_c_vs_l.py`
+
+Redibuja la Figura 15 (ΔHH de NISAR frente a ΔVV de Sentinel-1) con contornos de cobertura y leyenda.
+
+PROPÓSITO
+    Hacer distinguible el manglar (contorno) del bosque de control (atenuado) en el mapa de las dos bandas.
+DATOS
+    mapa_doble_rebote_50m.tif (banda 1 ΔHH, banda 4 clase) y mapa_s1_alto_bajo_50m.tif (banda 1 ΔVV),
+    ya calculados por mapa_doble_rebote.py y mapa_doble_rebote_s1.py. No recalcula nada.
+MÉTODO
+    Mismo color y escala que antes (RdBu_r, ±2 dB). Manglar a todo color con contorno verde oscuro;
+    bosque de control atenuado sin contorno (demasiado fragmentado); leyenda y rótulos de sectores.
+SALIDAS
+    fig_mapa_c_vs_l.png (reemplaza la versión anterior sin contornos)
+USO
+    python figura_mapa_c_vs_l.py
+LIMITACIÓN
+    Los contornos se trazan sobre la malla de 50 m, así que el borde es escalonado a esa resolución.

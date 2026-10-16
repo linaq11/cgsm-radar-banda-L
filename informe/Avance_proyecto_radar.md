@@ -6,7 +6,7 @@ Respuesta de la banda L a la inundación bajo dosel de manglar: comparación con
 
 ## Resumen
 
-La inundación bajo el dosel del manglar es una condición del humedal que los radares de banda C registran mal, porque la onda apenas atraviesa un dosel denso. La banda L, con 23 cm de longitud de onda, penetra más en el dosel y puede registrar el doble rebote entre los troncos y la lámina de agua. Con el fin de establecer qué aporta esta banda, se compararon NISAR y ALOS-2 con Sentinel-1 en Bahía de Málaga, donde la inundación responde a la marea, y en la Ciénaga Grande de Santa Marta (CGSM), ligada al nivel del río Magdalena. La regla de lectura se fijó antes del análisis: si la banda L responde al agua bajo el dosel, la retrodispersión copolar del manglar debe aumentar con el forzante hidrológico sin una respuesta equivalente en el bosque de control. En Bahía de Málaga ese patrón se observó en las dos trayectorias de NISAR y en ALOS-2, con un aumento de 0,57 dB del manglar relativo al bosque en HH, mientras que Sentinel-1 y la polarización cruzada no respondieron. El resultado resiste la corrección por dependencia temporal. En la CGSM, la diferencia manglar menos bosque subió 0,83 dB entre río bajo y alto, pero los dos grupos pertenecen a versiones distintas del producto de NISAR y dentro de cada versión no hay relación con el nivel, de modo que el efecto no es identificable con las adquisiciones actuales. Una muestra propia de 720 puntos mostró mayor separabilidad entre manglar intacto y degradado en banda L que en C (0,91 frente a 0,30, todavía por debajo del umbral de 1), aunque ninguna banda separó el manglar degradado del humedal herbáceo. Finalmente, la cartografía a 50 m concentró el aumento de HH en el manglar del sur, en la desembocadura del río Fundación. Quedan pendientes el nivel del agua medido dentro del humedal y pasadas de NISAR de nivel alto y bajo dentro de una misma versión del producto.
+La inundación bajo el dosel del manglar es una condición del humedal que los radares de banda C registran mal, porque la onda apenas atraviesa un dosel denso. La banda L, con 23 cm de longitud de onda, penetra más en el dosel y puede registrar el doble rebote entre los troncos y la lámina de agua. Con el fin de establecer qué aporta esta banda, se compararon NISAR y ALOS-2 con Sentinel-1 en Bahía de Málaga, donde la inundación responde a la marea, y en la Ciénaga Grande de Santa Marta (CGSM), ligada al nivel del río Magdalena. La regla de lectura se fijó antes del análisis: si la banda L responde al agua bajo el dosel, la retrodispersión copolar del manglar debe aumentar con el forzante hidrológico sin una respuesta equivalente en el bosque de control. En Bahía de Málaga ese patrón se observó en las dos trayectorias de NISAR y en ALOS-2, con un aumento de 0,57 dB del manglar relativo al bosque en HH, mientras que Sentinel-1 y la polarización cruzada no respondieron. El resultado resiste la corrección por dependencia temporal. En la CGSM, la diferencia manglar menos bosque subió 0,83 dB entre río bajo y alto, pero los dos grupos pertenecen a versiones distintas del producto de NISAR y dentro de cada versión no hay relación con el nivel, de modo que el efecto no es identificable con las adquisiciones actuales. Una muestra propia de 720 puntos mostró mayor separabilidad entre manglar intacto y degradado en banda L que en C (0,78 frente a 0,26, todavía por debajo del umbral de 1), aunque ninguna banda separó el manglar degradado del humedal herbáceo. Finalmente, la cartografía a 50 m concentró el aumento de HH en el manglar del sur, en la desembocadura del río Fundación. Quedan pendientes el nivel del agua medido dentro del humedal y pasadas de NISAR de nivel alto y bajo dentro de una misma versión del producto.
 
 Palabras clave: radar de apertura sintética, banda L, NISAR, manglar, inundación bajo dosel, doble rebote, Ciénaga Grande de Santa Marta, Bahía de Málaga.
 
@@ -75,11 +75,13 @@ La regla se definió antes del análisis: si la banda L responde al agua bajo el
 
 Cada pasada se redujo a la mediana por clase y a la diferencia manglar menos bosque, que controla las variaciones temporales compartidas por las dos coberturas. En Bahía de Málaga se compararon las mitades superior e inferior de la distribución de marea, y en la CGSM los tercios superior e inferior del nivel del río. La robustez se evaluó frente al ángulo de incidencia, en tercios del rango angular, frente a la dependencia temporal y frente a la versión del producto de NISAR. El tamaño efectivo de muestra se estimó según Pyper y Peterman (1998), con los rezagos hasta n/5, y los valores p se recalcularon con él.
 
+Como estadístico primario de cada sitio se declaró la resta copolar manglar menos bosque frente al forzante, por trayectoria, y la familia de pruebas primarias quedó formada por las cinco series de banda L: NISAR A004 y D087 y ALOS-2 139 y 140 en Bahía de Málaga, y NISAR D083 en la CGSM. Sobre los valores p corregidos por dependencia temporal se aplicó la corrección de Holm (1979). Además de la diferencia entre mitades o tercios, se estimó la pendiente de la resta frente al forzante en dB por metro de marea o de nivel, por mínimos cuadrados, con intervalo de confianza del 95 % por bootstrap de pasadas (5.000 réplicas) y con el estimador de Theil-Sen (Sen, 1968) como comprobación robusta. Las pruebas en banda C y la de la traza A007 se declaran exploratorias. Con el fin de separar el borde del interior del manglar, el cambio copolar entre periodos se resumió además por distancia del píxel de 50 m al borde del manglar y al agua abierta, calculada con la transformada de distancia sobre la máscara de referencia (`pendientes_auditoria.py`).
+
 ### 2.7 Clave de interpretación y evaluación con la muestra de referencia
 
 La clave integra las firmas multifecha del canal copolar, del cruzado y de su diferencia en las dos bandas. Se evaluó con una muestra propia de 720 puntos, distribuida en seis clases: agua abierta, manglar intacto, vegetación flotante, manglar degradado, humedal herbáceo y otro.
 
-La separabilidad entre pares de clases se cuantificó con la distancia de Jeffries-Matusita, derivada de la distancia de Bhattacharyya bajo supuesto gaussiano (Richards, 2013). Los umbrales se definieron y se evaluaron sobre la misma muestra, de modo que el acierto corresponde a resustitución y no a una validación independiente.
+La separabilidad entre pares de clases se cuantificó con la distancia de Jeffries-Matusita, derivada de la distancia de Bhattacharyya bajo supuesto gaussiano (Richards, 2013), con dos variables por banda, la copolar y la cruzada, y cuatro con las dos bandas juntas; la diferencia copolar menos cruzada no entra porque es combinación lineal de las otras dos y deja la covarianza singular. Los umbrales se definieron y se evaluaron sobre la misma muestra, de modo que el acierto corresponde a resustitución y no a una validación independiente.
 
 Los puntos se sortearon fuera de una reserva de validación definida de antemano, con separación mínima de 200 m, y se etiquetaron a ciegas sobre imágenes de alta resolución de 2025, con revisión de los primeros 400 bajo un criterio escrito y marca de borde cuando la ventana de 3 × 3 píxeles mezcla clases (Figura 3).
 
@@ -210,24 +212,26 @@ Sin embargo, las seis adquisiciones de nivel alto, entre 1,69 y 2,67 m, pertenec
 
 ### 3.7 Dependencia temporal de las correlaciones
 
-Tabla 7. Correlación entre la señal copolar manglar menos bosque y el forzante hidrológico, antes y después de corregir la dependencia temporal.
+Tabla 7. Correlación entre la señal copolar manglar menos bosque y el forzante hidrológico, antes y después de corregir la dependencia temporal. La pendiente es la de la resta frente al forzante, en dB por metro de marea o de nivel, con intervalo bootstrap del 95 %; el p de Holm corrige el p corregido sobre la familia de cinco pruebas primarias de banda L.
 
-| Serie | Traza | n | ρ | p | r1 del forzante | r1 del radar | n efectivo | p corregido |
-|---|---|---|---|---|---|---|---|---|
-| NISAR, Málaga, marea | A004 | 12 | 0,83 | 0,001 | 0,15 | −0,21 | 8,7 | 0,007 |
-| NISAR, Málaga, marea | D087 | 12 | 0,74 | 0,006 | −0,03 | −0,24 | 11,2 | 0,008 |
-| ALOS-2, Málaga, marea | 139 | 21 | 0,65 | 0,002 | 0,60 | 0,29 | 11,1 | 0,031 |
-| ALOS-2, Málaga, marea | 140 | 15 | 0,72 | 0,002 | 0,53 | 0,48 | 9,8 | 0,019 |
-| Sentinel-1, Málaga, marea | 48 | 26 | −0,18 | 0,37 | 0,23 | −0,25 | 26 | 0,37 |
-| Sentinel-1, Málaga, marea | 142 | 63 | −0,13 | 0,32 | −0,65 | 0,03 | 63 | 0,32 |
-| NISAR, CGSM, lluvia de 30 días | D083 | 12 | 0,58 | 0,048 | 0,45 | 0,69 | 5,7 | 0,25 |
-| Sentinel-1, CGSM, lluvia de 30 días | A77 | 58 | −0,35 | 0,008 | 0,89 | 0,14 | 21,1 | 0,12 |
-| Sentinel-1, CGSM, lluvia de 30 días | D142 | 61 | −0,52 | < 0,001 | 0,89 | 0,32 | 24,7 | 0,009 |
-| NISAR, CGSM, nivel del río | D083 | 14 | 0,83 | < 0,001 | 0,86 | 0,64 | 4,7 | 0,10 |
+| Serie | Traza | n | ρ | p | r1 del forzante | r1 del radar | n efectivo | p corregido | Pendiente (dB/m) [IC 95 %] | p de Holm |
+|---|---|---|---|---|---|---|---|---|---|---|
+| NISAR, Málaga, marea | A004 | 12 | 0,83 | 0,001 | 0,15 | −0,21 | 8,7 | 0,007 | 0,23 [0,15 a 0,38] | 0,033 |
+| NISAR, Málaga, marea | D087 | 12 | 0,74 | 0,006 | −0,03 | −0,24 | 11,2 | 0,008 | 0,35 [0,20 a 0,52] | 0,033 |
+| ALOS-2, Málaga, marea | 139 | 21 | 0,65 | 0,002 | 0,60 | 0,29 | 11,1 | 0,031 | 0,12 [0,05 a 0,18] | 0,063 |
+| ALOS-2, Málaga, marea | 140 | 15 | 0,72 | 0,002 | 0,53 | 0,48 | 9,8 | 0,019 | 0,24 [0,09 a 0,57] | 0,057 |
+| Sentinel-1, Málaga, marea | 48 | 26 | −0,18 | 0,37 | 0,23 | −0,25 | 26 | 0,37 | −0,07 [−0,19 a 0,05] | exploratoria |
+| Sentinel-1, Málaga, marea | 142 | 63 | −0,13 | 0,32 | −0,65 | 0,03 | 63 | 0,32 | −0,05 [−0,11 a 0,01] | exploratoria |
+| NISAR, CGSM, lluvia de 30 días | D083 | 12 | 0,58 | 0,048 | 0,45 | 0,69 | 5,7 | 0,25 | — | exploratoria |
+| Sentinel-1, CGSM, lluvia de 30 días | A77 | 58 | −0,35 | 0,008 | 0,89 | 0,14 | 21,1 | 0,12 | — | exploratoria |
+| Sentinel-1, CGSM, lluvia de 30 días | D142 | 61 | −0,52 | < 0,001 | 0,89 | 0,32 | 24,7 | 0,009 | — | exploratoria |
+| NISAR, CGSM, nivel del río | D083 | 14 | 0,83 | < 0,001 | 0,86 | 0,64 | 4,7 | 0,10 | 0,49 [0,34 a 0,71] | 0,104 |
 
 La corrección mantuvo las asociaciones de NISAR con la marea en A004 (p corregido 0,007) y D087 (0,008), porque un muestreo cada doce días cae en fases distintas del ciclo mareal, y las de ALOS-2 en las trayectorias 139 (0,031) y 140 (0,019), cuyo muestreo cada 28 días se acerca al ciclo de mareas vivas y muertas y reduce el tamaño efectivo a unas diez pasadas. Sentinel-1 permaneció sin asociación. La versión del producto tampoco explica el resultado de Málaga: dentro de cada bloque Beta o Provisional la resta sigue subiendo con la marea, con ρ de 0,89 y 0,90 en A004 y de 0,66 y 0,77 en D087.
 
 En la CGSM, la relación de NISAR con la precipitación pasó de p 0,048 a p 0,25, porque la lluvia acumulada de treinta días es una serie muy suave. Para el nivel del río, los dos bloques de fechas redujeron el tamaño efectivo de 14 a 4,7 observaciones y elevaron el valor p a 0,10. En consecuencia, la evidencia robusta procede de Bahía de Málaga, y en la CGSM la señal es coherente en dirección pero no identificable frente a la estructura temporal y la versión del producto.
+
+Con la corrección de Holm sobre las cinco pruebas primarias de banda L, las dos trayectorias de NISAR en Bahía de Málaga se mantuvieron (p 0,033), ALOS-2 quedó en el límite (0,063 y 0,057) y la CGSM no pasó (0,104); si la familia se restringe a las cuatro pruebas de Málaga, las cuatro pasan (0,026 a 0,038). Las pendientes expresan el efecto en unidades comparables entre sitios: 0,23 dB/m en A004 y 0,35 dB/m en D087 con NISAR, y 0,12 y 0,24 dB/m con ALOS-2, con intervalos que excluyen el cero, frente a −0,07 y −0,05 dB/m en Sentinel-1, con intervalos que lo incluyen. Sobre el rango de marea observado, de 2,3 a 3,4 m, el cambio esperado de la resta es de 0,4 a 0,8 dB. En la CGSM la pendiente de NISAR D083 fue de 0,49 dB/m [0,34 a 0,71], pero contiene el escalón de versión, y la de Sentinel-1 fue negativa, −0,23 y −0,25 dB/m.
 
 ### 3.8 Clave de interpretación por cobertura y mecanismo
 
@@ -237,7 +241,7 @@ Las firmas iniciales obtenidas con las coberturas de los productos globales se p
 
 #### Evaluación con la muestra de referencia de 2025
 
-La muestra propia modificó parte de esa interpretación (Tabla 8). La mayor mejora de la banda L se observó entre manglar intacto y degradado, cuya separabilidad aumentó de 0,30 en banda C a 0,91 en banda L, todavía por debajo del umbral de 1 (Tabla 9). En cambio, humedal herbáceo y manglar degradado permanecieron prácticamente inseparables, con 0,17 en C, 0,22 en L y 0,38 con las dos bandas, lo mismo que ocurre con el NDVI de Sentinel-2 (0,44). La vegetación flotante tampoco presentó una firma radar separable del agua (0,28 en L y 0,47 en C).
+La muestra propia modificó parte de esa interpretación (Tabla 8). La mayor mejora de la banda L se observó entre manglar intacto y degradado, cuya separabilidad aumentó de 0,26 en banda C a 0,78 en banda L, todavía por debajo del umbral de 1 (Tabla 9). En cambio, humedal herbáceo y manglar degradado permanecieron prácticamente inseparables, con 0,11 en C, 0,16 en L y 0,24 con las dos bandas, lo mismo que ocurre con el NDVI de Sentinel-2 (0,44). La vegetación flotante tampoco presentó una firma radar separable del agua (0,19 en L y 0,47 en C).
 
 Tabla 8. Firmas multifecha de las clases de la muestra de referencia de 2025 en bandas C y L, en dB.
 
@@ -252,25 +256,25 @@ Tabla 8. Firmas multifecha de las clases de la muestra de referencia de 2025 en 
 
 La diferencia HH − HV ordenó las coberturas según la apertura del dosel: 6,6 dB en manglar intacto, 7,5 dB en la clase otro, 7,9 dB en humedal herbáceo y 8,9 dB en manglar degradado. Esta variable caracteriza estructura, pero no identifica por sí sola una clase.
 
-Tabla 9. Separabilidad de Jeffries-Matusita entre las clases de la muestra de referencia de 2025.
+Tabla 9. Separabilidad de Jeffries-Matusita entre las clases de la muestra de referencia de 2025, con la copolar y la cruzada de cada banda (dos variables por banda y cuatro con las dos bandas).
 
 | Par | Banda C | Banda L | C + L |
 |---|---|---|---|
-| Agua, vegetación flotante | 0,47 | 0,28 | 0,69 |
-| Agua, humedal herbáceo | 1,50 | 1,24 | 1,66 |
-| Agua, manglar degradado | 1,65 | 1,56 | 1,82 |
-| Agua, manglar intacto | 1,85 | 1,87 | 1,96 |
-| Agua, otro | 1,51 | 1,27 | 1,69 |
-| Vegetación flotante, humedal herbáceo | 0,74 | 0,64 | 1,02 |
-| Vegetación flotante, manglar degradado | 0,94 | 0,97 | 1,33 |
-| Vegetación flotante, manglar intacto | 1,34 | 1,59 | 1,78 |
-| Vegetación flotante, otro | 0,64 | 0,77 | 1,09 |
-| Humedal herbáceo, manglar degradado | 0,17 | 0,22 | 0,38 |
-| Humedal herbáceo, manglar intacto | 0,45 | 0,76 | 0,96 |
-| Humedal herbáceo, otro | 0,12 | 0,17 | 0,43 |
-| Manglar degradado, manglar intacto | 0,30 | 0,91 | 1,04 |
-| Manglar degradado, otro | 0,27 | 0,47 | 0,69 |
-| Manglar intacto, otro | 0,56 | 0,54 | 0,89 |
+| Agua, vegetación flotante | 0,47 | 0,19 | 0,60 |
+| Agua, humedal herbáceo | 1,38 | 1,21 | 1,55 |
+| Agua, manglar degradado | 1,60 | 1,53 | 1,78 |
+| Agua, manglar intacto | 1,81 | 1,86 | 1,95 |
+| Agua, otro | 1,43 | 1,19 | 1,60 |
+| Vegetación flotante, humedal herbáceo | 0,53 | 0,62 | 0,81 |
+| Vegetación flotante, manglar degradado | 0,82 | 0,91 | 1,19 |
+| Vegetación flotante, manglar intacto | 1,20 | 1,47 | 1,65 |
+| Vegetación flotante, otro | 0,50 | 0,67 | 0,85 |
+| Humedal herbáceo, manglar degradado | 0,11 | 0,16 | 0,24 |
+| Humedal herbáceo, manglar intacto | 0,43 | 0,61 | 0,82 |
+| Humedal herbáceo, otro | 0,07 | 0,11 | 0,23 |
+| Manglar degradado, manglar intacto | 0,26 | 0,78 | 0,87 |
+| Manglar degradado, otro | 0,23 | 0,43 | 0,58 |
+| Manglar intacto, otro | 0,51 | 0,43 | 0,73 |
 
 #### Regla de lectura
 
@@ -284,6 +288,8 @@ La clave se redujo a cuatro decisiones sobre las medianas multifecha:
 La respuesta hidrológica complementa la firma estática para distinguir el manglar del bosque no inundable, puesto que la diferencia de nivel entre las dos clases (1,5 dB en VV y 1,7 dB en HH) es del orden de la que produce la geometría entre trayectorias. El criterio es el cambio del canal copolar con el forzante, observado en Bahía de Málaga y, con la confusión de versión declarada, en la CGSM.
 
 La regla decidió 606 de los 720 puntos y acertó en 415, el 68 % de los casos decididos y el 58 % de la muestra (Tabla 10). Sin los 208 puntos de borde, decidió 444 de 512 y acertó en el 71 %. Estas cifras corresponden a resustitución.
+
+Con el fin de medir lo que aporta la banda L a la clave, la decisión entre dosel cerrado y abierto se repitió con la banda C sola, con VV − VH en lugar de HH − HV y el umbral elegido por el mismo procedimiento de resustitución, el acierto balanceado entre manglar intacto y las tres clases de dosel abierto. El mejor umbral en C, VV − VH por debajo de 7,0 dB, alcanzó un acierto balanceado de 0,54, apenas por encima del azar, frente a 0,75 con HH − HV, cuyo umbral óptimo, 7,4 dB, coincide con el 7,3 dB fijado. Con la clave en C sola se decidieron los mismos 606 puntos, pero se acertó en 340, el 56 % de los decididos y el 47 % de la muestra, en vez de 415: 78 de los 111 puntos de manglar degradado y 44 de los 73 de humedal herbáceo pasaron a dosel cerrado. Por lo tanto, la separación entre dosel cerrado y abierto depende de la banda L.
 
 Tabla 10. Clasificación de los 720 puntos de referencia con la clave de interpretación SAR (filas, clase de referencia; columnas, decisiones 1 a 4 de la regla). Umbrales en σ⁰; con los umbrales equivalentes en γ⁰ (desplazados +0,83 dB, la mediana de γ⁰ − σ⁰ en banda C) la tabla es idéntica salvo dos celdas: manglar degradado 63 y otro 19 en la decisión 4, con los mismos 606 puntos decididos y 415 aciertos.
 
@@ -312,6 +318,19 @@ Tabla 11. Cambio de retrodispersión entre los periodos de nivel alto y bajo del
 | Humedal herbáceo | 207.215 | +0,46 (−0,54 a +1,82) | 62 % | −0,96 | +1,41 | +0,26 (−0,22 a +0,80) | 65 % | +0,31 |
 | Agua abierta | 663.486 | −0,39 (−0,89 a +0,02) | 26 % | −1,21 | +0,73 | −0,47 (−1,08 a 0,00) | 25 % | +0,62 |
 
+El cambio no se concentró en el borde del manglar (Tabla 12, Figura B1). En el sector sur, la mediana de ΔHH creció con la distancia al borde, de +0,31 dB en los primeros 50 m a +0,74 dB a más de 300 m, y la fracción de píxeles positivos pasó de 64 % a 91 %, con una correlación de Spearman de 0,21 entre distancia y cambio. En Isla de Salamanca el cambio fue negativo a todas las distancias, entre −0,13 y −0,26 dB. Los píxeles de manglar a menos de 50 m del agua abierta cambiaron como el agua, −0,39 dB, lo que indica mezcla de superficies en la celda de 50 m. En Bahía de Málaga el cambio de HH del manglar con la marea fue igual de borde a interior, entre +0,27 y +0,40 dB en A004 y entre +0,02 y +0,13 dB en D087 en todas las bandas de distancia. Por lo tanto, la señal copolar asociada al forzante procede del interior del rodal y no de sus bordes, lo que es compatible con el doble rebote bajo el dosel y no con un efecto de borde ni con la mezcla con agua abierta, que actuó en sentido contrario.
+
+Tabla 12. Cambio de HH del manglar entre los periodos de nivel alto y bajo del río (CGSM, NISAR D083) y entre marea alta y baja (Bahía de Málaga) según la distancia del píxel de 50 m al borde del manglar: mediana en dB y fracción de píxeles con cambio positivo.
+
+| Sitio y sector | 0 a 50 m | 50 a 100 m | 100 a 200 m | 200 a 300 m | Más de 300 m |
+|---|---|---|---|---|---|
+| Manglar de la CGSM, todo | −0,07 (47 %) | +0,03 (52 %) | +0,08 (54 %) | +0,12 (57 %) | +0,34 (67 %) |
+| Manglar sur, río Fundación | +0,31 (64 %) | +0,46 (74 %) | +0,54 (79 %) | +0,58 (83 %) | +0,74 (91 %) |
+| Manglar centro y occidente | −0,11 (45 %) | +0,01 (51 %) | +0,10 (55 %) | +0,22 (62 %) | +0,04 (53 %) |
+| Manglar norte, Isla de Salamanca | −0,26 (38 %) | −0,16 (40 %) | −0,13 (42 %) | −0,16 (40 %) | −0,20 (37 %) |
+| Bahía de Málaga, A004, marea | +0,28 (71 %) | +0,39 (77 %) | +0,40 (79 %) | +0,39 (79 %) | +0,27 (71 %) |
+| Bahía de Málaga, D087, marea | +0,02 (51 %) | +0,07 (55 %) | +0,06 (55 %) | +0,07 (55 %) | +0,13 (61 %) |
+
 ![Figura 14. Cambio de HH, HV y HH − HV de NISAR D083 entre los periodos de nivel alto y bajo del río, sobre una malla de 50 m.](fig_mapa_doble_rebote.png)
 
 El máximo aumento se localizó en la desembocadura del río Fundación, que baja de la Sierra Nevada, y no en las entradas de los caños del Magdalena: cruzado con los cauces de OpenStreetMap, el foco queda a 1,3 km del Fundación, mientras que el caño Renegado termina al occidente, a 11 km del manglar, en una franja de cambio menor. Por lo tanto, el nivel de Remolino funciona en ese sector como indicador regional de la condición hidrológica y no como forzante directo. El humedal herbáceo también subió (+0,46 dB), lo que indica que el canal copolar responde igualmente al agua o suelo expuesto fuera del dosel. Los sectores se trazaron por latitud antes de verificar la hidrografía, de modo que la lectura por sector es una hipótesis para la serie siguiente.
@@ -338,9 +357,9 @@ La evidencia más sólida del estudio procede de Bahía de Málaga. El HH del ma
 
 El cambio copolar relativo al bosque fue pequeño, de 0,4 a 0,8 dB, frente a los realces de varios decibelios descritos para otros bosques inundados en banda L (Hess et al., 1990). Esa diferencia puede estar relacionada con la atenuación de un dosel de manglar denso, con la presencia parcial de agua dentro del píxel y con la variabilidad hidrológica entre adquisiciones. Además, la polarización dual impide separar los mecanismos con observables polarimétricos completos, y la comparación entre bandas tampoco separa del todo longitud de onda y polarización, puesto que NISAR y ALOS-2 observan HH y Sentinel-1 VV. Los resultados son compatibles con una contribución de doble rebote, pero no constituyen una identificación polarimétrica directa. Sin embargo, la reproducción del patrón en dos sensores de banda L y su ausencia en HV y en Sentinel-1 reduce la probabilidad de que la respuesta sea exclusiva de una geometría o de un sensor.
 
-La banda L también aportó información estructural. La separabilidad entre manglar intacto y degradado aumentó de 0,30 en banda C a 0,91 en banda L, y HH − HV respondió sobre todo a la apertura del dosel, de modo que caracteriza estructura pero no sirve como etiqueta única de cobertura. La frontera entre manglar degradado y humedal herbáceo permaneció sin resolver con las dos bandas.
+La banda L también aportó información estructural. La separabilidad entre manglar intacto y degradado aumentó de 0,26 en banda C a 0,78 en banda L, y HH − HV respondió sobre todo a la apertura del dosel, de modo que caracteriza estructura pero no sirve como etiqueta única de cobertura. Con la banda C sola, la decisión entre dosel cerrado y abierto quedó en el nivel del azar, con un acierto balanceado de 0,54 frente a 0,75 con HH − HV, de modo que esa parte de la clave depende de la banda L. La frontera entre manglar degradado y humedal herbáceo permaneció sin resolver con las dos bandas.
 
-Finalmente, la distribución espacial mostró que la respuesta no es homogénea. El mayor aumento de HH se concentró en el manglar del sur de la CGSM, en la desembocadura del río Fundación, lo que indica que el nivel del Magdalena en Remolino actúa como indicador regional y no como forzante directo de cada sector, mientras que Sentinel-1 presentó un patrón más difuso y una respuesta mayor en el bosque seco. Dynamic World respondió al nivel del río donde el agua era visible desde el óptico, pero no bajo el manglar, de modo que aporta evidencia sobre el forzante y no una validación directa de la señal bajo el dosel.
+Finalmente, la distribución espacial mostró que la respuesta no es homogénea. El mayor aumento de HH se concentró en el manglar del sur de la CGSM, en la desembocadura del río Fundación, lo que indica que el nivel del Magdalena en Remolino actúa como indicador regional y no como forzante directo de cada sector, mientras que Sentinel-1 presentó un patrón más difuso y una respuesta mayor en el bosque seco. Dentro del manglar, el cambio creció con la distancia al borde del rodal en el sector sur y fue igual de borde a interior en Bahía de Málaga, de modo que la señal no se explica por un efecto de borde ni por la mezcla con agua abierta en el píxel, que actuó en sentido contrario. Dynamic World respondió al nivel del río donde el agua era visible desde el óptico, pero no bajo el manglar, de modo que aporta evidencia sobre el forzante y no una validación directa de la señal bajo el dosel.
 
 ### 4.1 Limitaciones
 
@@ -356,7 +375,7 @@ Finalmente, la referencia presenta incertidumbre intraintérprete. En una segund
 
 ## 5. Conclusiones y trabajo futuro
 
-En Bahía de Málaga, la banda L mostró una respuesta reproducible del copolar del manglar a la marea que no apareció en banda C. El patrón se observó en las dos trayectorias de NISAR, se reprodujo con ALOS-2, resistió la corrección por dependencia temporal y se mantuvo dentro de cada versión del producto. La respuesta se concentró en HH y no en HV, y fue compatible con un aumento de la contribución de doble rebote bajo mayor inundación.
+En Bahía de Málaga, la banda L mostró una respuesta reproducible del copolar del manglar a la marea que no apareció en banda C. El patrón se observó en las dos trayectorias de NISAR, se reprodujo con ALOS-2, resistió la corrección por dependencia temporal y se mantuvo dentro de cada versión del producto. La respuesta se concentró en HH y no en HV, y fue compatible con un aumento de la contribución de doble rebote bajo mayor inundación. Con la corrección de Holm sobre las cinco pruebas primarias de banda L, las dos trayectorias de NISAR en Málaga se mantuvieron y ALOS-2 quedó en el límite; las pendientes fueron de 0,12 a 0,35 dB por metro de marea, con intervalos que excluyen el cero, y el cambio no se concentró en el borde del rodal.
 
 En la CGSM se observó la misma dirección frente al nivel del río, con un aumento de +0,83 dB del HH del manglar relativo al bosque. Sin embargo, los estados alto y bajo coinciden con versiones distintas de NISAR, dentro de cada versión no existe relación con el nivel y la asociación no resiste la corrección por dependencia temporal. Por tanto, el efecto hidrológico aún no puede identificarse independientemente. La banda L también mejoró la separación entre manglar intacto y degradado, aunque no resolvió la frontera entre manglar degradado y humedal herbáceo. La clave decidió 606 de 720 puntos con un 68 % de acierto por resustitución, que deberá evaluarse con una muestra independiente.
 
@@ -390,6 +409,8 @@ Gorelick, N., Hancher, M., Dixon, M., Ilyushchenko, S., Thau, D. y Moore, R. (20
 
 Hess, L. L., Melack, J. M. y Simonett, D. S. (1990). Radar detection of flooding beneath the forest canopy: A review. *International Journal of Remote Sensing, 11*(7), 1313–1325. https://doi.org/10.1080/01431169008955095
 
+Holm, S. (1979). A simple sequentially rejective multiple test procedure. *Scandinavian Journal of Statistics, 6*(2), 65–70.
+
 Instituto de Hidrología, Meteorología y Estudios Ambientales [IDEAM]. (s. f.). [Nivel instantáneo del río Magdalena en la estación automática Remolino, código 2904700095] [Conjunto de datos]. Datos Abiertos Colombia. https://www.datos.gov.co/d/bdmn-sqnh
 
 Jaramillo, F., Brown, I., Castellazzi, P., Espinosa, L., Guittard, A., Hong, S.-H., Rivera-Monroy, V. H. y Wdowinski, S. (2018). Assessment of hydrologic connectivity in an ungauged wetland with InSAR observations. *Environmental Research Letters, 13*(2), 024003. https://doi.org/10.1088/1748-9326/aa9d23
@@ -411,6 +432,8 @@ Pyper, B. J. y Peterman, R. M. (1998). Comparison of methods to account for auto
 Richards, J. A. (2013). *Remote sensing digital image analysis: An introduction* (5.ª ed.). Springer. https://doi.org/10.1007/978-3-642-30062-2
 
 Richards, J. A., Woodgate, P. W. y Skidmore, A. K. (1987). An explanation of enhanced radar backscattering from flooded forests. *International Journal of Remote Sensing, 8*(7), 1093–1100. https://doi.org/10.1080/01431168708954756
+
+Sen, P. K. (1968). Estimates of the regression coefficient based on Kendall's tau. *Journal of the American Statistical Association, 63*(324), 1379–1389. https://doi.org/10.1080/01621459.1968.10480934
 
 Simard, M., Rivera-Monroy, V. H., Mancera-Pineda, J. E., Castañeda-Moya, E. y Twilley, R. R. (2008). A systematic method for 3D mapping of mangrove forests based on Shuttle Radar Topography Mission elevation data, ICESat/GLAS waveforms and field data: Application to Ciénaga Grande de Santa Marta, Colombia. *Remote Sensing of Environment, 112*(5), 2131–2144. https://doi.org/10.1016/j.rse.2007.10.012
 
@@ -440,7 +463,7 @@ Tabla A1. Scripts y productos de cada etapa del flujo de trabajo.
 | 4. Forzante hidrológico | `mareas_buenaventura`, `mareas_dimar_a_serie`, `marea_vs_radar`, `cgsm_nivel_rio` | Marea, precipitación antecedente y nivel del río asignados a cada pasada |
 | 5. Estadística por pasada | `perfil_pacifico_24`, `marea_vs_radar`, `cgsm_temporada` | `cgsm_temporada_*.csv`; Tabla 2 y Tabla B1 |
 | 6. Prueba hidrológica | `marea_vs_radar`, `s1_marea_malaga`, `alos2_marea_malaga`, `cgsm_temporada`, `cgsm_nivel_rio`, `figura_cgsm_optico` | Tablas 3 a 6 y B2 a B3; Figuras 5 y 7 a 12 |
-| 7. Robustez y límites | `doble_rebote_incidencia`, `autocorrelacion_temporal`, `auditoria_calculos.md` | Tabla 7; Figura 6; auditoría de cálculos |
+| 7. Robustez y límites | `doble_rebote_incidencia`, `autocorrelacion_temporal`, `pendientes_auditoria`, `auditoria_calculos.md` | Tablas 7, 9 y 12; Figuras 6 y B1; `pendientes_auditoria_*.csv`; auditoría de cálculos |
 | 8. Clave de interpretación | `figura_clave`, `nisar_flotante`, `clave_vs_muestra2025` | Tablas 8 a 10 y B4; Figura 13; `clave_muestra2025_*.csv` |
 | 9. Cartografía y contraste óptico | `mapa_doble_rebote`, `mapa_doble_rebote_s1`, `mapa_doble_rebote_malaga`, `corroboracion_dw` | Tabla 11 y B5; Figuras 14 a 17; `mapa_doble_rebote_50m.tif`, `mapa_s1_alto_bajo_50m.tif`, `dw_serie.csv` |
 | Informe y figuras metodológicas | `md_a_word`, `exportar_figuras_flujo`, `exportar_series`, `exportar_productos`, `figura_flujo`, `figura_cadena_sar` | Informe; Figuras 1, A1 y A2 |
@@ -496,3 +519,5 @@ Tabla B5. Cambio de retrodispersión entre marea alta y baja en Bahía de Málag
 | D087 (18:29) | Manglar | 34.344 | +0,05 (−0,35 a +0,42) | 54 % | −0,53 | +0,64 |
 | D087 (18:29) | Bosque (control) | 300.038 | −0,39 (−0,79 a −0,06) | 21 % | −0,63 | +0,32 |
 | D087 (18:29) | Agua | 214.339 | −0,42 (−0,90 a +0,05) | 27 % | −0,94 | +0,63 |
+
+![Figura B1. Cambio de HH del manglar entre los periodos de nivel alto y bajo del río (CGSM, NISAR D083) y entre marea alta y baja (Bahía de Málaga, A004 y D087) según la distancia del píxel de 50 m al borde del manglar: mediana y rango intercuartílico.](fig_borde_interior.png)

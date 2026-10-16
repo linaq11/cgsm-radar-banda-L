@@ -17,7 +17,7 @@ ORDEN = [
     ("3. Coberturas de referencia y muestreo", ["perfil_pacifico.py", "perfil_pacifico_24.py", "doble_rebote_incidencia.py", "figuras_cgsm.py", "figuras_pacifico.py", "figuras_gee.py", "figura_sitios.py"]),
     ("4. Forzante hidrológico", ["mareas_buenaventura.py", "mareas_dimar_a_serie.py", "marea_vs_radar.py", "cgsm_nivel_rio.py"]),
     ("5 y 6. Estadística por pasada y prueba hidrológica", ["cgsm_temporada.py", "figura_cgsm_optico.py", "figuras_informe.py"]),
-    ("7. Robustez y límites", ["autocorrelacion_temporal.py", "figura_incidencia.py"]),
+    ("7. Robustez y límites", ["autocorrelacion_temporal.py", "pendientes_auditoria.py", "figura_incidencia.py"]),
     ("8. Clave de interpretación", ["figura_clave.py", "nisar_flotante.py", "clave_vs_muestra2025.py"]),
     ("9. Mapa y corroboración óptica", ["mapa_doble_rebote.py", "mapa_doble_rebote_s1.py", "mapa_doble_rebote_malaga.py", "corroboracion_dw.py", "mapbiomas_cruce.py"]),
     ("Informe y figuras de método", ["md_a_word.py", "propuesta_a_word.py", "construir_informe.py", "figura_flujo.py", "figura_cadena_sar.py", "figura_muestra_2025.py", "figura_consistencia.py"]),
