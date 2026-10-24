@@ -93,6 +93,12 @@ La señal se cartografió con diferencias píxel a píxel a 50 m en UTM 18N. En 
 
 En Bahía de Málaga, cada trayectoria comparó las seis adquisiciones de mayor marea con las seis de menor marea. Como contraste óptico se usó la probabilidad de `flooded_vegetation` de Dynamic World V1 (Brown et al., 2022) en las fechas con al menos la mitad del manglar libre de nubes, con la mediana por píxel en las mismas ventanas de NISAR y al menos dos observaciones válidas por grupo. Dynamic World se interpreta como indicador de vegetación inundada visible desde el óptico y no como observación del agua bajo el dosel.
 
+### 2.9 Polarimetría dual-pol de NISAR: entropía, ángulo alfa y DpRVI
+
+Como complemento a la retrodispersión por canal, se reprodujo en la CGSM el flujo polarimétrico dual-pol del cuaderno de NISAR para Guaviare (ASF OpenSARlab, s. f.), con el producto GSLC de nivel 2 (HH y HV en geometría geocodificada, 5 m) en lugar del GCOV. Se usaron dos adquisiciones de la trayectoria descendente 11 (4 y 16 de diciembre de 2025), recortadas de forma remota a la AOI con earthaccess y h5py (12.204 por 14.505 píxeles, 1,8 GB por fecha). El procesamiento siguió el cuaderno sin cambios de método, con la biblioteca polsartools 0.13 (Bhogapurapu, s. f.) en un entorno de Python 3.12: matriz de covarianza C2 con 2 por 2 looks (10 m), filtro de Lee refinado de 7 por 7 (Lee et al., 1999), compuesto RGB dual-pol, descomposición H/alfa de los autovalores de C2 (Cloude y Pottier, 1997) e índice de vegetación dual-pol DpRVI (Mandal et al., 2020). Las capas se remuestrearon por interpolación bilineal a la malla de 10 m del cubo óptico de la tesis (EPSG:9377) y se extrajeron en los 880 puntos de la muestra de referencia ampliada, en el píxel y en la media de 3 por 3.
+
+Los contrastes se preregistraron antes de procesar (`PLAN_polsar_nisar_cgsm.md`, sección 4). La prueba primaria P1 compara el bosque muerto en pie, definido por fracción de copa menor del 20 % con troncos visibles en la interpretación de 2026, con la herbácea sin troncos, mediante el AUC orientado de alfa, con H y DpRVI como secundarias; la hipótesis preregistrada fue alfa mayor en el bosque muerto por el doble rebote de los troncos. P2 mide la correlación de Spearman entre DpRVI y el punto medio de la caja de fracción de copa en los 436 puntos interpretados, con el RMSE fuera de muestra de una regresión lineal por bloques. P3 deriva un mapa manglar / no manglar con un umbral no supervisado de Otsu sobre DpRVI y lo compara con las clases v1.1, con la macro-F1 por bloque de 12 km y con la misma dicotomía del mapa óptico de la cadena de la tesis. Los intervalos son bootstrap de 2.000 repeticiones, la p de P1 es de permutación por bloques y los tres contrastes se corrigen con Holm. La segunda fecha se procesó como réplica, con la estabilidad punto a punto entre fechas como control adicional.
+
 ## 3. Resultados
 
 ### 3.1 Perfil de retrodispersión en Bahía de Málaga
@@ -351,6 +357,51 @@ La misma comparación se repitió con las seis adquisiciones de mayor y de menor
 
 ![Figura 17. Cambio de HH y HV entre las seis pasadas de mayor y menor marea de cada trayectoria de NISAR en Bahía de Málaga, sobre una malla de 50 m.](fig_mapa_doble_rebote_malaga.png)
 
+### 3.10 Polarimetría dual-pol: entropía, ángulo alfa y DpRVI en la CGSM
+
+El compuesto RGB dual-pol separa de inmediato el agua, el manglar y la planicie herbácea (Figura 19). El manglar intacto del occidente de la ciénaga aparece con HH y HV altos y la herbácea de Pajarales con HH alto y HV bajo; la imagen PlanetScope del mismo día, con los cúmulos propios de diciembre, y el compuesto Sentinel-2 de la estación seca confirman la disposición de las coberturas. En la ventana de detalle, la entropía y el ángulo alfa son altos en el manglar intacto y bajos en la planicie herbácea y en el manglar muerto, y el DpRVI reproduce el mismo contraste (Figura 20).
+
+![Figura 19. Compuesto RGB dual-pol de NISAR (R = HH, G = HV, B = HH − HV, en dB) del 16 de diciembre de 2025 sobre la AOI y sobre una ventana de 16 km en Pajarales y el manglar occidental, con PlanetScope del mismo día y Sentinel-2 de la estación seca de 2025 como referencia óptica.](fig_polsar_1_rgb.png)
+
+![Figura 20. Entropía H, ángulo alfa y DpRVI de NISAR del 16 de diciembre de 2025 (Lee refinado 7 por 7, 10 m) en la ventana de detalle, con el infrarrojo color de Sentinel-2 y los puntos de la muestra de referencia.](fig_polsar_2_h_alfa_dprvi.png)
+
+En el plano H/alfa, los píxeles de la AOI y los 880 puntos ocupan una sola banda curva, con alfa entre 5 y 40 grados, propia de un sistema dual-pol de L sin la fase cruzada completa (Figura 21). Las clases se ordenan a lo largo de esa banda: humedal herbáceo y manglar degradado en el extremo de baja entropía y alfa bajo, manglar intacto y vegetación flotante en el centro y agua en el extremo alto (Tabla 13). El orden es idéntico en las dos fechas, y los valores punto a punto se correlacionan entre el 4 y el 16 de diciembre con rho de Spearman de 0,97 en HH y HV, 0,85 en H y DpRVI y 0,80 en alfa.
+
+![Figura 21. Plano H/alfa dual-pol de las dos fechas: densidad de píxeles de la AOI en gris, puntos de la muestra con la media de 3 por 3 y medianas por clase v1.3 en círculos grandes.](fig_polsar_3_plano.png)
+
+Tabla 13. Medianas por clase v1.3 de los descriptores polarimétricos (media de 3 por 3) en los 880 puntos, NISAR del 16 de diciembre de 2025.
+
+| Clase | n | HH (dB) | HV (dB) | H | Alfa (°) | DpRVI |
+|---|---|---|---|---|---|---|
+| Agua | 241 | −18,5 | −24,8 | 0,68 | 19,6 | 0,48 |
+| Humedal herbáceo | 120 | −6,6 | −16,2 | 0,44 | 11,8 | 0,26 |
+| Manglar degradado | 134 | −7,4 | −16,9 | 0,47 | 12,0 | 0,28 |
+| Manglar intacto | 182 | −8,5 | −15,9 | 0,61 | 16,6 | 0,41 |
+| Otro | 69 | −10,1 | −18,5 | 0,58 | 15,4 | 0,38 |
+| Vegetación flotante | 134 | −15,5 | −23,2 | 0,60 | 16,7 | 0,40 |
+
+Los contrastes preregistrados dieron el mismo resultado en las dos fechas (Tabla 14). En P1, el bosque muerto en pie no tiene alfa mayor que la herbácea sino menor: el AUC orientado en la dirección preregistrada fue 0,33 y 0,34, con p de permutación de 0,999, de modo que la hipótesis del doble rebote de los troncos queda refutada. En la dirección contraria, exploratoria, alfa separa bosque muerto de herbácea con AUC de 0,67 [0,60 a 0,73] y 0,66 [0,59 a 0,73], H con 0,69 y DpRVI con 0,69 en las dos fechas, y HH con 0,67 y 0,66, con el bosque muerto más brillante en HH. Las firmas por clase muestran el mismo patrón (Figura 22): el manglar degradado, que la interpretación de 2026 identifica como bosque muerto en pie, se parece al humedal herbáceo en los cinco descriptores y se aleja del manglar intacto en H, alfa y DpRVI. En banda L dual-pol, el bosque muerto se comporta por tanto como una superficie, con dispersión dominada por un solo mecanismo y poca despolarización, y no como un volumen ni como un reflector diedro.
+
+Tabla 14. Contrastes preregistrados de la polarimetría dual-pol de NISAR en las dos fechas, en el píxel de 10 m; entre corchetes, intervalos bootstrap del 95 %. P1 se reporta en la dirección observada (bosque muerto menor que herbácea en alfa, H y DpRVI; mayor en HH), contraria a la preregistrada.
+
+| Prueba | Variable | 4 de diciembre | 16 de diciembre |
+|---|---|---|---|
+| P1, AUC bosque muerto (n = 194) frente a herbácea sin troncos (n = 82) | Alfa | 0,67 [0,60 a 0,73] | 0,66 [0,59 a 0,73] |
+| | H | 0,69 [0,62 a 0,75] | 0,69 [0,62 a 0,75] |
+| | DpRVI | 0,69 [0,63 a 0,75] | 0,69 [0,63 a 0,75] |
+| | HH | 0,67 [0,61 a 0,74] | 0,66 [0,60 a 0,73] |
+| | HV | 0,59 [0,51 a 0,66] | 0,55 [0,47 a 0,62] |
+| P2, Spearman DpRVI frente a fracción de copa (n = 436) | DpRVI | 0,55 [0,48 a 0,62] | 0,56 [0,49 a 0,62] |
+| P2, RMSE fuera de muestra de la fracción de copa (puntos porcentuales) | DpRVI | 31,4 | 31,5 |
+| P3, macro-F1 manglar / no manglar, umbral de Otsu sobre DpRVI | DpRVI | 0,57 [0,49 a 0,60] | 0,55 [0,48 a 0,57] |
+| P3, referencia óptica (unión v1.1, fuera de muestra) | RF, 94 variables | 0,65 | 0,65 |
+
+![Figura 22. Firmas polarimétricas por clase v1.3 en los 880 puntos (media de 3 por 3; cajas de cuartiles sin valores extremos), 4 de diciembre en claro y 16 de diciembre en oscuro.](fig_polsar_4_firmas.png)
+
+En P2, el DpRVI sigue la fracción de copa leñosa con rho de 0,55 y 0,56, significativa tras Holm, pero el error de una regresión lineal fuera de muestra es de 31 puntos porcentuales, del tamaño de las cajas de interpretación, por lo que el índice ordena la densidad de copa sin estimarla. En P3, el umbral de Otsu (DpRVI de 0,31) separa manglar de no manglar con macro-F1 de 0,57 y 0,55 por bloque, por debajo del 0,65 del mapa óptico; sobre toda la AOI, el mapa radar coincide con el óptico en el 64 % de los píxeles de manglar, humedal y otro, con 18 % de manglar solo óptico y 18 % solo radar (Figura 23). El desacuerdo se concentra en el manglar degradado, del que el radar clasifica como bosque solo el 32 %, y en la herbácea, con 51 %; el agua, con 98 % de píxeles sobre el umbral por la despolarización de la señal cercana al piso de ruido en HV, exige una máscara previa que el DpRVI por sí solo no aporta. La sensibilidad a la media de 3 por 3 movió los AUC de P1 entre 0,00 y 0,02 y P2 a 0,57 en las dos fechas.
+
+![Figura 23. Manglar por umbral de Otsu sobre el DpRVI de NISAR (16 de diciembre de 2025) frente al mapa óptico píxel de 2025 de la cadena de la tesis, sobre la AOI, y fracción de píxeles clasificados como bosque por el radar en cada clase del mapa óptico.](fig_polsar_5_acuerdo.png)
+
 ## 4. Discusión
 
 La evidencia más sólida del estudio procede de Bahía de Málaga. El HH del manglar relativo al bosque aumentó con la marea en las dos trayectorias de NISAR y el mismo patrón se reprodujo con ALOS-2, mientras que Sentinel-1 no mostró una respuesta equivalente. Las asociaciones de los dos sensores de banda L permanecieron después de corregir la dependencia temporal y, en NISAR, dentro de cada versión del producto. En la CGSM se observó la misma dirección frente al nivel del río, pero los estados alto y bajo coinciden con las colecciones Beta y Provisional y los dos efectos no pueden separarse con la serie disponible.
@@ -379,13 +430,17 @@ En Bahía de Málaga, la banda L mostró una respuesta reproducible del copolar 
 
 En la CGSM se observó la misma dirección frente al nivel del río, con un aumento de +0,83 dB del HH del manglar relativo al bosque. Sin embargo, los estados alto y bajo coinciden con versiones distintas de NISAR, dentro de cada versión no existe relación con el nivel y la asociación no resiste la corrección por dependencia temporal. Por tanto, el efecto hidrológico aún no puede identificarse independientemente. La banda L también mejoró la separación entre manglar intacto y degradado, aunque no resolvió la frontera entre manglar degradado y humedal herbáceo. La clave decidió 606 de 720 puntos con un 68 % de acierto por resustitución, que deberá evaluarse con una muestra independiente.
 
-El trabajo futuro se concentra en ampliar la serie NISAR D083 hasta disponer de estados altos y bajos del río dentro de una misma versión del producto y en repetir la cartografía con adquisiciones radiométricamente comparables. Además, se evaluará la respuesta bajo dosel con pares interferométricos de NISAR, analizando la coherencia y la fase en relación con el nivel hidrológico. Una respuesta interferométrica consistente permitiría comprobar el mecanismo propuesto con información independiente de la intensidad de retrodispersión. Finalmente, la clave deberá evaluarse con una muestra independiente y temporalmente consistente con las adquisiciones SAR. La polarimetría completa a mayor longitud de onda queda como una extensión posterior.
+El trabajo futuro se concentra en ampliar la serie NISAR D083 hasta disponer de estados altos y bajos del río dentro de una misma versión del producto y en repetir la cartografía con adquisiciones radiométricamente comparables. Además, se evaluará la respuesta bajo dosel con pares interferométricos de NISAR, analizando la coherencia y la fase en relación con el nivel hidrológico. Una respuesta interferométrica consistente permitiría comprobar el mecanismo propuesto con información independiente de la intensidad de retrodispersión. Finalmente, la clave deberá evaluarse con una muestra independiente y temporalmente consistente con las adquisiciones SAR. La polarimetría completa a mayor longitud de onda queda como una extensión posterior. La polarimetría dual-pol (sección 3.10) deja dos tareas: la sensibilidad a la órbita, con el par del 4 y el 8 de julio de 2026 de las trayectorias ascendente 119 y descendente 11, y el contraste punto a punto con PlanetScope del 16 de diciembre, que coincide con la segunda adquisición.
 
 ## Disponibilidad de datos y código
 
-Los scripts de las nueve etapas, los resultados tabulados y las figuras del informe están en el repositorio público https://github.com/linaq11/cgsm-radar-banda-L, bajo licencia MIT. Las escenas NISAR, las series del IDEAM y del mareógrafo y los productos de Earth Engine se obtienen de sus fuentes con los scripts de la etapa 1; la muestra de referencia de 2025 es un producto propio en elaboración y no se distribuye con el informe.
+Los scripts de las nueve etapas y de la polarimetría dual-pol, los resultados tabulados y las figuras del informe están en el repositorio público https://github.com/linaq11/cgsm-radar-banda-L, bajo licencia MIT. Las escenas NISAR, las series del IDEAM y del mareógrafo y los productos de Earth Engine se obtienen de sus fuentes con los scripts de la etapa 1; la muestra de referencia de 2025 es un producto propio en elaboración y no se distribuye con el informe.
 
 ## Referencias
+
+ASF OpenSARlab (s. f.). *NISAR Cookbook: GSLC basic polarimetric techniques with PolSARtools*. Alaska Satellite Facility. https://asfopensarlab.github.io/NISAR_Cookbook/gslc-basic-polsartools/
+
+Bhogapurapu, N. (s. f.). *polsartools* (versión 0.13) [Software]. https://github.com/Narayana-Rao/polsartools
 
 Botero, L. y Salzwedel, H. (1999). Rehabilitation of the Ciénaga Grande de Santa Marta, a mangrove-estuarine system in the Caribbean coast of Colombia. *Ocean & Coastal Management, 42*(2–4), 243–256. https://doi.org/10.1016/S0964-5691(98)00056-8
 
@@ -394,6 +449,8 @@ Brown, C. F., Brumby, S. P., Guzder-Williams, B., Birch, T., Hyde, S. B., Mazzar
 Bunting, P., Rosenqvist, A., Hilarides, L., Lucas, R. M., Thomas, N., Tadono, T., Worthington, T. A., Spalding, M., Murray, N. J. y Rebelo, L.-M. (2022). Global mangrove extent change 1996–2020: Global Mangrove Watch version 3.0. *Remote Sensing, 14*(15), Artículo 3657. https://doi.org/10.3390/rs14153657
 
 Caldwell, P. C., Merrifield, M. A. y Thompson, P. R. (2015). *Sea level measured by tide gauges from global oceans: The Joint Archive for Sea Level holdings* (NCEI Accession 0019568, versión 5.5) [Conjunto de datos]. NOAA National Centers for Environmental Information. https://doi.org/10.7289/V5V40S7W
+
+Cloude, S. R. y Pottier, E. (1997). An entropy based classification scheme for land applications of polarimetric SAR. *IEEE Transactions on Geoscience and Remote Sensing, 35*(1), 68–78. https://doi.org/10.1109/36.551935
 
 De Luca, G., Silva, J. M. N. y Modica, G. (2021). A workflow based on Sentinel-1 SAR data and open-source algorithms for unsupervised burned area detection in Mediterranean ecosystems. *GIScience & Remote Sensing, 58*(4), 516–541. https://doi.org/10.1080/15481603.2021.1907896
 
@@ -417,7 +474,11 @@ Jaramillo, F., Brown, I., Castellazzi, P., Espinosa, L., Guittard, A., Hong, S.-
 
 JAXA EORC. (s. f.). *ALOS-2 PALSAR-2 ScanSAR products, Level 2.2* [Conjunto de datos]. Japan Aerospace Exploration Agency, Earth Observation Research Center. https://www.eorc.jaxa.jp/ALOS/en/dataset/palsar2_l22_e.htm
 
+Lee, J.-S., Grunes, M. R. y de Grandi, G. (1999). Polarimetric SAR speckle filtering and its implication for classification. *IEEE Transactions on Geoscience and Remote Sensing, 37*(5), 2363–2373. https://doi.org/10.1109/36.789635
+
 Lucas, R., Rebelo, L.-M., Fatoyinbo, L., Rosenqvist, A., Itoh, T., Shimada, M., Simard, M., Souza-Filho, P. W., Thomas, N., Trettin, C., Accad, A., Carreiras, J. y Hilarides, L. (2014). Contribution of L-band SAR to systematic global mangrove monitoring. *Marine and Freshwater Research, 65*(7), 589–603. https://doi.org/10.1071/MF13177
+
+Mandal, D., Kumar, V., Ratha, D., Dey, S., Bhattacharya, A., Lopez-Sanchez, J. M., McNairn, H. y Rao, Y. S. (2020). Dual polarimetric radar vegetation index for crop growth monitoring using Sentinel-1 SAR data. *Remote Sensing of Environment, 247*, 111954. https://doi.org/10.1016/j.rse.2020.111954
 
 Muñoz-Sabater, J., Dutra, E., Agustí-Panareda, A., Albergel, C., Arduini, G., Balsamo, G., Boussetta, S., Choulga, M., Harrigan, S., Hersbach, H., Martens, B., Miralles, D. G., Piles, M., Rodríguez-Fernández, N. J., Zsoter, E., Buontempo, C. y Thépaut, J.-N. (2021). ERA5-Land: A state-of-the-art global reanalysis dataset for land applications. *Earth System Science Data, 13*(9), 4349–4383. https://doi.org/10.5194/essd-13-4349-2021
 
@@ -466,6 +527,7 @@ Tabla A1. Scripts y productos de cada etapa del flujo de trabajo.
 | 7. Robustez y límites | `doble_rebote_incidencia`, `autocorrelacion_temporal`, `pendientes_auditoria`, `auditoria_calculos.md` | Tablas 7, 9 y 12; Figuras 6 y B1; `pendientes_auditoria_*.csv`; auditoría de cálculos |
 | 8. Clave de interpretación | `figura_clave`, `nisar_flotante`, `clave_vs_muestra2025` | Tablas 8 a 10 y B4; Figura 13; `clave_muestra2025_*.csv` |
 | 9. Cartografía y contraste óptico | `mapa_doble_rebote`, `mapa_doble_rebote_s1`, `mapa_doble_rebote_malaga`, `corroboracion_dw` | Tabla 11 y B5; Figuras 14 a 17; `mapa_doble_rebote_50m.tif`, `mapa_s1_alto_bajo_50m.tif`, `dw_serie.csv` |
+| 10. Polarimetría dual-pol | `polsar_nisar/01_recorte_gslc`, `02_procesar_polsar`, `03_contrastes`, `04_figuras_cuaderno` | Tablas 13 y 14; Figuras 19 a 23; `polsar_puntos_<fecha>_P011.csv`, `contrastes_<fecha>_P011.csv`; capas H, alfa, DpRVI, HH y HV a 10 m |
 | Informe y figuras metodológicas | `md_a_word`, `exportar_figuras_flujo`, `exportar_series`, `exportar_productos`, `figura_flujo`, `figura_cadena_sar` | Informe; Figuras 1, A1 y A2 |
 
 ## Anexo B. Resultados auxiliares
