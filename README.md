@@ -8,7 +8,7 @@ Código, resultados y figuras de un estudio de radar desarrollado en la Maestrí
 
 El estudio evalúa qué información adicional aporta la banda L (NISAR y ALOS-2) frente a Sentinel-1 en banda C para identificar condiciones de inundación bajo el dosel del manglar. El análisis se desarrolla en dos sistemas con forzantes hidrológicos distintos: Bahía de Málaga, dominada por la marea, y la Ciénaga Grande de Santa Marta (CGSM), analizada en relación con el nivel del río Magdalena.
 
-El informe completo está en `informe/Avance_proyecto_radar.md` y la auditoría de cálculos en `informe/auditoria_calculos.md`.
+El informe completo de este trabajo forma parte de la tesis de maestría en curso de la autora y se publicará con ella; este repositorio contiene el código, los resultados tabulados y las figuras que lo sustentan. La auditoría de cálculos está en `informe/auditoria_calculos.md`.
 
 ## Contenido del repositorio
 
@@ -18,7 +18,7 @@ El informe completo está en `informe/Avance_proyecto_radar.md` y la auditoría 
 | `scripts/publicacion_gee/` | Seis scripts numerados para el acceso y el procesamiento inicial de NISAR: consulta del catálogo CMR, descarga, recorte remoto y extracción de la malla de incidencia. |
 | `resultados/` | Tablas CSV y archivos de texto generados por los scripts, con los que se construyen las tablas y los análisis del informe. |
 | `figuras/` | Figuras del informe en PNG. La subcarpeta `figuras para flujo/` contiene los recortes reales de los tres radares, los recortes Sentinel-2 por cobertura, las series del forzante y los mapas de producto que componen la Figura 1, con sus scripts de exportación y un archivo `FUENTES.txt` con la procedencia de cada imagen. |
-| `informe/` | Informe en Markdown y auditoría de cálculos. |
+| `informe/` | Auditoría de cálculos. |
 
 Los archivos de entrada de gran tamaño no se incluyen. Entre ellos están las 45 escenas NISAR recortadas (`NISAR_AOI_*.h5`, cerca de 450 MB cada una), los GeoTIFF de 50 m de la cartografía y las series completas del IDEAM y del mareógrafo UHSLC. Todos se descargan o se regeneran con los scripts de la etapa 1.
 
