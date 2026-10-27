@@ -1,5 +1,7 @@
 # Respuesta de la banda L a la inundación bajo dosel de manglar: comparación con banda C en la Ciénaga Grande de Santa Marta y Bahía de Málaga
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23709974.svg)](https://doi.org/10.5281/zenodo.23709974)
+
 Código, resultados y figuras de un estudio de radar desarrollado en la Maestría en Geomática de la Universidad Nacional de Colombia (2026).
 
 **Autora:** Lina María Quintero Fonseca
