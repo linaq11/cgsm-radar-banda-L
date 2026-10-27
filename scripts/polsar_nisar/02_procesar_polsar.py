@@ -26,7 +26,7 @@ import rasterio
 from rasterio.warp import Resampling, reproject
 
 FECHA = sys.argv[1]; PATH = int(sys.argv[2]) if len(sys.argv) > 2 else 11
-BASE = Path("D:/TESIS_DATACUBE/NISAR_GSLC") if Path("D:/").exists() else Path("C:/LINA/NISAR_GSLC")
+BASE = Path(os.environ["NISAR_BASE"]) if os.environ.get("NISAR_BASE") else (Path("D:/TESIS_DATACUBE/NISAR_GSLC") if Path("D:/").exists() else Path("C:/LINA/NISAR_GSLC"))
 H5 = BASE / ("NISAR_GSLC_%s_P%03d_cgsm.h5" % (FECHA, PATH)); OUT = BASE / ("%s_P%03d" % (FECHA, PATH)); OUT.mkdir(exist_ok=True)
 AQUI = Path(__file__).resolve().parent; MUESTRA = Path("C:/LINA/UNAL 2626-1/AVANCE TESIS/MUESTRA_2025")
 REF = Path("C:/LINA/UNAL 2626-1/PERCEPCION REMOTA AVANZADA/informe2/datos/s2_2025_seca_rgb.tif")      # malla del cubo, 10 m EPSG:9377

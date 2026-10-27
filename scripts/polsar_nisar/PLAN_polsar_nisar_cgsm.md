@@ -34,6 +34,22 @@ Todos con los puntos fuera de la reserva, una sola fecha por órbita, valores ex
 
 Corrección por multiplicidad: Holm sobre P1 a P3. P4 no cuenta.
 
+### 4b. P4 concretado (preregistrado el 2026-10-24, antes de procesar)
+
+Fechas: 2026-07-04 (trayectoria ascendente 119) y 2026-07-08 (descendente 11), cuatro días entre sí y misma estación (río alto), para que la diferencia sea de geometría y no de fenología. Se repiten P1, P2 y P3 en cada fecha con la misma regla y los mismos puntos. Expectativa declarada: misma dirección que en diciembre (bosque muerto con alfa, H y DpRVI menores que la herbácea; HH mayor) en las dos órbitas. Refutaría: AUC de alfa a lados opuestos de 0,5 entre órbitas, o IC del AUC de una órbita que incluya 0,5. Comparación secundaria, exploratoria: 8-jul frente a 4-dic y 16-dic (misma órbita 11) como efecto de estación. Se reporta en el informe tal como salga.
+
+Resultado (2026-10-26, tras procesar las dos fechas): no refutado. AUC de alfa 0,66 [0,59; 0,73] en A119 y 0,62 [0,54; 0,69] en D11, misma dirección en los cinco descriptores, ningún IC de alfa, H o DpRVI incluye 0,5; P2 rho 0,55 en ambas, P3 macro-F1 0,58 y 0,56. Estación (exploratorio): AUC de alfa, H y DpRVI 0,04 a 0,05 menores en julio que en diciembre, IC solapados; umbral de Otsu del DpRVI 0,32 en diciembre y 0,40 a 0,41 en julio. Reportado en la sección 3.10 y en la Tabla 14 del informe.
+
+### 4c. Tareas del Informe 2 pedidas en clase (diapositiva 50, 22-oct-2026), preregistradas el 2026-10-26 antes de calcular
+
+**P5. Random Forest con las variables polarimétricas** (HH, HV, HH − HV en dB, H, alfa, DpRVI; píxel, y media 3 x 3 como sensibilidad), sobre los 880 puntos v1.3, con los mismos pliegues de 12 km y zona de exclusión de 2,6 km de la cadena de la tesis, 500 árboles, semilla 20261007, macro-F1 de seis clases fuera de pliegue.
+- Brazos: radar solo (6 variables), unión óptica S2 + AlphaEarth (94), unión + radar (100). Fecha principal 16-dic-2025; 4-dic como sensibilidad; las dos fechas apiladas (12 variables) como tercera variante.
+- Expectativa declarada: radar solo entre 0,30 y 0,45 de macro-F1 (muy por debajo del 0,56 de la unión óptica); unión + radar frente a unión, ganancia de 0,01 o menos, como ocurrió con Sentinel-1 (+0,005). Refutaría la lectura "el radar no añade información a 10 m": ganancia mayor de 0,02 con p de permutación por bloques menor de 0,05, o una mejora de F1 del par degradado / humedal mayor de 0,05.
+- Falta de datos: los NaN de las variables ópticas se rellenan con la mediana de la columna (no por clase, para no filtrar la etiqueta).
+**P6. Detección de cambio entre dos fechas** con el log-cociente de HV (16-dic frente a 4-dic de 2025, y julio frente a diciembre cuando esté procesado): se preregistrará aparte cuando se defina qué cambio real se espera detectar (candidato: el avance de Hydrilla en la planicie, verificado por Salzwedel et al. 2026).
+**P7. Comparación GSLC frente a GCOV** en los 880 puntos (sigma cero de GCOV ya extraído para el informe 1 de radar frente a C11/C22 del GSLC): correlación y sesgo por clase; se preregistra cuando se elija la fecha común.
+**P8. Coherencia a 12 días** (par 4-dic / 16-dic): requiere los SLC sin recorte de fase; se evaluará si el recorte conserva la fase compleja. Pendiente.
+
 ## 5. Lo que ya se sabe y acota la expectativa
 
 - Sentinel-1 banda C mensual a 10 m no separa humedal de degradado (AUC 0,43 a 0,59, 2026-10-22).
@@ -51,6 +67,8 @@ Corrección por multiplicidad: Holm sobre P1 a P3. P4 no cuenta.
 ## 6b. Desviación declarada de herramienta (2026-10-22)
 
 `polsartools` no se instala en el Python 3.14 del equipo (no hay rueda precompilada y la compilación desde fuente falla; tampoco hay enlaces GDAL `osgeo`). Las operaciones del cuaderno se reimplementan en NumPy y rasterio con las mismas ecuaciones: C2 = [[<|HH|²>, <HH·HV*>], [<HV·HH*>, <|HV|²>]]; filtro Lee refinado 7 x 7 (o boxcar 7 x 7 como sensibilidad); autovalores λ1 ≥ λ2 de C2, p_i = λ_i / (λ1 + λ2), H = −Σ p_i log2 p_i, α = Σ p_i α_i con α_i = arccos(|e_i1|) de los autovectores; DpRVI = 1 − m·β con m = √(1 − 4·det(C2)/tr(C2)²) y β = λ1/(λ1 + λ2) (Mandal et al., 2020). Se verifica contra una tesela del cuaderno de Guaviare si se consigue su producto; si no, contra los rangos de valores que el cuaderno reporta.
+
+**Retirada el 2026-10-23.** polsartools 0.13 se instaló en un entorno aparte de Python 3.12 (`C:\LINA\TOOLS\polsar_env`, uv) con GDAL 3.13.3; el procesamiento se hizo con la biblioteca del cuaderno, sin reimplementación. Diferencias que sí quedan: recorte remoto a la AOI en lugar de descarga completa, y 2 x 2 looks (10 m) en lugar de los del cuaderno.
 
 ## 7. Costo (corregido el 2026-10-22 con el catálogo real, `RADAR/nisar_gslc_cgsm_catalogo_20261022.csv`)
 

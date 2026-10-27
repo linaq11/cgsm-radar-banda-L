@@ -1,0 +1,7 @@
+variante,fechas,n_vars_radar,macro_f1_radar,macro_f1_union,macro_f1_union_radar,dif_union_radar_vs_union,p_perm,mcnemar_solo_union,mcnemar_solo_mixto,p_mcnemar,dif_radar_vs_union,p_perm_radar
+pixel,16dic,6,0.354,0.559,0.564,0.0055,0.6108,27,24,0.7798,-0.205,0.0
+pixel,04dic,6,0.357,0.559,0.564,0.0048,0.5648,28,26,0.8919,-0.202,0.0
+pixel,2fechas,12,0.358,0.559,0.555,-0.0044,0.7368,28,32,0.6989,-0.201,0.0002
+3x3,16dic,6,0.339,0.559,0.557,-0.0021,0.8444,27,28,1.0,-0.22,0.0002
+3x3,04dic,6,0.338,0.559,0.569,0.0101,0.4852,31,25,0.5044,-0.221,0.0
+3x3,2fechas,12,0.346,0.559,0.555,-0.0036,0.823,30,33,0.8013,-0.213,0.0

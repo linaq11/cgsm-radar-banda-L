@@ -1,0 +1,16 @@
+prueba,variante,variable,n_muerto,n_herbaceo,estadistico,valor,lo,hi,p,direccion
+P1,píxel,alfa,194,82.0,AUC muerto frente a herbáceo (orientado),0.662,0.591,0.725,0.9995,muerto < herbáceo
+P1,píxel,H,194,82.0,AUC muerto frente a herbáceo (orientado),0.669,0.601,0.733,0.9995,muerto < herbáceo
+P1,píxel,dprvi,194,82.0,AUC muerto frente a herbáceo (orientado),0.67,0.602,0.736,,muerto < herbáceo
+P1,píxel,C11,194,82.0,AUC muerto frente a herbáceo (orientado),0.625,0.556,0.695,,muerto > herbáceo
+P1,píxel,C22,194,82.0,AUC muerto frente a herbáceo (orientado),0.526,0.445,0.608,,muerto > herbáceo
+P2,píxel,dprvi,436,,Spearman DpRVI frente a fracción de copa,0.55,0.484,0.611,9.176488521328495e-36,"RMSE OOF 31.8 puntos (33.1 dentro de 20-70, n 34)"
+P3,píxel,dprvi > Otsu (0.410),316,207.0,macro-F1 manglar / no manglar,0.584,0.462,0.624,,cuartiles por bloque (n >= 15)
+P1,media 3x3,alfa,194,82.0,AUC muerto frente a herbáceo (orientado),0.675,0.605,0.745,1.0,muerto < herbáceo
+P1,media 3x3,H,194,82.0,AUC muerto frente a herbáceo (orientado),0.671,0.605,0.738,0.9995,muerto < herbáceo
+P1,media 3x3,dprvi,194,82.0,AUC muerto frente a herbáceo (orientado),0.671,0.604,0.739,,muerto < herbáceo
+P1,media 3x3,C11,194,82.0,AUC muerto frente a herbáceo (orientado),0.619,0.546,0.691,,muerto > herbáceo
+P1,media 3x3,C22,194,82.0,AUC muerto frente a herbáceo (orientado),0.524,0.441,0.603,,muerto > herbáceo
+P2,media 3x3,dprvi,436,,Spearman DpRVI frente a fracción de copa,0.575,0.509,0.635,9.183323467092124e-40,"RMSE OOF 31.5 puntos (33.0 dentro de 20-70, n 34)"
+P3,media 3x3,dprvi > Otsu (0.408),316,207.0,macro-F1 manglar / no manglar,0.608,0.468,0.612,,cuartiles por bloque (n >= 15)
+P3-ref,óptica unión v1.1 (OOF cadena),RF 94 variables,273,142.0,macro-F1 manglar / no manglar,0.647,,,,referencia
