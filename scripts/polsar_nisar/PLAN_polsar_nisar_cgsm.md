@@ -51,6 +51,20 @@ Resultado (2026-10-26, tras procesar las dos fechas): no refutado. AUC de alfa 0
 **P7. Comparación GSLC frente a GCOV** en los 880 puntos (sigma cero de GCOV ya extraído para el informe 1 de radar frente a C11/C22 del GSLC): correlación y sesgo por clase; se preregistra cuando se elija la fecha común.
 **P8. Coherencia a 12 días** (par 4-dic / 16-dic): requiere los SLC sin recorte de fase; se evaluará si el recorte conserva la fase compleja. Pendiente.
 
+### 4d. P9: PlanetScope del 16 de diciembre frente a NISAR del mismo día (preregistrado el 2026-10-28, antes de calcular)
+
+Pregunta. ¿El DpRVI (y H, alfa) de NISAR del 16-dic-2025 sigue mejor la cobertura de copa observada el mismo día a 3 m en PlanetScope que la fracción de copa interpretada en la muestra, que es de otra fecha? Cierra el cabo de P2: la rho de 0,55 podía estar limitada por el radar o por la referencia desfasada.
+
+Datos. `planet_puntos_20251216.csv` (880 puntos, escena, clear de udm2, medias 3 x 3 a 3 m, NDVI 3 x 3), escenas SR a 3 m del pedido 5c903e33, `polsar_puntos_20251216_P011.csv`. Solo puntos con clear = 1 (705).
+
+Referencias ópticas del mismo día: (a) NDVI de Planet en 3 x 3 (9 m); (b) proxy de copa: fracción de píxeles de 3 m con NDVI > 0,5 en la ventana 3 x 3, con 0,4 y 0,6 como sensibilidad.
+
+Estadísticos. Spearman con IC bootstrap (2.000, semilla 20261028) de DpRVI (primaria), H y alfa frente a (a), (b) y a la fracción de copa interpretada (punto medio de caja, como en P2); diferencia pareada rho(Planet) − rho(interpretada) sobre los mismos puntos con IC bootstrap. Píxel como principal, 3 x 3 como sensibilidad. Medianas por clase v1.3 de NDVI, proxy de copa y DpRVI.
+
+Regla de lectura. Si la diferencia pareada rho(Planet) − rho(interpretada) para DpRVI es mayor de 0,05 con IC que excluye 0, la referencia desfasada era el límite de P2 y el radar sigue la copa del mismo día mejor de lo que P2 mostró. Si la diferencia es menor de 0,05 o su IC incluye 0, el límite está en el radar: el DpRVI ordena la copa pero no la estima, con cualquier referencia. Se reporta tal como salga en la sección 3.10 y la tarea de Planet deja de ser futuro. Script `07_planet_nisar.py`.
+
+Resultado (2026-10-28): límite en el radar. Sobre los 341 puntos interpretados y despejados, DpRVI frente a NDVI Planet del mismo día rho 0,604, frente a fracción interpretada 0,558; diferencia pareada 0,046 [−0,020; 0,114], IC incluye 0. H y alfa igual. Proxy de copa a 3 m con NDVI > 0,5 saturado (mediana 1,0 en vegetación), rho 0,318: descartado. Sobre los 705 puntos de todas las clases la relación se invierte (rho −0,191) por el agua (NDVI bajo, DpRVI alto). Reportado en 3.10; Planet sale del trabajo futuro.
+
 ## 5. Lo que ya se sabe y acota la expectativa
 
 - Sentinel-1 banda C mensual a 10 m no separa humedal de degradado (AUC 0,43 a 0,59, 2026-10-22).

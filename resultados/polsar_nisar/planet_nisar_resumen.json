@@ -1,0 +1,98 @@
+{
+ "n_despejados": 705,
+ "n_interpretados": 341,
+ "principal": {
+  "NDVI Planet 3x3": {
+   "n": 705.0,
+   "rho": -0.191,
+   "lo": -0.258,
+   "hi": -0.119
+  },
+  "copa Planet NDVI>0,5": {
+   "n": 705.0,
+   "rho": -0.285,
+   "lo": -0.356,
+   "hi": -0.21
+  },
+  "copa Planet NDVI>0,4": {
+   "n": 705.0,
+   "rho": -0.36,
+   "lo": -0.428,
+   "hi": -0.293
+  },
+  "copa Planet NDVI>0,6": {
+   "n": 705.0,
+   "rho": -0.155,
+   "lo": -0.229,
+   "hi": -0.078
+  },
+  "fracción de copa interpretada": {
+   "n": 341.0,
+   "rho": 0.558,
+   "lo": 0.472,
+   "hi": 0.632
+  },
+  "dif rho(NDVI Planet 3x3) - rho(interpretada), mismos puntos": {
+   "n": 341.0,
+   "rho": 0.046,
+   "lo": -0.02,
+   "hi": 0.114
+  },
+  "dif rho(copa Planet NDVI>0,5) - rho(interpretada), mismos puntos": {
+   "n": 341.0,
+   "rho": -0.24,
+   "lo": -0.337,
+   "hi": -0.141
+  }
+ },
+ "medianas_por_clase": {
+  "agua": {
+   "n": 201,
+   "ndvi_3x3": 0.154,
+   "copa_05": 0.0,
+   "dprvi": 0.464,
+   "H": 0.669,
+   "alfa": 19.2
+  },
+  "humedal_herbaceo": {
+   "n": 93,
+   "ndvi_3x3": 0.614,
+   "copa_05": 1.0,
+   "dprvi": 0.247,
+   "H": 0.428,
+   "alfa": 11.24
+  },
+  "manglar_degradado": {
+   "n": 108,
+   "ndvi_3x3": 0.57,
+   "copa_05": 1.0,
+   "dprvi": 0.295,
+   "H": 0.484,
+   "alfa": 12.092
+  },
+  "manglar_intacto": {
+   "n": 140,
+   "ndvi_3x3": 0.794,
+   "copa_05": 1.0,
+   "dprvi": 0.424,
+   "H": 0.628,
+   "alfa": 16.777
+  },
+  "otro": {
+   "n": 58,
+   "ndvi_3x3": 0.609,
+   "copa_05": 1.0,
+   "dprvi": 0.366,
+   "H": 0.567,
+   "alfa": 15.413
+  },
+  "vegetacion_flotante": {
+   "n": 105,
+   "ndvi_3x3": 0.624,
+   "copa_05": 1.0,
+   "dprvi": 0.387,
+   "H": 0.591,
+   "alfa": 16.874
+  }
+ }
+}
